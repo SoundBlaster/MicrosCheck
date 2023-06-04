@@ -38,10 +38,10 @@ class AudioPlayer {
                 print("AudioPlayer: Try create AVAudioPlayer with path: \(fileURL)")
                 let fileSize = FileReader.fileSize(for: fileURL)
                 print("AudioPlayer: File size for playing: \(fileSize)")
-//                guard fileSize > 0 else {
-//                    print("AudioPlayer: Failed to prepare audio session for playing!")
-//                    return
-//                }
+                guard fileSize > 0 else {
+                    print("AudioPlayer: Failed to prepare audio session for playing!")
+                    return
+                }
                 _player = try AVAudioPlayer(contentsOf: fileURL)
                 guard let _player else {
                     print("AudioPlayer: Failed to create AVAudioPlayer with \(fileURL)!")
