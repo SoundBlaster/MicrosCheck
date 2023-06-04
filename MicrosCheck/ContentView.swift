@@ -33,7 +33,7 @@ struct ContentView: View {
                 if !state.recording {
                     if state.recorder.availableInputs().count > 0 {
                         Text("Выберите микрофон")
-//                        Picker("Выберите микрофон", selection: state.selectedInputName) {
+//                        Picker("Выберите микрофон", selection: $state.selectedInputName) {
 //                            ForEach(state.recorder.availableInputs(), id: \.name) {
 //                                Text($0.name)
 //                            }
