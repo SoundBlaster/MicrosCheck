@@ -84,6 +84,13 @@ extension Input {
     
 }
 
+enum RecorderError: Error {
+    case noAudioSession
+    case noAudioInput
+    case noAudioInputPort
+    case noInternalRecorder
+}
+
 class Recorder {
     
     // MARK: Public interface
@@ -92,15 +99,26 @@ class Recorder {
         audioRecorder?.isRecording ?? false
     }
     
+    private let preferredPort: AVAudioSession.Port = .builtInMic
+    
     func availableInputs() -> [Input] {
+        let empty: [Input] = [.unknownInput]
+        guard let audioSession else {
+            return empty
+        }
         do {
-            return try audioSession?.availableInputs?.first {
-                $0.portType == .builtInMic
-            }?.dataSources?.map {
-                Input(name: $0.dataSourceName, location: try Location.fromOrientation($0.orientation))
-            } ?? [.unknownInput]
+            return try availableInputsPortDescription(with: preferredPort, in: audioSession)?
+                .dataSources?.map {
+                    Input(name: $0.dataSourceName, location: try Location.fromOrientation($0.orientation))
+                } ?? empty
         } catch {
-            return [.unknownInput]
+            return empty
+        }
+    }
+    
+    private func availableInputsPortDescription(with portType: AVAudioSession.Port, in session: AVAudioSession) throws -> AVAudioSessionPortDescription? {
+        session.availableInputs?.first {
+            $0.portType == portType
         }
     }
     
@@ -175,10 +193,25 @@ class Recorder {
         audioSession = AVAudioSession.sharedInstance()
         guard let audioSession else {
             print("Recorder: There is no audio session!")
-            return
+            throw RecorderError.noAudioSession
         }
+        
         try audioSession.setCategory(.record)
         try audioSession.setActive(true)
+        guard audioSession.isInputAvailable else {
+            print("Recorder: There is no one audio input!")
+            throw RecorderError.noAudioInput
+        }
+        guard let port = try availableInputsPortDescription(with: preferredPort, in: audioSession) else {
+            print("Recorder: There is no one audio input port!")
+            throw RecorderError.noAudioInputPort
+        }
+        print("Selected data source: \(String(describing: port.selectedDataSource))")
+        print("Preferred data source: \(String(describing: port.preferredDataSource))")
+        port.dataSources?.forEach {
+            print("Data source: \($0)")
+        }
+        try port.setPreferredDataSource(port.dataSources?.last)
         print("Recorder: activate AVAudioSession with category: \(audioSession.category)")
         audioSession.requestRecordPermission() { allowed in
             print("Recorder: requestRecordPermission() allowed=\(allowed)")
