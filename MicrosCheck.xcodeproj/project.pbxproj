@@ -7,19 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
 		B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D129F569FB006FB98E /* MicrosCheckApp.swift */; };
 		B18432D429F569FB006FB98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D329F569FB006FB98E /* ContentView.swift */; };
 		B18432D629F569FC006FB98E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D529F569FC006FB98E /* Assets.xcassets */; };
 		B18432DA29F569FC006FB98E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D929F569FC006FB98E /* Preview Assets.xcassets */; };
+		B18D17872A1123850047CE97 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18D17862A1123850047CE97 /* AVFoundation.framework */; };
+		B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C262A07DDE000440578 /* FileReader.swift */; };
+		B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		B18432CE29F569FB006FB98E /* MicrosCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrosCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18432D129F569FB006FB98E /* MicrosCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosCheckApp.swift; sourceTree = "<group>"; };
 		B18432D329F569FB006FB98E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B18432D529F569FC006FB98E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B18432D729F569FC006FB98E /* MicrosCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicrosCheck.entitlements; sourceTree = "<group>"; };
 		B18432D929F569FC006FB98E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B18D17862A1123850047CE97 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		B1BE9C262A07DDE000440578 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
+		B1BE9C282A07DF3400440578 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B18D17872A1123850047CE97 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +47,7 @@
 			children = (
 				B18432D029F569FB006FB98E /* MicrosCheck */,
 				B18432CF29F569FB006FB98E /* Products */,
+				B18D17852A1123850047CE97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,6 +67,9 @@
 				B18432D529F569FC006FB98E /* Assets.xcassets */,
 				B18432D729F569FC006FB98E /* MicrosCheck.entitlements */,
 				B18432D829F569FC006FB98E /* Preview Content */,
+				B1699E0E29FEA62A00547A8B /* Recorder.swift */,
+				B1BE9C262A07DDE000440578 /* FileReader.swift */,
+				B1BE9C282A07DF3400440578 /* AudioPlayer.swift */,
 			);
 			path = MicrosCheck;
 			sourceTree = "<group>";
@@ -67,6 +80,14 @@
 				B18432D929F569FC006FB98E /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B18D17852A1123850047CE97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B18D17862A1123850047CE97 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */,
 				B18432D429F569FB006FB98E /* ContentView.swift in Sources */,
+				B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */,
+				B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */,
 				B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -269,6 +293,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For test hardware microphones on your device";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -279,7 +304,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.2;
@@ -307,6 +332,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "For test hardware microphones on your device";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -317,7 +343,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.2;
