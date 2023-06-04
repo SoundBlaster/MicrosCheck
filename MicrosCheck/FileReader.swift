@@ -44,7 +44,7 @@ extension FileReader {
     public static func fileSize(for fileURL: URL) -> UInt64 {
         let attributes = try? FileManager
             .default
-            .attributesOfFileSystem(forPath: fileURL.path)
+            .attributesOfItem(atPath: fileURL.path)
         guard let attributesDict = attributes as? NSDictionary else {
             return 0
         }
