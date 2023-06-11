@@ -13,6 +13,8 @@
 		B18432D629F569FC006FB98E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D529F569FC006FB98E /* Assets.xcassets */; };
 		B18432DA29F569FC006FB98E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D929F569FC006FB98E /* Preview Assets.xcassets */; };
 		B18D17872A1123850047CE97 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18D17862A1123850047CE97 /* AVFoundation.framework */; };
+		B1B98A912A360B07001B8309 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A902A360B07001B8309 /* Location.swift */; };
+		B1B98A932A360B2F001B8309 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A922A360B2F001B8309 /* Input.swift */; };
 		B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C262A07DDE000440578 /* FileReader.swift */; };
 		B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +28,8 @@
 		B18432D729F569FC006FB98E /* MicrosCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicrosCheck.entitlements; sourceTree = "<group>"; };
 		B18432D929F569FC006FB98E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B18D17862A1123850047CE97 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		B1B98A902A360B07001B8309 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		B1B98A922A360B2F001B8309 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		B1BE9C262A07DDE000440578 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		B1BE9C282A07DF3400440578 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,7 +71,7 @@
 				B18432D529F569FC006FB98E /* Assets.xcassets */,
 				B18432D729F569FC006FB98E /* MicrosCheck.entitlements */,
 				B18432D829F569FC006FB98E /* Preview Content */,
-				B1699E0E29FEA62A00547A8B /* Recorder.swift */,
+				B1B98A8F2A360AE1001B8309 /* Recorder */,
 				B1BE9C262A07DDE000440578 /* FileReader.swift */,
 				B1BE9C282A07DF3400440578 /* AudioPlayer.swift */,
 			);
@@ -88,6 +92,16 @@
 				B18D17862A1123850047CE97 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1B98A8F2A360AE1001B8309 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				B1699E0E29FEA62A00547A8B /* Recorder.swift */,
+				B1B98A902A360B07001B8309 /* Location.swift */,
+				B1B98A922A360B2F001B8309 /* Input.swift */,
+			);
+			path = Recorder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +132,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					B18432CD29F569FB006FB98E = {
 						CreatedOnToolsVersion = 14.3;
@@ -160,10 +174,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1B98A932A360B2F001B8309 /* Input.swift in Sources */,
 				B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */,
 				B18432D429F569FB006FB98E /* ContentView.swift in Sources */,
 				B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */,
 				B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */,
+				B1B98A912A360B07001B8309 /* Location.swift in Sources */,
 				B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,9 +220,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -262,9 +280,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -288,6 +308,7 @@
 				CODE_SIGN_ENTITLEMENTS = MicrosCheck/MicrosCheck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MicrosCheck/Preview Content\"";
 				DEVELOPMENT_TEAM = P8T2366K8X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -304,7 +325,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.2;
@@ -327,6 +348,7 @@
 				CODE_SIGN_ENTITLEMENTS = MicrosCheck/MicrosCheck.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MicrosCheck/Preview Content\"";
 				DEVELOPMENT_TEAM = P8T2366K8X;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -343,7 +365,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.2;

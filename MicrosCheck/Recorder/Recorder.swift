@@ -7,91 +7,14 @@
 
 import AVFoundation
 
-enum Location {
-    case top
-    case bottom
-    case front
-    case back
-    case left
-    case right
-    case unknown
-}
-
-enum LocationError: Error {
-    case unknown
-}
-
-extension Location {
-    
-    static func fromOrientation(_ orientation: AVAudioSession.Orientation?) throws -> Location {
-        guard let orientation else { throw LocationError.unknown }
-        switch orientation {
-        case .top: return .top // AVAudioSessionOrientationTop
-        case .bottom: return .bottom // AVAudioSessionOrientationBottom
-        case .front: return .front // AVAudioSessionOrientationFront
-        case .back: return .back // AVAudioSessionOrientationBack
-        case .left: return .left // AVAudioSessionOrientationLeft
-        case .right: return .right // AVAudioSessionOrientationRight
-        default:
-            throw LocationError.unknown
-//            return .unknown
-        }
-    }
-    
-}
-
-extension String {
-    static let notSelectedInputName: String = ""
-}
-
-class Input {
-    
-    let name: String
-    let location: Location
-    
-    init(name: String, location: Location) {
-        self.name = name
-        self.location = location
-    }
-    
-}
-
-extension Input: Hashable {
-    
-    var hashValue: Int {
-        name.hashValue
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
-    }
-    
-}
-
-extension Input: Equatable {
-    
-    static func == (lhs: Input, rhs: Input) -> Bool {
-        lhs.name == rhs.name 
-    }
-    
-}
-
-extension Input {
-    
-    static var unknownInput: Input {
-        Input(name: .notSelectedInputName, location: .unknown)
-    }
-    
-}
-
-enum RecorderError: Error {
-    case noAudioSession
-    case noAudioInput
-    case noAudioInputPort
-    case noInternalRecorder
-}
-
 class Recorder {
+    
+    enum RecorderError: Error {
+        case noAudioSession
+        case noAudioInput
+        case noAudioInputPort
+        case noInternalRecorder
+    }
     
     // MARK: Public interface
     
@@ -213,9 +136,17 @@ class Recorder {
         }
         try port.setPreferredDataSource(port.dataSources?.last)
         print("Recorder: activate AVAudioSession with category: \(audioSession.category)")
-        audioSession.requestRecordPermission() { allowed in
-            print("Recorder: requestRecordPermission() allowed=\(allowed)")
-            completion(allowed)
+        // record permissions
+        if #available(iOS 17.0, *) {
+            AVAudioApplication.requestRecordPermission { allowed in
+                print("Recorder: requestRecordPermission() allowed=\(allowed)")
+                completion(allowed)
+            }
+        } else {
+            audioSession.requestRecordPermission() { allowed in
+                print("Recorder: requestRecordPermission() allowed=\(allowed)")
+                completion(allowed)
+            }
         }
     }
     
