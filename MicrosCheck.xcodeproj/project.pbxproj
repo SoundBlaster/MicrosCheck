@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B108B0742A3F450100D0CD4F /* ReccorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* ReccorderStateTests.swift */; };
 		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
 		B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D129F569FB006FB98E /* MicrosCheckApp.swift */; };
 		B18432D429F569FB006FB98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D329F569FB006FB98E /* ContentView.swift */; };
@@ -19,7 +20,19 @@
 		B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		B108B06F2A3F44EB00D0CD4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B18432C629F569FB006FB98E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B18432CD29F569FB006FB98E;
+			remoteInfo = MicrosCheck;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		B108B0642A3F42A000D0CD4F /* ReccorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReccorderStateTests.swift; sourceTree = "<group>"; };
+		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		B18432CE29F569FB006FB98E /* MicrosCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrosCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18432D129F569FB006FB98E /* MicrosCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosCheckApp.swift; sourceTree = "<group>"; };
@@ -35,6 +48,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B108B0682A3F44EB00D0CD4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B18432CB29F569FB006FB98E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,10 +66,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B108B0662A3F42A700D0CD4F /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = UnitTest;
+			sourceTree = "<group>";
+		};
+		B108B06C2A3F44EB00D0CD4F /* MicrosCheckTests */ = {
+			isa = PBXGroup;
+			children = (
+				B108B0642A3F42A000D0CD4F /* ReccorderStateTests.swift */,
+			);
+			path = MicrosCheckTests;
+			sourceTree = "<group>";
+		};
 		B18432C529F569FB006FB98E = {
 			isa = PBXGroup;
 			children = (
+				B108B0662A3F42A700D0CD4F /* UnitTest */,
 				B18432D029F569FB006FB98E /* MicrosCheck */,
+				B108B06C2A3F44EB00D0CD4F /* MicrosCheckTests */,
 				B18432CF29F569FB006FB98E /* Products */,
 				B18D17852A1123850047CE97 /* Frameworks */,
 			);
@@ -59,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				B18432CE29F569FB006FB98E /* MicrosCheck.app */,
+				B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -107,6 +145,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B108B06A2A3F44EB00D0CD4F /* MicrosCheckTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B108B0712A3F44EB00D0CD4F /* Build configuration list for PBXNativeTarget "MicrosCheckTests" */;
+			buildPhases = (
+				B108B0672A3F44EB00D0CD4F /* Sources */,
+				B108B0682A3F44EB00D0CD4F /* Frameworks */,
+				B108B0692A3F44EB00D0CD4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B108B0702A3F44EB00D0CD4F /* PBXTargetDependency */,
+			);
+			name = MicrosCheckTests;
+			productName = MicrosCheckTests;
+			productReference = B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B18432CD29F569FB006FB98E /* MicrosCheck */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B18432DD29F569FC006FB98E /* Build configuration list for PBXNativeTarget "MicrosCheck" */;
@@ -131,9 +187,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					B108B06A2A3F44EB00D0CD4F = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = B18432CD29F569FB006FB98E;
+					};
 					B18432CD29F569FB006FB98E = {
 						CreatedOnToolsVersion = 14.3;
 					};
@@ -153,11 +213,19 @@
 			projectRoot = "";
 			targets = (
 				B18432CD29F569FB006FB98E /* MicrosCheck */,
+				B108B06A2A3F44EB00D0CD4F /* MicrosCheckTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B108B0692A3F44EB00D0CD4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B18432CC29F569FB006FB98E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -170,6 +238,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B108B0672A3F44EB00D0CD4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B108B0742A3F450100D0CD4F /* ReccorderStateTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B18432CA29F569FB006FB98E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,7 +262,68 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		B108B0702A3F44EB00D0CD4F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B18432CD29F569FB006FB98E /* MicrosCheck */;
+			targetProxy = B108B06F2A3F44EB00D0CD4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		B108B0722A3F44EB00D0CD4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8T2366K8X;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.MicrosCheckTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MicrosCheck.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MicrosCheck";
+			};
+			name = Debug;
+		};
+		B108B0732A3F44EB00D0CD4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P8T2366K8X;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.MicrosCheckTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MicrosCheck.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MicrosCheck";
+			};
+			name = Release;
+		};
 		B18432DB29F569FC006FB98E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -383,6 +520,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B108B0712A3F44EB00D0CD4F /* Build configuration list for PBXNativeTarget "MicrosCheckTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B108B0722A3F44EB00D0CD4F /* Debug */,
+				B108B0732A3F44EB00D0CD4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B18432C929F569FB006FB98E /* Build configuration list for PBXProject "MicrosCheck" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
