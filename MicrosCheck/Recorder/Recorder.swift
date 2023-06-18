@@ -9,20 +9,46 @@ import AVFoundation
 
 class Recorder {
     
+    enum State {
+        case inited
+        case prepared
+        case recording
+        case paused
+        case stopped
+    }
+    
     enum RecorderError: Error {
         case noAudioSession
         case noAudioInput
         case noAudioInputPort
         case noInternalRecorder
+        case impossibleStateChange(currentState: State, state: State) 
     }
-    
     // MARK: Public interface
     
-    var recording: Bool {
+    public var recording: Bool {
         audioRecorder?.isRecording ?? false
     }
     
-    private let preferredPort: AVAudioSession.Port = .builtInMic
+    private static let stateRoutes: [State: [State]] = {
+        [
+            .inited : [],
+            .prepared : [],
+            .recording : [],
+            .paused : [],
+            .stopped : [],
+        ]
+    }()
+    
+    private func updateState(to state: State) throws -> State {
+        if type(of: self).stateRoutes[currentState]?.contains(where: { $0 == state }) == nil {
+            throw RecorderError.impossibleStateChange(currentState: currentState, state: state)
+        }
+        currentState = state
+        return currentState
+    }
+    
+    public var currentState: State = .inited
     
     public func availableInputs() -> [Input] {
         let empty: [Input] = [.unknownInput]
