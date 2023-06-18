@@ -154,7 +154,7 @@ class Recorder {
 
 /// Interruption from AudioSession 
 /// https://developer.apple.com/documentation/avfaudio/avaudiosession/responding_to_audio_session_interruptions?language=objc
-class RecorderDelegate: NSObject, AVAudioRecorderDelegate {
+fileprivate class RecorderDelegate: NSObject, AVAudioRecorderDelegate {
     
     weak var recorder: Recorder?
     
