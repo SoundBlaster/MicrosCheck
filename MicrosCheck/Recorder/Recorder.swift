@@ -24,7 +24,7 @@ class Recorder {
     
     private let preferredPort: AVAudioSession.Port = .builtInMic
     
-    func availableInputs() -> [Input] {
+    public func availableInputs() -> [Input] {
         let empty: [Input] = [.unknownInput]
         guard let audioSession else {
             return empty
@@ -39,13 +39,7 @@ class Recorder {
         }
     }
     
-    private func availableInputsPortDescription(with portType: AVAudioSession.Port, in session: AVAudioSession) throws -> AVAudioSessionPortDescription? {
-        session.availableInputs?.first {
-            $0.portType == portType
-        }
-    }
-    
-    func prepare() throws -> Recorder {
+    public func prepare() throws -> Recorder {
         
         guard audioRecorder == nil else {
             assertionFailure("Recoder: has no instance of AVAudioRecorder!")
@@ -60,8 +54,6 @@ class Recorder {
             return self
         }
         
-//        let format = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: 44_100.0, channels: 2, interleaved: true)
-//        audioRecorder = try AVAudioRecorder(url: activeUrl, format: format!)
         let settings = [AVEncoderBitRatePerChannelKey: 96000]
         audioRecorder = try AVAudioRecorder(url: activeUrl, settings: settings)
         audioRecorderDelegate.recorder = self
@@ -71,7 +63,7 @@ class Recorder {
         return self
     }
     
-    func record() {
+    public func record() {
         do {
             try prepareAudioSession(completion: { [weak self] granted in
                 guard let self else {
@@ -94,7 +86,15 @@ class Recorder {
         }
     }
     
-    func stop() {
+    public func pause() {
+        guard let audioRecorder else {
+            print("Recorder: There is no audioRecorder!")
+            return
+        }
+        audioRecorder.pause()
+    }
+    
+    public func stop() {
         guard let audioRecorder else {
             print("Recorder: There is no audioRecorder!")
             return
@@ -103,13 +103,19 @@ class Recorder {
         self.audioRecorder = nil
     }
     
-    // MARK: Private vars
+    // MARK: Private vars & functions
     
+    private let preferredPort: AVAudioSession.Port = .builtInMic
     private var audioSession: AVAudioSession?
     private var audioRecorder: AVAudioRecorder?
     private var audioRecorderDelegate: RecorderDelegate = RecorderDelegate()
-    
     fileprivate var activeUrl: URL?
+    
+    private func availableInputsPortDescription(with portType: AVAudioSession.Port, in session: AVAudioSession) throws -> AVAudioSessionPortDescription? {
+        session.availableInputs?.first {
+            $0.portType == portType
+        }
+    }
     
     private func prepareAudioSession(completion: @escaping (Bool) -> Void) throws {
         // audio session
