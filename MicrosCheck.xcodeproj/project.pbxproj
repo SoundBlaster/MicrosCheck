@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B108B0742A3F450100D0CD4F /* RecorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */; };
+		B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F9182AC785A200F3FCFF /* ButtonsView.swift */; };
 		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
 		B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D129F569FB006FB98E /* MicrosCheckApp.swift */; };
 		B18432D429F569FB006FB98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D329F569FB006FB98E /* ContentView.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		B18432CE29F569FB006FB98E /* MicrosCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrosCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18432D129F569FB006FB98E /* MicrosCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosCheckApp.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				B1B98A8F2A360AE1001B8309 /* Recorder */,
 				B1BE9C262A07DDE000440578 /* FileReader.swift */,
 				B1BE9C282A07DF3400440578 /* AudioPlayer.swift */,
+				B113F9182AC785A200F3FCFF /* ButtonsView.swift */,
 			);
 			path = MicrosCheck;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */,
 				B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */,
 				B1B98A912A360B07001B8309 /* Location.swift in Sources */,
+				B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */,
 				B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
