@@ -7,50 +7,75 @@
 
 import AVFoundation
 
+protocol StateMachine {
+    associatedtype S: Hashable, CustomStringConvertible
+    var state: S { get }
+    mutating func updateState(to nextState: S) throws -> S
+    var routes: [S: [S]] { get }
+}
+
 class Recorder {
-    
-    enum State {
-        case inited
-        case prepared
-        case recording
-        case paused
-        case stopped
-    }
-    
+
     enum RecorderError: Error {
         case noAudioSession
         case noAudioInput
         case noAudioInputPort
         case noInternalRecorder
-        case impossibleStateChange(currentState: State, state: State) 
+        case impossibleStateChange(state: CustomStringConvertible, nextState: CustomStringConvertible) 
     }
+    
+    class StateHolder: StateMachine {
+        
+        enum State: String, CustomStringConvertible {
+            case inited
+            case prepared
+            case recording
+            case paused
+            case stopped
+            
+            // CustomStringConvertible
+            public var description: String {
+                self.rawValue
+            }
+        }
+        
+        var state: State = .inited
+        
+        var routes: [State: [State]] = {
+            [
+                .inited : [.prepared],
+                .prepared : [.recording],
+                .recording : [.paused, .stopped],
+                .paused : [.recording, .stopped],
+                .stopped : [.prepared],
+            ]
+        }()
+        
+        func updateState(to nextState: State) throws -> State {
+            print("updateState: \(state)")
+//            print("updateState: \(state) -> \(nextState)")
+            print("updateState \(String(describing: routes[state]?.contains(where: { $0 == nextState })))")
+            
+            if routes[state]?.contains(where: { $0 == nextState }) == false {
+                throw RecorderError.impossibleStateChange(state: state, nextState: nextState)
+            }
+            state = nextState
+            return state
+        }
+        
+    }
+    
     // MARK: Public interface
     
-    public var recording: Bool {
+    var state: StateHolder.State {
+        stateHolder.state
+    }
+    
+    var recording: Bool {
         audioRecorder?.isRecording ?? false
     }
     
-    private static let stateRoutes: [State: [State]] = {
-        [
-            .inited : [],
-            .prepared : [],
-            .recording : [],
-            .paused : [],
-            .stopped : [],
-        ]
-    }()
-    
-    private func updateState(to state: State) throws -> State {
-        if type(of: self).stateRoutes[currentState]?.contains(where: { $0 == state }) == nil {
-            throw RecorderError.impossibleStateChange(currentState: currentState, state: state)
-        }
-        currentState = state
-        return currentState
-    }
-    
-    public var currentState: State = .inited
-    
-    public func availableInputs() -> [Input] {
+    func availableInputs() -> [Input] {
         let empty: [Input] = [.unknownInput]
         guard let audioSession else {
             return empty
@@ -65,6 +90,7 @@ class Recorder {
         }
     }
     
+    @discardableResult
     public func prepare() throws -> Recorder {
         
         guard audioRecorder == nil else {
@@ -89,48 +115,51 @@ class Recorder {
         return self
     }
     
-    public func record() {
-        do {
-            try prepareAudioSession(completion: { [weak self] granted in
-                guard let self else {
-                    print("Recorder: Recorder was deallocated!")
-                    return
-                }
-                guard granted else {
-                    print("Recorder: There is access to audio recording!")
-                    return
-                }
-                guard let audioRecorder else {
-                    print("Recorder: There is no audioRecorder!")
-                    return
-                }
-                print("Recorder: start record.")
-                audioRecorder.record()
-            })
-        } catch {
-            print("Recorder: Audio session preparing was failed!")
-        }
+    @discardableResult
+    public func record() throws -> Recorder {
+        try prepareAudioSession(completion: { [weak self] granted in
+            guard let self else {
+                print("Recorder: Recorder was deallocated!")
+                return
+            }
+            guard granted else {
+                print("Recorder: There is access to audio recording!")
+                return
+            }
+            guard let audioRecorder else {
+                print("Recorder: There is no audioRecorder!")
+                return
+            }
+            print("Recorder: start record.")
+            audioRecorder.record()
+        })
+        return self
     }
     
-    public func pause() {
+    @discardableResult
+    public func pause() -> Recorder {
         guard let audioRecorder else {
             print("Recorder: There is no audioRecorder!")
-            return
+            return self
         }
         audioRecorder.pause()
+        return self
     }
     
-    public func stop() {
+    @discardableResult
+    public func stop() -> Recorder {
         guard let audioRecorder else {
             print("Recorder: There is no audioRecorder!")
-            return
+            return self
         }
         audioRecorder.stop()
         self.audioRecorder = nil
+        return self
     }
     
     // MARK: Private vars & functions
     
+    private let stateHolder = StateHolder()
     private let preferredPort: AVAudioSession.Port = .builtInMic
     private var audioSession: AVAudioSession?
     private var audioRecorder: AVAudioRecorder?
@@ -166,7 +195,9 @@ class Recorder {
         port.dataSources?.forEach {
             print("Data source: \($0)")
         }
-        try port.setPreferredDataSource(port.dataSources?.last)
+        if let dataSource = port.dataSources?.last {
+            try port.setPreferredDataSource(dataSource)
+        }
         print("Recorder: activate AVAudioSession with category: \(audioSession.category)")
         // record permissions
         if #available(iOS 17.0, *) {

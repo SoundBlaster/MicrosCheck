@@ -6,16 +6,35 @@
 //
 
 import SwiftUI
+import Observation
 
-@MainActor
-final class AppState: ObservableObject {
-    @Published var recording: Bool = false
-    @Published var selectedInputName: String = .notSelectedInputName
-    @Published var isPlaying: Bool = false
-    
+@Observable
+final class AppState {
+    // The name of selected input for recording.
+    var selectedInputName: String = .notSelectedInputName
+    // Recording is active now.
+    var isRecording: Bool = false //{
+//        didSet {
+//            if isRecording {
+//                player?.stop()
+//                isPlaying = false
+//            }
+//        }
+//    }
+    // Playing record is active now.
+    var isPlaying: Bool = false //{
+//        didSet {
+//            if isPlaying {
+//                recorder.stop()
+//                isRecording = false
+//            }
+//        }
+//    }
+    // Recorder.
     let recorder: Recorder = Recorder()
-    let player: AudioPlayer = AudioPlayer()
-    
+    // Player.
+    var player: AudioPlayer?
+
     init() {
         _ = FileReader.deleteFile(at: FileReader.recordURL())
     }
@@ -23,21 +42,25 @@ final class AppState: ObservableObject {
 
 struct ContentView: View {
     
-    @StateObject var state = AppState()
-    
+    @State var state = AppState()
+
     var body: some View {
         
+        ButtonsView()
+
         Form {
             
             Section("Настройки") {
-                if !state.recording {
+                if !state.isRecording {
                     if state.recorder.availableInputs().count > 0 {
-                        Text("Выберите микрофон")
-//                        Picker("Выберите микрофон", selection: $state.selectedInputName) {
-//                            ForEach(state.recorder.availableInputs(), id: \.name) {
-//                                Text($0.name)
-//                            }
-//                        }
+//                        Text("Выберите микрофон")
+                        let _ = print(state.recorder.availableInputs())
+                        Picker("Выберите микрофон", selection: $state.selectedInputName) {
+                            ForEach(state.recorder.availableInputs(), id: \.name) {
+                                Text($0.name)
+                            }
+                        }
+
                     } else {
                         HStack {
                             Spacer()
@@ -56,7 +79,7 @@ struct ContentView: View {
             
             if state.recorder.availableInputs().count > 0 {
                 Section {
-                    if !state.recording {
+                    if !state.isRecording {
                         HStack {
                             Spacer()
                             Button(action: {
@@ -65,9 +88,9 @@ struct ContentView: View {
                                         .prepare()
                                         .record()
                                 } catch {
-                                    print("Recorder initialization was failed!")
+                                    print("Recorder initialization was failed! \(error)")
                                 }
-                                state.recording = true
+                                state.isRecording = true
                             }, label:{ Text("Начать запись!") })
                             Spacer()
                         }
@@ -77,7 +100,7 @@ struct ContentView: View {
                             Button(action: {
                                 state.recorder
                                     .stop()
-                                state.recording = false
+                                state.isRecording = false
                             }, label:{ Text("Остановить запись") })
                             Spacer()
                         }
@@ -91,13 +114,13 @@ struct ContentView: View {
                         Spacer()
                         Button(action: {
                             switch state.isPlaying {
-                            case true :
-                                state.player.stop()
+                            case true:
+                                state.player?.stop()
                                 state.isPlaying = false
                                 print("Stop button tapped")
-                            default :
-                                state.player.fileURL = FileReader.recordURL()
-                                state.player.play()
+                            default:
+                                state.player = AudioPlayerImpl(file: FileImpl(url: FileReader.recordURL()))
+                                state.player?.play()
                                 state.isPlaying = true
                                 print("Play button tapped")
                             }

@@ -18,7 +18,8 @@
 		B1B98A912A360B07001B8309 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A902A360B07001B8309 /* Location.swift */; };
 		B1B98A932A360B2F001B8309 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A922A360B2F001B8309 /* Input.swift */; };
 		B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C262A07DDE000440578 /* FileReader.swift */; };
-		B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayer.swift */; };
+		B1BE9C292A07DF3400440578 /* AudioPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */; };
+		B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +47,8 @@
 		B1B98A902A360B07001B8309 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		B1B98A922A360B2F001B8309 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		B1BE9C262A07DDE000440578 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
-		B1BE9C282A07DF3400440578 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerImpl.swift; sourceTree = "<group>"; };
+		B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +115,9 @@
 				B18432D829F569FC006FB98E /* Preview Content */,
 				B1B98A8F2A360AE1001B8309 /* Recorder */,
 				B1BE9C262A07DDE000440578 /* FileReader.swift */,
-				B1BE9C282A07DF3400440578 /* AudioPlayer.swift */,
+				B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */,
 				B113F9182AC785A200F3FCFF /* ButtonsView.swift */,
+				B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */,
 			);
 			path = MicrosCheck;
 			sourceTree = "<group>";
@@ -191,7 +194,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					B108B06A2A3F44EB00D0CD4F = {
 						CreatedOnToolsVersion = 15.0;
@@ -255,8 +258,9 @@
 			files = (
 				B1B98A932A360B2F001B8309 /* Input.swift in Sources */,
 				B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */,
+				B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */,
 				B18432D429F569FB006FB98E /* ContentView.swift in Sources */,
-				B1BE9C292A07DF3400440578 /* AudioPlayer.swift in Sources */,
+				B1BE9C292A07DF3400440578 /* AudioPlayerImpl.swift in Sources */,
 				B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */,
 				B1B98A912A360B07001B8309 /* Location.swift in Sources */,
 				B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */,

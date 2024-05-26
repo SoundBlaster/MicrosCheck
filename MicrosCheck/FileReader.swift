@@ -37,6 +37,10 @@ class FileReader {
 
 extension FileReader {
     
+    public static func recordFile() -> File {
+        FileImpl(url: recordURL())
+    }
+
     public static func recordURL() -> URL {
         getDocumentsDirectory().appendingPathComponent("recording.m4a")
     }
