@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B108B0742A3F450100D0CD4F /* ReccorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* ReccorderStateTests.swift */; };
+		B108B0742A3F450100D0CD4F /* RecorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */; };
 		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
 		B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D129F569FB006FB98E /* MicrosCheckApp.swift */; };
 		B18432D429F569FB006FB98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D329F569FB006FB98E /* ContentView.swift */; };
@@ -31,7 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B108B0642A3F42A000D0CD4F /* ReccorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReccorderStateTests.swift; sourceTree = "<group>"; };
+		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		B18432CE29F569FB006FB98E /* MicrosCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrosCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,7 +76,7 @@
 		B108B06C2A3F44EB00D0CD4F /* MicrosCheckTests */ = {
 			isa = PBXGroup;
 			children = (
-				B108B0642A3F42A000D0CD4F /* ReccorderStateTests.swift */,
+				B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */,
 			);
 			path = MicrosCheckTests;
 			sourceTree = "<group>";
@@ -242,7 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B108B0742A3F450100D0CD4F /* ReccorderStateTests.swift in Sources */,
+				B108B0742A3F450100D0CD4F /* RecorderStateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
