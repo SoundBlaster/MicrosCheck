@@ -11,13 +11,16 @@
 		B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F9182AC785A200F3FCFF /* ButtonsView.swift */; };
 		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
 		B1766ACC2C15BC540070B479 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766ACB2C15BC540070B479 /* AppState.swift */; };
+		B1766ACE2C15BFED0070B479 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766ACD2C15BFED0070B479 /* Input.swift */; };
+		B1766AD12C15C0110070B479 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766AD02C15C0110070B479 /* File.swift */; };
+		B1766AD42C15C04C0070B479 /* FileImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766AD32C15C04C0070B479 /* FileImpl.swift */; };
 		B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D129F569FB006FB98E /* MicrosCheckApp.swift */; };
 		B18432D429F569FB006FB98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D329F569FB006FB98E /* ContentView.swift */; };
 		B18432D629F569FC006FB98E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D529F569FC006FB98E /* Assets.xcassets */; };
 		B18432DA29F569FC006FB98E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D929F569FC006FB98E /* Preview Assets.xcassets */; };
 		B18D17872A1123850047CE97 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18D17862A1123850047CE97 /* AVFoundation.framework */; };
 		B1B98A912A360B07001B8309 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A902A360B07001B8309 /* Location.swift */; };
-		B1B98A932A360B2F001B8309 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A922A360B2F001B8309 /* Input.swift */; };
+		B1B98A932A360B2F001B8309 /* InputImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A922A360B2F001B8309 /* InputImpl.swift */; };
 		B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C262A07DDE000440578 /* FileReader.swift */; };
 		B1BE9C292A07DF3400440578 /* AudioPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */; };
 		B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */; };
@@ -39,6 +42,9 @@
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		B1766ACB2C15BC540070B479 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		B1766ACD2C15BFED0070B479 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		B1766AD02C15C0110070B479 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		B1766AD32C15C04C0070B479 /* FileImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImpl.swift; sourceTree = "<group>"; };
 		B18432CE29F569FB006FB98E /* MicrosCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrosCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18432D129F569FB006FB98E /* MicrosCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosCheckApp.swift; sourceTree = "<group>"; };
 		B18432D329F569FB006FB98E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,7 +53,7 @@
 		B18432D929F569FC006FB98E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B18D17862A1123850047CE97 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		B1B98A902A360B07001B8309 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
-		B1B98A922A360B2F001B8309 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
+		B1B98A922A360B2F001B8309 /* InputImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputImpl.swift; sourceTree = "<group>"; };
 		B1BE9C262A07DDE000440578 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerImpl.swift; sourceTree = "<group>"; };
 		B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
@@ -87,6 +93,50 @@
 			path = MicrosCheckTests;
 			sourceTree = "<group>";
 		};
+		B1766ACF2C15BFF50070B479 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */,
+				B1766ACD2C15BFED0070B479 /* Input.swift */,
+				B1766AD02C15C0110070B479 /* File.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B1766AD22C15C0340070B479 /* ProtocolImplementations */ = {
+			isa = PBXGroup;
+			children = (
+				B1766AD72C15C0820070B479 /* Storage */,
+				B1766AD62C15C07A0070B479 /* Player */,
+				B1766AD52C15C0720070B479 /* Recorder */,
+			);
+			path = ProtocolImplementations;
+			sourceTree = "<group>";
+		};
+		B1766AD52C15C0720070B479 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				B1B98A922A360B2F001B8309 /* InputImpl.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		B1766AD62C15C07A0070B479 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		B1766AD72C15C0820070B479 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				B1766AD32C15C04C0070B479 /* FileImpl.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		B18432C529F569FB006FB98E = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +160,8 @@
 		B18432D029F569FB006FB98E /* MicrosCheck */ = {
 			isa = PBXGroup;
 			children = (
+				B1766ACF2C15BFF50070B479 /* Protocols */,
+				B1766AD22C15C0340070B479 /* ProtocolImplementations */,
 				B18432D129F569FB006FB98E /* MicrosCheckApp.swift */,
 				B1766ACB2C15BC540070B479 /* AppState.swift */,
 				B18432D329F569FB006FB98E /* ContentView.swift */,
@@ -118,9 +170,7 @@
 				B18432D829F569FC006FB98E /* Preview Content */,
 				B1B98A8F2A360AE1001B8309 /* Recorder */,
 				B1BE9C262A07DDE000440578 /* FileReader.swift */,
-				B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */,
 				B113F9182AC785A200F3FCFF /* ButtonsView.swift */,
-				B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */,
 			);
 			path = MicrosCheck;
 			sourceTree = "<group>";
@@ -146,7 +196,6 @@
 			children = (
 				B1699E0E29FEA62A00547A8B /* Recorder.swift */,
 				B1B98A902A360B07001B8309 /* Location.swift */,
-				B1B98A922A360B2F001B8309 /* Input.swift */,
 			);
 			path = Recorder;
 			sourceTree = "<group>";
@@ -259,9 +308,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1B98A932A360B2F001B8309 /* Input.swift in Sources */,
+				B1B98A932A360B2F001B8309 /* InputImpl.swift in Sources */,
+				B1766AD12C15C0110070B479 /* File.swift in Sources */,
 				B1766ACC2C15BC540070B479 /* AppState.swift in Sources */,
 				B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */,
+				B1766ACE2C15BFED0070B479 /* Input.swift in Sources */,
+				B1766AD42C15C04C0070B479 /* FileImpl.swift in Sources */,
 				B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */,
 				B18432D429F569FB006FB98E /* ContentView.swift in Sources */,
 				B1BE9C292A07DF3400440578 /* AudioPlayerImpl.swift in Sources */,

@@ -11,8 +11,8 @@ extension String {
     static let notSelectedInputName: String = ""
 }
 
-class Input {
-    
+class InputImpl: Input {
+
     let name: String
     let location: Location
     
@@ -23,8 +23,8 @@ class Input {
     
 }
 
-extension Input: Hashable {
-    
+extension InputImpl: Hashable {
+
     var hashValue: Int {
         name.hashValue
     }
@@ -35,18 +35,26 @@ extension Input: Hashable {
     
 }
 
-extension Input: Equatable {
-    
-    static func == (lhs: Input, rhs: Input) -> Bool {
-        lhs.name == rhs.name 
+extension InputImpl: Equatable {
+
+    static func == (lhs: InputImpl, rhs: InputImpl) -> Bool {
+        lhs.name == rhs.name
     }
     
 }
 
-extension Input {
+extension InputImpl {
     
-    static var unknownInput: Input {
-        Input(name: .notSelectedInputName, location: .unknown)
+    static var unknownInput: InputImpl {
+        InputImpl(name: .notSelectedInputName, location: .unknown)
     }
     
+}
+
+extension InputImpl: CustomStringConvertible {
+    
+    var description: String {
+        "\(type(of: self)), name: '\(name)', location: '\(location)'"
+    }
+
 }

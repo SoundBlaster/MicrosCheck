@@ -8,15 +8,6 @@
 import Foundation
 import AVFAudio
 
-final class FileImpl: File {
-    // MARK: File
-    var url: URL
-
-    init(url: URL) {
-        self.url = url
-    }
-}
-
 final class AudioPlayerImpl: AudioPlayer {
 
     enum State {

@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+func log<T>(_ something: T) -> T {
+    print("log: \(something)")
+    return something
+}
+
 struct ContentView: View {
     
     @State var state = AppState()
@@ -21,7 +26,7 @@ struct ContentView: View {
                 if !state.isRecording {
                     if state.recorder.availableInputs().count > 0 {
 //                        Text("Выберите микрофон")
-                        let _ = print(state.recorder.availableInputs())
+                        let _ = print(log(state.recorder.availableInputs()))
                         Picker("Выберите микрофон", selection: $state.selectedInputName) {
                             ForEach(state.recorder.availableInputs(), id: \.name) {
                                 Text($0.name)

@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol File {
-    var url: URL { get }
-}
-
 protocol AudioPlayer {
     var file: File { get }
     func play()
