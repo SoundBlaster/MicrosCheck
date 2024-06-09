@@ -123,7 +123,7 @@ class Recorder {
                 return
             }
             guard granted else {
-                print("Recorder: There is access to audio recording!")
+                print("Recorder: There is no access to audio recording!")
                 return
             }
             guard let audioRecorder else {
