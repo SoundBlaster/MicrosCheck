@@ -10,6 +10,7 @@
 		B108B0742A3F450100D0CD4F /* RecorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */; };
 		B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F9182AC785A200F3FCFF /* ButtonsView.swift */; };
 		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
+		B1766ACC2C15BC540070B479 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766ACB2C15BC540070B479 /* AppState.swift */; };
 		B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D129F569FB006FB98E /* MicrosCheckApp.swift */; };
 		B18432D429F569FB006FB98E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18432D329F569FB006FB98E /* ContentView.swift */; };
 		B18432D629F569FC006FB98E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B18432D529F569FC006FB98E /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		B1766ACB2C15BC540070B479 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B18432CE29F569FB006FB98E /* MicrosCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicrosCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18432D129F569FB006FB98E /* MicrosCheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrosCheckApp.swift; sourceTree = "<group>"; };
 		B18432D329F569FB006FB98E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				B18432D129F569FB006FB98E /* MicrosCheckApp.swift */,
+				B1766ACB2C15BC540070B479 /* AppState.swift */,
 				B18432D329F569FB006FB98E /* ContentView.swift */,
 				B18432D529F569FC006FB98E /* Assets.xcassets */,
 				B18432D729F569FC006FB98E /* MicrosCheck.entitlements */,
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1B98A932A360B2F001B8309 /* Input.swift in Sources */,
+				B1766ACC2C15BC540070B479 /* AppState.swift in Sources */,
 				B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */,
 				B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */,
 				B18432D429F569FB006FB98E /* ContentView.swift in Sources */,

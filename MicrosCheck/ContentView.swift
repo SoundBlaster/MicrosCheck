@@ -6,39 +6,6 @@
 //
 
 import SwiftUI
-import Observation
-
-@Observable
-final class AppState {
-    // The name of selected input for recording.
-    var selectedInputName: String = .notSelectedInputName
-    // Recording is active now.
-    var isRecording: Bool = false //{
-//        didSet {
-//            if isRecording {
-//                player?.stop()
-//                isPlaying = false
-//            }
-//        }
-//    }
-    // Playing record is active now.
-    var isPlaying: Bool = false //{
-//        didSet {
-//            if isPlaying {
-//                recorder.stop()
-//                isRecording = false
-//            }
-//        }
-//    }
-    // Recorder.
-    let recorder: Recorder = Recorder()
-    // Player.
-    var player: AudioPlayer?
-
-    init() {
-        _ = FileReader.deleteFile(at: FileReader.recordURL())
-    }
-}
 
 struct ContentView: View {
     
@@ -136,19 +103,9 @@ struct ContentView: View {
                     }
                 }
             }
-            
         }
-        
     }
-    
-    
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ContentView()
-//    }
-//}
 
 #Preview {
     ContentView()
