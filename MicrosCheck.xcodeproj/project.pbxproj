@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B108B0742A3F450100D0CD4F /* RecorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */; };
 		B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F9182AC785A200F3FCFF /* ButtonsView.swift */; };
-		B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* Recorder.swift */; };
+		B1699E0F29FEA62A00547A8B /* RecorderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* RecorderImpl.swift */; };
 		B1766ACC2C15BC540070B479 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766ACB2C15BC540070B479 /* AppState.swift */; };
 		B1766ACE2C15BFED0070B479 /* Input.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766ACD2C15BFED0070B479 /* Input.swift */; };
 		B1766AD12C15C0110070B479 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1766AD02C15C0110070B479 /* File.swift */; };
@@ -21,8 +21,12 @@
 		B18D17872A1123850047CE97 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18D17862A1123850047CE97 /* AVFoundation.framework */; };
 		B1B98A912A360B07001B8309 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A902A360B07001B8309 /* Location.swift */; };
 		B1B98A932A360B2F001B8309 /* InputImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B98A922A360B2F001B8309 /* InputImpl.swift */; };
-		B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C262A07DDE000440578 /* FileReader.swift */; };
+		B1BE9C272A07DDE000440578 /* FileReaderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C262A07DDE000440578 /* FileReaderImpl.swift */; };
 		B1BE9C292A07DF3400440578 /* AudioPlayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */; };
+		B1EC68712C5F954500CE30C4 /* RecoderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC68702C5F953B00CE30C4 /* RecoderDelegate.swift */; };
+		B1EC68732C5F99AA00CE30C4 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC68722C5F99A700CE30C4 /* Recorder.swift */; };
+		B1EC68752C5F99F700CE30C4 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC68742C5F99F600CE30C4 /* StateMachine.swift */; };
+		B1EC68782C5F9B1E00CE30C4 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EC68772C5F9B1B00CE30C4 /* FileReader.swift */; };
 		B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +44,7 @@
 		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
-		B1699E0E29FEA62A00547A8B /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		B1699E0E29FEA62A00547A8B /* RecorderImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderImpl.swift; sourceTree = "<group>"; };
 		B1766ACB2C15BC540070B479 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B1766ACD2C15BFED0070B479 /* Input.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Input.swift; sourceTree = "<group>"; };
 		B1766AD02C15C0110070B479 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -54,8 +58,12 @@
 		B18D17862A1123850047CE97 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		B1B98A902A360B07001B8309 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		B1B98A922A360B2F001B8309 /* InputImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputImpl.swift; sourceTree = "<group>"; };
-		B1BE9C262A07DDE000440578 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
+		B1BE9C262A07DDE000440578 /* FileReaderImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReaderImpl.swift; sourceTree = "<group>"; };
 		B1BE9C282A07DF3400440578 /* AudioPlayerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerImpl.swift; sourceTree = "<group>"; };
+		B1EC68702C5F953B00CE30C4 /* RecoderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoderDelegate.swift; sourceTree = "<group>"; };
+		B1EC68722C5F99A700CE30C4 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
+		B1EC68742C5F99F600CE30C4 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
+		B1EC68772C5F9B1B00CE30C4 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,9 +104,12 @@
 		B1766ACF2C15BFF50070B479 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				B1EC68772C5F9B1B00CE30C4 /* FileReader.swift */,
+				B1EC68742C5F99F600CE30C4 /* StateMachine.swift */,
 				B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */,
 				B1766ACD2C15BFED0070B479 /* Input.swift */,
 				B1766AD02C15C0110070B479 /* File.swift */,
+				B1EC68722C5F99A700CE30C4 /* Recorder.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -106,19 +117,21 @@
 		B1766AD22C15C0340070B479 /* ProtocolImplementations */ = {
 			isa = PBXGroup;
 			children = (
+				B1EC68762C5F9A5D00CE30C4 /* FileSystem */,
+				B1B98A8F2A360AE1001B8309 /* Recorder */,
 				B1766AD72C15C0820070B479 /* Storage */,
 				B1766AD62C15C07A0070B479 /* Player */,
-				B1766AD52C15C0720070B479 /* Recorder */,
+				B1766AD52C15C0720070B479 /* Input */,
 			);
 			path = ProtocolImplementations;
 			sourceTree = "<group>";
 		};
-		B1766AD52C15C0720070B479 /* Recorder */ = {
+		B1766AD52C15C0720070B479 /* Input */ = {
 			isa = PBXGroup;
 			children = (
 				B1B98A922A360B2F001B8309 /* InputImpl.swift */,
 			);
-			path = Recorder;
+			path = Input;
 			sourceTree = "<group>";
 		};
 		B1766AD62C15C07A0070B479 /* Player */ = {
@@ -160,17 +173,15 @@
 		B18432D029F569FB006FB98E /* MicrosCheck */ = {
 			isa = PBXGroup;
 			children = (
-				B1766ACF2C15BFF50070B479 /* Protocols */,
-				B1766AD22C15C0340070B479 /* ProtocolImplementations */,
+				B18432D729F569FC006FB98E /* MicrosCheck.entitlements */,
 				B18432D129F569FB006FB98E /* MicrosCheckApp.swift */,
 				B1766ACB2C15BC540070B479 /* AppState.swift */,
 				B18432D329F569FB006FB98E /* ContentView.swift */,
-				B18432D529F569FC006FB98E /* Assets.xcassets */,
-				B18432D729F569FC006FB98E /* MicrosCheck.entitlements */,
-				B18432D829F569FC006FB98E /* Preview Content */,
-				B1B98A8F2A360AE1001B8309 /* Recorder */,
-				B1BE9C262A07DDE000440578 /* FileReader.swift */,
 				B113F9182AC785A200F3FCFF /* ButtonsView.swift */,
+				B18432D529F569FC006FB98E /* Assets.xcassets */,
+				B18432D829F569FC006FB98E /* Preview Content */,
+				B1766ACF2C15BFF50070B479 /* Protocols */,
+				B1766AD22C15C0340070B479 /* ProtocolImplementations */,
 			);
 			path = MicrosCheck;
 			sourceTree = "<group>";
@@ -194,10 +205,19 @@
 		B1B98A8F2A360AE1001B8309 /* Recorder */ = {
 			isa = PBXGroup;
 			children = (
-				B1699E0E29FEA62A00547A8B /* Recorder.swift */,
+				B1699E0E29FEA62A00547A8B /* RecorderImpl.swift */,
+				B1EC68702C5F953B00CE30C4 /* RecoderDelegate.swift */,
 				B1B98A902A360B07001B8309 /* Location.swift */,
 			);
 			path = Recorder;
+			sourceTree = "<group>";
+		};
+		B1EC68762C5F9A5D00CE30C4 /* FileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				B1BE9C262A07DDE000440578 /* FileReaderImpl.swift */,
+			);
+			path = FileSystem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,16 +328,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1EC68732C5F99AA00CE30C4 /* Recorder.swift in Sources */,
 				B1B98A932A360B2F001B8309 /* InputImpl.swift in Sources */,
 				B1766AD12C15C0110070B479 /* File.swift in Sources */,
+				B1EC68752C5F99F700CE30C4 /* StateMachine.swift in Sources */,
 				B1766ACC2C15BC540070B479 /* AppState.swift in Sources */,
-				B1699E0F29FEA62A00547A8B /* Recorder.swift in Sources */,
+				B1699E0F29FEA62A00547A8B /* RecorderImpl.swift in Sources */,
 				B1766ACE2C15BFED0070B479 /* Input.swift in Sources */,
 				B1766AD42C15C04C0070B479 /* FileImpl.swift in Sources */,
 				B1FDA9662C0353C000CA1DC3 /* AudioPlayer.swift in Sources */,
+				B1EC68782C5F9B1E00CE30C4 /* FileReader.swift in Sources */,
+				B1EC68712C5F954500CE30C4 /* RecoderDelegate.swift in Sources */,
 				B18432D429F569FB006FB98E /* ContentView.swift in Sources */,
 				B1BE9C292A07DF3400440578 /* AudioPlayerImpl.swift in Sources */,
-				B1BE9C272A07DDE000440578 /* FileReader.swift in Sources */,
+				B1BE9C272A07DDE000440578 /* FileReaderImpl.swift in Sources */,
 				B1B98A912A360B07001B8309 /* Location.swift in Sources */,
 				B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */,
 				B18432D229F569FB006FB98E /* MicrosCheckApp.swift in Sources */,
@@ -342,13 +366,13 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8T2366K8X;
+				DEVELOPMENT_TEAM = 74GSAFWBG7;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.MicrosCheckTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.haglar.MicrosCheckTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -369,13 +393,13 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P8T2366K8X;
+				DEVELOPMENT_TEAM = 74GSAFWBG7;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.MicrosCheckTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.haglar.MicrosCheckTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -514,7 +538,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MicrosCheck/Preview Content\"";
-				DEVELOPMENT_TEAM = P8T2366K8X;
+				DEVELOPMENT_TEAM = 74GSAFWBG7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -534,13 +558,14 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.MicrosCheck;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.haglar.MicrosCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -557,7 +582,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MicrosCheck/Preview Content\"";
-				DEVELOPMENT_TEAM = P8T2366K8X;
+				DEVELOPMENT_TEAM = 74GSAFWBG7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -577,13 +602,14 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.MicrosCheck;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.egormerkushev.haglar.MicrosCheck;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -1,15 +1,8 @@
-//
-//  FileReader.swift
-//  MicrosCheck
-//
-//  Created by Egor Merkushev on 07.05.2023.
-//
-
 import Foundation
 
-class FileReader {
-    
-    static func hasFile(at url: URL) -> Bool {
+final class FileReaderImpl: FileReader {
+
+    func hasFile(at url: URL) -> Bool {
         guard url.isFileURL else {
             return false
         }
@@ -19,7 +12,7 @@ class FileReader {
             .fileExists(atPath: url.path)
     }
     
-    static func deleteFile(at url: URL) -> Bool {
+    func deleteFile(at url: URL) -> Bool {
         guard url.isFileURL else {
             return false
         }
@@ -32,20 +25,16 @@ class FileReader {
         }
         return false
     }
-    
-}
 
-extension FileReader {
-    
-    public static func recordFile() -> File {
+    func fileForRecord() -> File {
         FileImpl(url: recordURL())
     }
 
-    public static func recordURL() -> URL {
+    func recordURL() -> URL {
         getDocumentsDirectory().appendingPathComponent("recording.m4a")
     }
     
-    public static func fileSize(for fileURL: URL) -> UInt64 {
+    func fileSize(for fileURL: URL) -> UInt64 {
         let attributes = try? FileManager
             .default
             .attributesOfItem(atPath: fileURL.path)
@@ -55,7 +44,7 @@ extension FileReader {
         return attributesDict.fileSize()
     }
     
-    private static func getDocumentsDirectory() -> URL {
+    func getDocumentsDirectory() -> URL {
         FileManager
             .default
             .urls(for: .documentDirectory, in: .userDomainMask)[0]

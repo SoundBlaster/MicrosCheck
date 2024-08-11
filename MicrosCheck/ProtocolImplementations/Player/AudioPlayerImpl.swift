@@ -26,13 +26,15 @@ final class AudioPlayerImpl: AudioPlayer {
         _state
     }
 
-    init(file: File) {
+    init(file: File, fileReader: FileReader) {
         self.file = file
+        self.fileReader = fileReader
     }
 
     // MARK: AudioPlayer
 
     var file: File
+    var fileReader: FileReader
 
     func play() {
         do {
@@ -82,7 +84,7 @@ final class AudioPlayerImpl: AudioPlayer {
         do {
             let fileURL = file.url
             print("AudioPlayer: Try create AVAudioPlayer with path: \(fileURL)")
-            let fileSize = FileReader.fileSize(for: fileURL)
+            let fileSize = fileReader.fileSize(for: fileURL)
             print("AudioPlayer: File size for playing: \(fileSize)")
             guard fileSize > 0 else {
                 print("AudioPlayer: Failed to prepare audio session for playing!")
@@ -121,7 +123,7 @@ final class AudioPlayerImpl: AudioPlayer {
     }
 }
 
-class AudioPlayerAVDelegate: NSObject, AVAudioPlayerDelegate {
+final class AudioPlayerAVDelegate: NSObject, AVAudioPlayerDelegate {
     
     weak var audioPlayer: AudioPlayerImpl?
     

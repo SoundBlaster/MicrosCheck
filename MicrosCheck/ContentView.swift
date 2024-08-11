@@ -13,8 +13,8 @@ func log<T>(_ something: T) -> T {
 }
 
 struct ContentView: View {
-    
-    @State var state = AppState()
+
+    var state = AppState()
 
     var body: some View {
         
@@ -22,22 +22,56 @@ struct ContentView: View {
 
         Form {
             
-            Section("Настройки") {
+            Section("DBG state.recorder.state") {
+                switch state.recorder.state {
+                case .inited:
+                    Text("inited")
+                case .prepared:
+                    Text("prepared")
+                case .recording:
+                    Text("recording")
+                case .paused:
+                    Text("paused")
+                case .stopped:
+                    Text("stopped")
+                }
+            }
+
+            Section("DBG state.isPrepared") {
+                switch state.isPrepared {
+                case true:
+                    Text("prepared")
+                case false:
+                    Text("not prepared")
+                }
+            }
+
+            Section("Источник") {
                 if !state.isRecording {
                     if state.recorder.availableInputs().count > 0 {
-//                        Text("Выберите микрофон")
                         let _ = print(log(state.recorder.availableInputs()))
-                        Picker("Выберите микрофон", selection: $state.selectedInputName) {
-                            ForEach(state.recorder.availableInputs(), id: \.name) {
-                                Text($0.name)
-                            }
+                        ForEach(state.recorder.availableInputs(), id: \.name) {
+                            Text($0.name)
                         }
-
+//                        Picker("Выберите микрофон", selection: state.selectedInputName) {
+//                            ForEach(state.recorder.availableInputs(), id: \.name) {
+//                                Text($0.name)
+//                            }
+//                        }
                     } else {
                         HStack {
                             Spacer()
                             Text("Идёт поиск устройств...")
                             Spacer()
+                        }
+                        .task {
+                            do {
+                                _ = try state.recorder
+                                    .prepare()
+                                state.isPrepared = true
+                            } catch {
+                                print("Recorder initialization was failed! \(error)")
+                            }
                         }
                     }
                 } else {
@@ -57,10 +91,10 @@ struct ContentView: View {
                             Button(action: {
                                 do {
                                     try state.recorder
-                                        .prepare()
+//                                        .prepare()
                                         .record()
                                 } catch {
-                                    print("Recorder initialization was failed! \(error)")
+                                    print("Recording failed! \(error)")
                                 }
                                 state.isRecording = true
                             }, label:{ Text("Начать запись!") })
@@ -70,9 +104,13 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Button(action: {
-                                state.recorder
-                                    .stop()
-                                state.isRecording = false
+                                do {
+                                    try state.recorder
+                                        .stop()
+                                    state.isRecording = false
+                                } catch {
+                                    print("Stop recording failed! \(error)")
+                                }
                             }, label:{ Text("Остановить запись") })
                             Spacer()
                         }
@@ -81,7 +119,7 @@ struct ContentView: View {
             }
             
             Section("Записи") {
-                if FileReader.hasFile(at: FileReader.recordURL()) {
+                if state.fileReader.hasFile(at: state.fileReader.recordURL()) {
                     HStack {
                         Spacer()
                         Button(action: {
@@ -91,7 +129,7 @@ struct ContentView: View {
                                 state.isPlaying = false
                                 print("Stop button tapped")
                             default:
-                                state.player = AudioPlayerImpl(file: FileImpl(url: FileReader.recordURL()))
+                                state.player = AudioPlayerImpl(file: FileImpl(url: state.fileReader.recordURL()), fileReader: state.fileReader)
                                 state.player?.play()
                                 state.isPlaying = true
                                 print("Play button tapped")

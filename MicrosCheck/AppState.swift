@@ -7,6 +7,7 @@
 
 import Observation
 
+@MainActor
 @Observable
 final class AppState {
     // The name of selected input for recording.
@@ -15,12 +16,23 @@ final class AppState {
     var isRecording: Bool = false
     // Playing record is active now.
     var isPlaying: Bool = false
+    // Audio Session is ready for input & output operations.
+    var isPrepared: Bool = false
     // Recorder.
-    let recorder: Recorder = Recorder()
+    let recorder: Recorder = RecorderImpl(fileReader: fileReader())
     // Player.
     var player: AudioPlayer?
+    // File Reader
+    let fileReader: FileReader = fileReader()
 
     init() {
-        _ = FileReader.deleteFile(at: FileReader.recordURL())
+#if DEBUG
+        // TODO: Remove cleanup, its just for debug
+        _ = fileReader.deleteFile(at: fileReader.recordURL())
+#endif
+    }
+
+    private static func fileReader() -> FileReader {
+        FileReaderImpl()
     }
 }

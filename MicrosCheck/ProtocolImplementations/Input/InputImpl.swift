@@ -11,7 +11,7 @@ extension String {
     static let notSelectedInputName: String = ""
 }
 
-class InputImpl: Input {
+final class InputImpl: Input {
 
     let name: String
     let location: Location
