@@ -14,14 +14,15 @@ func log<T>(_ something: T) -> T {
 
 struct ContentView: View {
 
-    var state = AppState()
+    @Bindable var state = AppState()
 
     var body: some View {
         
         ButtonsView()
 
         Form {
-            
+
+#if DEBUG
             Section("DBG state.recorder.state") {
                 switch state.recorder.state {
                 case .inited:
@@ -46,18 +47,23 @@ struct ContentView: View {
                 }
             }
 
+            Section("DBG state.recorder.availableInputs()") {
+                let _ = log(state.recorder.availableInputs())
+                ForEach(state.recorder.availableInputs(), id: \.name) {
+                    Text($0.name)
+                }
+            }
+#endif
+
             Section("Источник") {
                 if !state.isRecording {
                     if state.recorder.availableInputs().count > 0 {
-                        let _ = print(log(state.recorder.availableInputs()))
-                        ForEach(state.recorder.availableInputs(), id: \.name) {
-                            Text($0.name)
+                        Picker("Выберите микрофон", selection: $state.selectedInputName) {
+                            Text("\(String.notSelectedInputName)").tag(String.notSelectedInputName as String)
+                            ForEach(state.recorder.availableInputs(), id: \.name) {
+                                Text($0.name).tag($0.name as String)
+                            }
                         }
-//                        Picker("Выберите микрофон", selection: state.selectedInputName) {
-//                            ForEach(state.recorder.availableInputs(), id: \.name) {
-//                                Text($0.name)
-//                            }
-//                        }
                     } else {
                         HStack {
                             Spacer()

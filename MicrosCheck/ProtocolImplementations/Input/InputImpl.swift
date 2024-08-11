@@ -8,7 +8,7 @@
 import AVFoundation
 
 extension String {
-    static let notSelectedInputName: String = ""
+    static let notSelectedInputName: String = "Не выбран"
 }
 
 final class InputImpl: Input {
