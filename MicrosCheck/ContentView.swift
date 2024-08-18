@@ -14,10 +14,12 @@ func log<T>(_ something: T) -> T {
 
 struct ContentView: View {
 
-    @Bindable var state = AppState()
+    @Environment(AppState.self) private var appState
 
     var body: some View {
-        
+
+        @Bindable var state = appState
+
         ButtonsView()
 
         Form {
