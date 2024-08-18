@@ -58,7 +58,7 @@ struct ContentView: View {
 #endif
 
             Section("Источник") {
-                if !state.isRecording {
+                if state.isPrepared {
                     if state.recorder.availableInputs().count > 0 {
                         Picker("Выберите микрофон", selection: $state.selectedInputName) {
                             Text("\(String.notSelectedInputName)").tag(String.notSelectedInputName as String)
@@ -67,48 +67,31 @@ struct ContentView: View {
                             }
                         }
                     } else {
-                        HStack {
-                            Spacer()
-                            Text("Идёт поиск устройств...")
-                            Spacer()
-                        }
-                        .task {
-                            do {
-                                _ = try state.recorder
-                                    .prepare()
-                                state.isPrepared = true
-                            } catch {
-                                print("Recorder initialization was failed! \(error)")
-                            }
-                        }
+                        Spacer()
+                        Text("Устройства не найдены...")
+                        Spacer()
                     }
                 } else {
                     HStack {
                         Spacer()
-                        Text("Идёт запись...")
+                        Text("Идёт поиск устройств...")
                         Spacer()
+                    }
+                    .task {
+                        do {
+                            _ = try state.recorder
+                                .prepare()
+                            state.isPrepared = true
+                        } catch {
+                            print("Recorder initialization was failed! \(error)")
+                        }
                     }
                 }
             }
             
-            if state.recorder.availableInputs().count > 0 {
-                Section {
-                    if !state.isRecording {
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                do {
-                                    try state.recorder
-//                                        .prepare()
-                                        .record()
-                                } catch {
-                                    print("Recording failed! \(error)")
-                                }
-                                state.isRecording = true
-                            }, label:{ Text("Начать запись!") })
-                            Spacer()
-                        }
-                    } else {
+            if state.isPrepared && state.recorder.availableInputs().count > 0 {
+                Section("Запись") {
+                    if state.isRecording {
                         HStack {
                             Spacer()
                             Button(action: {
@@ -122,12 +105,26 @@ struct ContentView: View {
                             }, label:{ Text("Остановить запись") })
                             Spacer()
                         }
+                    } else {
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                do {
+                                    try state.recorder
+                                        .record()
+                                } catch {
+                                    print("Recording failed! \(error)")
+                                }
+                                state.isRecording = true
+                            }, label:{ Text("Начать запись!") })
+                            Spacer()
+                        }
                     }
                 }
             }
-            
-            Section("Записи") {
-                if state.fileReader.hasFile(at: state.fileReader.recordURL()) {
+
+            if state.fileReader.hasFile(at: state.fileReader.recordURL()) {
+                Section("Записи") {
                     HStack {
                         Spacer()
                         Button(action: {
@@ -152,7 +149,7 @@ struct ContentView: View {
                         })
                         Spacer()
                     }
-                }
+                }.disabled(state.isRecording)
             }
         }
     }
