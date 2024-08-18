@@ -1,7 +1,5 @@
-typealias State = Hashable & CustomStringConvertible
-
 protocol StateMachine {
-    associatedtype S: State
+    associatedtype S: Hashable & CustomStringConvertible
     var state: S { get }
     @discardableResult
     mutating func updateState(to nextState: S) throws -> S
