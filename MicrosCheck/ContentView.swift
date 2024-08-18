@@ -24,7 +24,7 @@ struct ContentView: View {
 
         Form {
 
-#if DEBUG
+#if DEBUG_UI
             Section("DBG state.recorder.state") {
                 switch state.recorder.state {
                 case .inited:
