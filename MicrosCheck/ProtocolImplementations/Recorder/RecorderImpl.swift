@@ -53,9 +53,9 @@ internal final class RecorderImpl: Recorder {
     }
     
     func availableInputs() -> [Input] {
-        let empty: [Input] = [InputImpl.unknownInput]
+        let empty: [Input] = []
         guard let audioSession else {
-            return [] //empty
+            return empty
         }
         do {
             let a = try availableInputsPortDescription(with: preferredPort, in: audioSession)
@@ -64,7 +64,7 @@ internal final class RecorderImpl: Recorder {
                     InputImpl(name: $0.dataSourceName, location: try Location.fromOrientation($0.orientation))
                 } ?? empty
         } catch {
-            return [] //empty
+            return empty
         }
     }
     

@@ -67,9 +67,9 @@ struct ContentView: View {
                             }
                         }
                     } else {
-                        Spacer()
-                        Text("Устройства не найдены...")
-                        Spacer()
+                        Picker("Выберите микрофон", selection: $state.selectedInputName) {
+                            Text("\(String.notSelectedInputName)").tag(String.notSelectedInputName as String)
+                        }
                     }
                 } else {
                     HStack {
