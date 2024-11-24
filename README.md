@@ -2,6 +2,8 @@
 
 Audio recording app with features such as recording, playing, managing files, exporting, and sharing.
 
+> Work in progress!
+
 ## Tech Details
 
 - 100% Open Source
