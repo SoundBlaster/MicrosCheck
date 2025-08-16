@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,6 +41,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7415D2262E508810009250A9 /* 00_PRD_Table_of_Contents.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 00_PRD_Table_of_Contents.md; sourceTree = "<group>"; };
+		7415D2272E508810009250A9 /* 01_Area_Goal_Success_Criteria.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 01_Area_Goal_Success_Criteria.md; sourceTree = "<group>"; };
+		7415D2282E508810009250A9 /* 02_Architecture.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_Architecture.md; sourceTree = "<group>"; };
+		7415D2292E508810009250A9 /* 03_Modules_and_Responsibilities.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_Modules_and_Responsibilities.md; sourceTree = "<group>"; };
+		7415D22A2E508810009250A9 /* 04_Data_Models.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 04_Data_Models.md; sourceTree = "<group>"; };
+		7415D22B2E508810009250A9 /* 05_Public_Interfaces.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 05_Public_Interfaces.md; sourceTree = "<group>"; };
+		7415D22C2E508810009250A9 /* 06_UI_Map.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 06_UI_Map.md; sourceTree = "<group>"; };
+		7415D22D2E508810009250A9 /* 07_Detailed_TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 07_Detailed_TODO.md; sourceTree = "<group>"; };
+		7415D22E2E508810009250A9 /* 08_Nonfunctional_Requirements.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 08_Nonfunctional_Requirements.md; sourceTree = "<group>"; };
+		7415D22F2E508810009250A9 /* 09_Common_User_Actions_Streams.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 09_Common_User_Actions_Streams.md; sourceTree = "<group>"; };
+		7415D2302E508810009250A9 /* 10_Custom_UI_UX_Design.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 10_Custom_UI_UX_Design.md; sourceTree = "<group>"; };
+		7415D2312E508810009250A9 /* 11_Edge_Cases.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 11_Edge_Cases.md; sourceTree = "<group>"; };
+		7415D2322E508810009250A9 /* 12_Test_Plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 12_Test_Plan.md; sourceTree = "<group>"; };
+		7415D2332E508810009250A9 /* 13_App_Store_Checklist.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 13_App_Store_Checklist.md; sourceTree = "<group>"; };
+		7415D2342E508810009250A9 /* 14_Extensions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 14_Extensions.md; sourceTree = "<group>"; };
+		7415D2352E508810009250A9 /* 15_Release_Plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 15_Release_Plan.md; sourceTree = "<group>"; };
+		7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 16_Examples_of_Implementations.md; sourceTree = "<group>"; };
+		7415D2372E508810009250A9 /* 17_Open_Questions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 17_Open_Questions.md; sourceTree = "<group>"; };
+		7431625A2E509D06004877EC /* 000_PRD_Impove_TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 000_PRD_Impove_TODO.md; sourceTree = "<group>"; };
 		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -67,6 +86,13 @@
 		B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		743162532E50977E004877EC /* 02_Architecture */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 02_Architecture; sourceTree = "<group>"; };
+		743162592E50977E004877EC /* 03_Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 03_Modules; sourceTree = "<group>"; };
+		746CFDB82E509F99004FE5BA /* 06_UI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 06_UI; sourceTree = "<group>"; };
+		74E1FF012E50A09600A205DD /* 12_Test_Plan */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 12_Test_Plan; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		B108B0682A3F44EB00D0CD4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -86,6 +112,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7415D2382E508810009250A9 /* 00_PRD */ = {
+			isa = PBXGroup;
+			children = (
+				743162532E50977E004877EC /* 02_Architecture */,
+				743162592E50977E004877EC /* 03_Modules */,
+				746CFDB82E509F99004FE5BA /* 06_UI */,
+				74E1FF012E50A09600A205DD /* 12_Test_Plan */,
+				7431625A2E509D06004877EC /* 000_PRD_Impove_TODO.md */,
+				7415D2262E508810009250A9 /* 00_PRD_Table_of_Contents.md */,
+				7415D2272E508810009250A9 /* 01_Area_Goal_Success_Criteria.md */,
+				7415D2282E508810009250A9 /* 02_Architecture.md */,
+				7415D2292E508810009250A9 /* 03_Modules_and_Responsibilities.md */,
+				7415D22A2E508810009250A9 /* 04_Data_Models.md */,
+				7415D22B2E508810009250A9 /* 05_Public_Interfaces.md */,
+				7415D22C2E508810009250A9 /* 06_UI_Map.md */,
+				7415D22D2E508810009250A9 /* 07_Detailed_TODO.md */,
+				7415D22E2E508810009250A9 /* 08_Nonfunctional_Requirements.md */,
+				7415D22F2E508810009250A9 /* 09_Common_User_Actions_Streams.md */,
+				7415D2302E508810009250A9 /* 10_Custom_UI_UX_Design.md */,
+				7415D2312E508810009250A9 /* 11_Edge_Cases.md */,
+				7415D2322E508810009250A9 /* 12_Test_Plan.md */,
+				7415D2332E508810009250A9 /* 13_App_Store_Checklist.md */,
+				7415D2342E508810009250A9 /* 14_Extensions.md */,
+				7415D2352E508810009250A9 /* 15_Release_Plan.md */,
+				7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */,
+				7415D2372E508810009250A9 /* 17_Open_Questions.md */,
+			);
+			path = 00_PRD;
+			sourceTree = "<group>";
+		};
+		7415D2392E508810009250A9 /* DOCS */ = {
+			isa = PBXGroup;
+			children = (
+				7415D2382E508810009250A9 /* 00_PRD */,
+			);
+			path = DOCS;
+			sourceTree = "<group>";
+		};
 		B108B0662A3F42A700D0CD4F /* UnitTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +222,7 @@
 				B108B06C2A3F44EB00D0CD4F /* MicrosCheckTests */,
 				B18432CF29F569FB006FB98E /* Products */,
 				B18D17852A1123850047CE97 /* Frameworks */,
+				7415D2392E508810009250A9 /* DOCS */,
 			);
 			sourceTree = "<group>";
 		};
