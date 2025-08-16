@@ -1,19 +1,36 @@
 # 6. UI Map by Screenshot and Identifiers
 
 - **Top Waveform Timeline** (`WaveformTimelineView`)
-  - Time markings (00:45, 01:00, …), red pin playhead.
+  - Time markings (e.g., 00:45, 01:00, …)
+  - Red pin playhead
 - **Info Card (in recording)** (`RecordingInfoCard`)
-  - Blue REC badge + `elapsed` timer.
-  - File name, size, format, L/R meters, current peak values.
-- **Toolbar Row**: `< Back | Home | T‑MARK | Option >`
-  - `T‑MARK` — quick bookmark of current t.
-  - `Option` — options sheet (source selection, format/bitrate, export, rename, delete).
-- **Search Field** — search by files/tags.
-- **Transport Row**: `STOP` (large left), `REC/PAUSE` (right).
+  - Blue REC badge + explicit red 'RECORDING' LED-style indicator
+  - Elapsed timer (format: 1h07m26s)
+  - File name, size (e.g., 72.9 mb)
+  - File format & bitrate (e.g., MP3 • 320Kbps)
+  - L/R meters with dB readout, labeled (e.g., L: -7dB, R: -21dB)
+  - Current peak values
+- **Toolbar Row**
+  - `< Back | Home | T‑MARK | Option >` buttons
+    - `T‑MARK`: Quick bookmark of current time
+    - `Option`: Opens options sheet (source selection, format/bitrate, export, rename, delete)
+- **Three Icon Buttons (above Search Field)**
+  - **Sun Icon**: Likely toggles dark/light mode or brightness
+  - **Star Icon**: Possibly favorites/bookmarks list
+  - **Grid/Dots Icon**: Sort/view/menu options
+- **Search Field**
+  - Search by files/tags
+- **Transport Row**
+  - `STOP` button (large, visually highlights when active)
+  - `REC/PAUSE` button (large, visually highlights when active)
+- **Recording State Indicator**
+  - Small red LED-style indicator labeled 'RECORDING' above D-Pad
 - **D‑Pad** (`TransportPad`)
-  - Up — DPC (panel with Rate/Pitch).
-  - Center — Play/Pause.
-  - Left/Right — step ±10s (tap) / hold — repeated steps.
-  - Bottom — A‑B (set/reset).
-- **Lock Button** (bottom left) — enables overlay lock.
-- **Info Button** (bottom right) — tech info/help.
+  - Center: Play/Pause (large play icon button)
+  - Up: DPC (panel with Rate/Pitch)
+  - Left/Right: Double-arrow icons for step ±10s (tap) / hold for repeated steps (seek/skip)
+  - Bottom: A‑B (set/reset)
+- **Lock Button** (bottom left)
+  - Lock icon; enables overlay lock
+- **Info Button** (bottom right)
+  - Info icon; opens tech info/help
