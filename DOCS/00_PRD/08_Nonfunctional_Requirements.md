@@ -31,6 +31,13 @@
  - Permission handling: Use NSMicrophoneUsageDescription in Info.plist with explicit user consent.
  - Encryption: Temporary buffers and cached metadata shall not be written to unencrypted storage.
 
+### Storage & Deletion Policy
+
+- All audio files and associated metadata are stored strictly on-device in the app's sandbox; there is no synchronization or backup to iCloud, CloudKit, or any remote/cloud service in the current release.
+- Persistent audio files and metadata are not encrypted at rest or in transit by the app (device-level iOS security applies; the app does not implement its own encryption layer).
+- File deletion is permanent and immediate; there is no "Trash" or retention period.
+- Any form of iCloud/remote/cloud storage is not supported in the current version. See roadmap/extensions for possible future changes.
+
 ## Accessibility
 
  - VoiceOver: All primary controls shall be labeled and operable via VoiceOver.

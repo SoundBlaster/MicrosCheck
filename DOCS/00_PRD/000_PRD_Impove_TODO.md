@@ -1,19 +1,19 @@
 # Improvements for PRD
 
-## 1. {NOT DONE} Balance the level of detail across sections
+## 1. Balance the level of detail across sections
 
-### 1.1. {DONE} **UI/UX**: Expand specifications with concrete details. 
+### 1.1. **UI/UX**: Expand specifications with concrete details. 
  
 - [x] Define expected animations (e.g., waveform updates, button state transitions, lock/unlock overlay).  
 - [x] Enumerate UI states for all interactive elements (REC → PAUSE → RESUME → STOP, A/B loop states, lock/unlock).  
 - [x] Document adherence to a design system (color palette, typography, spacing rules, iconography guidelines).  
 
-### 1.2. {DONE} **Test Plan**: Strengthen by explicitly defining expected results for each scenario.  
+### 1.2. **Test Plan**: Strengthen by explicitly defining expected results for each scenario.  
 
 - [x] Add negative test cases (e.g., attempting playback on corrupted file, deleting while recording, insufficient storage).  
 - [x] Specify pass/fail criteria for UI flows (e.g., “After pressing REC, the timer must start within 200ms”).  
 
-## 2. {NOT DONE} Extend Non-Functional Requirements (NFR)
+## 2. Extend Non-Functional Requirements (NFR)
 
 ### 2.1. Add measurable targets for:
   
@@ -22,24 +22,24 @@
 - [x] **AB-loop stability**: specify tolerance (e.g., ≤ 20 ms deviation at loop boundary, no audio artifacts).  
 - [x] **Bookmark accuracy**: bookmarks must resolve to within ±50 ms of the intended position.  
 
-## 3. {NOT DONE} Security and Privacy
+## 3. Security and Privacy
 
 ### 3.1. Define explicit **file storage policy**:
 
   **REQUIRED:** This section must explicitly document the application's file storage policy, including: 
 
-  - [ ] Clarify whether files remain strictly local or are synchronized/backed up to iCloud.  
-  - [ ] State if local storage uses encryption (at rest / in transit).   
-  - Storage location (local sandbox only, e.g., `/Documents/Recordings/…`).  
-  - Whether files are synchronized or backed up to iCloud (be explicit if not).  
-  - Encryption-at-rest and in-transit status for all stored data (audio files, metadata, etc.).  
-  - Reference and align with non-functional requirements (see section 8) and security/privacy statements elsewhere in the PRD.  
-  - Any exceptions or roadmap notes regarding remote/cloud storage.
+  - [x] Clarify whether files remain strictly local or are synchronized/backed up to iCloud.  
+  - [x] State if local storage uses encryption (at rest / in transit).   
+  - [x] Storage location (local sandbox only, e.g., `/Documents/Recordings/…`).  
+  - [x] Whether files are synchronized or backed up to iCloud (be explicit if not).  
+  - [x] Encryption-at-rest and in-transit status for all stored data (audio files, metadata, etc.).  
+  - [x] Reference and align with non-functional requirements (see section 8) and security/privacy statements elsewhere in the PRD.  
+  - [x] Any exceptions or roadmap notes regarding remote/cloud storage.
 
 ### 3.2. Specify the **file deletion model**:  
 
-  - [ ] Permanent deletion (irreversible) vs. “soft delete” (move to in-app trash with recovery option). 
-  - [ ] Define retention period if trash model is chosen.  
+  - [x] Permanent deletion (irreversible) vs. “soft delete” (move to in-app trash with recovery option). 
+  - [x] Define retention period if trash model is chosen.  
 
 ## 4. {NOT DONE} Integrations
 
