@@ -2,54 +2,15 @@
 
 This document separates the product requirements and design specification for the Dictaphone app into two complementary parts: "Backend Modules" responsible for core audio, file, and logic layers, and "Frontend UI" focused on views, controls, and user interaction layers. This clear division supports modular development, maintainability, and testability.
 
----
-
 ## Part 1: Backend Modules
 
-The backend consists of foundational components that handle audio processing, file management, user data, and business logic. These modules are platform and UI agnostic and expose interfaces or protocols for integration with the frontend UI.
+See detailed backend module specifications:
 
-### 1. RecorderModule
-
-- Manages audio recording lifecycle with state management (`inited`, `prepared`, `recording`, `paused`, `stopped`).
-- Controls `AVAudioSession` for recording, input source selection, and permission handling.
-- Uses `AVAudioRecorder` for capturing audio with configurable settings.
-- Supports pause and resume without corrupting files.
-- Provides metering data (RMS and peak levels) for UI visualization.
-- Handles recording metadata, active file management, and error states.
-- Designed for extensibility to support new devices and formats.
-
-### 2. PlayerModule
-
-- Implements audio playback using `AVAudioPlayer` for basic playback features.
-- Manages playback state machine (`stopped`, `playing`, `paused`, `error`).
-- Controls audio session settings to support smooth playback.
-- Provides hooks for playback progress, seeking, and volume adjustments.
-- Integrates with bookmarks and looping features.
-- Handles errors gracefully informing the UI layer.
-
-### 3. FileManagerModule
-
-- Centralizes file system operations in the app’s sandboxed directory.
-- Handles creation, deletion, renaming, copying, and querying metadata of audio files.
-- Extracts detailed audio attributes using AVAsset.
-- Provides APIs to list recordings and associated metadata.
-- Manages atomic file operations ensuring data integrity during concurrent access.
-- Lays groundwork for import/export and metadata synchronization features.
-
-### 4. BookmarksModule (Planned)
-
-- Supports timestamped bookmarks with annotation.
-- Persists bookmark data within recording metadata files.
-- Enables bookmark export and sharing.
-
-### 5. WaveformModule (Planned)
-
-- Provides live waveform data rendering with real-time audio sampling.
-- Performs offline waveform data generation and caching for efficient UI display.
-- Supports waveform customization and high-performance rendering.
-- Handles errors and recovers from cache corruption.
-
----
+- [[03_Modules/03_01_RecorderModule.md]]
+- [[03_Modules/03_02_PlayerModule.md]]
+- [[03_Modules/03_03_FileManagerModule.md]]
+- [[03_Modules/03_04_BookmarksModule.md]]
+- [[03_Modules/03_05_WaveformModule.md]]
 
 ## Part 2: Frontend UI
 
@@ -90,7 +51,7 @@ The frontend UI layer provides interactive views, controls, and user experience 
 
 - Backend modules expose clean Swift protocols encapsulating core functionality.
 - Frontend UI imports these protocols and injects concrete backend instances via environment or dependency injection.
-- Communication is primarily unidirectional: 
+- Communication is primarily unidirectional:
   - UI sends user requests to backend APIs.
   - Backend publishes state updates or sends delegate callback events.
 - Modular separation allows backend unit tests and frontend UI tests in isolation.
