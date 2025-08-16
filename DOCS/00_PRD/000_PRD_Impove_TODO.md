@@ -2,13 +2,16 @@
 
 ## 1. {NOT DONE} Balance the level of detail across sections
 
-- [ ] **UI/UX**: Expand specifications with concrete details.  
-  - [ ] Define expected animations (e.g., waveform updates, button state transitions, lock/unlock overlay).  
-  - [ ] Enumerate UI states for all interactive elements (REC → PAUSE → RESUME → STOP, A/B loop states, lock/unlock).  
-  - [ ] Document adherence to a design system (color palette, typography, spacing rules, iconography guidelines).  
-- [ ] **Test Plan**: Strengthen by explicitly defining expected results for each scenario.  
-  - [ ] Add negative test cases (e.g., attempting playback on corrupted file, deleting while recording, insufficient storage).  
-  - [ ] Specify pass/fail criteria for UI flows (e.g., “After pressing REC, the timer must start within 200ms”).  
+## 1.1. {DONE} **UI/UX**: Expand specifications with concrete details. 
+ 
+- [x] Define expected animations (e.g., waveform updates, button state transitions, lock/unlock overlay).  
+- [x] Enumerate UI states for all interactive elements (REC → PAUSE → RESUME → STOP, A/B loop states, lock/unlock).  
+- [x] Document adherence to a design system (color palette, typography, spacing rules, iconography guidelines).  
+
+## 1.2. **Test Plan**: Strengthen by explicitly defining expected results for each scenario.  
+
+- [ ] Add negative test cases (e.g., attempting playback on corrupted file, deleting while recording, insufficient storage).  
+- [ ] Specify pass/fail criteria for UI flows (e.g., “After pressing REC, the timer must start within 200ms”).  
 
 ## 2. {NOT DONE} Extend Non-Functional Requirements (NFR)
 
