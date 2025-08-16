@@ -90,6 +90,7 @@
 		743162532E50977E004877EC /* 02_Architecture */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 02_Architecture; sourceTree = "<group>"; };
 		743162592E50977E004877EC /* 03_Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 03_Modules; sourceTree = "<group>"; };
 		746CFDB82E509F99004FE5BA /* 06_UI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 06_UI; sourceTree = "<group>"; };
+		74E1FF012E50A09600A205DD /* 12_Test_Plan */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 12_Test_Plan; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +115,10 @@
 		7415D2382E508810009250A9 /* 00_PRD */ = {
 			isa = PBXGroup;
 			children = (
+				743162532E50977E004877EC /* 02_Architecture */,
+				743162592E50977E004877EC /* 03_Modules */,
 				746CFDB82E509F99004FE5BA /* 06_UI */,
+				74E1FF012E50A09600A205DD /* 12_Test_Plan */,
 				7431625A2E509D06004877EC /* 000_PRD_Impove_TODO.md */,
 				7415D2262E508810009250A9 /* 00_PRD_Table_of_Contents.md */,
 				7415D2272E508810009250A9 /* 01_Area_Goal_Success_Criteria.md */,
@@ -134,8 +138,6 @@
 				7415D2352E508810009250A9 /* 15_Release_Plan.md */,
 				7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */,
 				7415D2372E508810009250A9 /* 17_Open_Questions.md */,
-				743162532E50977E004877EC /* 02_Architecture */,
-				743162592E50977E004877EC /* 03_Modules */,
 			);
 			path = 00_PRD;
 			sourceTree = "<group>";
