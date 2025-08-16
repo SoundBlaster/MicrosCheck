@@ -24,10 +24,17 @@
 
 ## 3. {NOT DONE} Security and Privacy
 
-### 3.1. Define explicit **file storage policy**:  
+### 3.1. Define explicit **file storage policy**:
+
+  **REQUIRED:** This section must explicitly document the application's file storage policy, including: 
 
   - [ ] Clarify whether files remain strictly local or are synchronized/backed up to iCloud.  
-  - [ ] State if local storage uses encryption (at rest / in transit).  
+  - [ ] State if local storage uses encryption (at rest / in transit).   
+  - Storage location (local sandbox only, e.g., `/Documents/Recordings/…`).  
+  - Whether files are synchronized or backed up to iCloud (be explicit if not).  
+  - Encryption-at-rest and in-transit status for all stored data (audio files, metadata, etc.).  
+  - Reference and align with non-functional requirements (see section 8) and security/privacy statements elsewhere in the PRD.  
+  - Any exceptions or roadmap notes regarding remote/cloud storage.
 
 ### 3.2. Specify the **file deletion model**:  
 
