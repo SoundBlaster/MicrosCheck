@@ -1,0 +1,23 @@
+## 3) Модули и ответственности
+
+- **RecorderModule**
+  - Состояния: `idle → recording → paused → stopping → saving → idle`
+  - Источник: встроенный микрофон/гарнитура (переключение), конфиг: sampleRate, битрейт, моно/стерео.
+  - Метры: RMS/Peak на канал (интерфейс для UI).
+  - Метаданные текущей записи (имя файла, размер, формат, теги).
+- **PlayerModule**
+  - Транспорт: `stopped | playing | paused | seeking`
+  - Перемотки: тап ±10с; удержание — повторные шаги каждые 200мс + «со звуком».
+  - DPC: `AVAudioUnitTimePitch` (`rate` 0.5–2.0, `pitch` ±1200 cents).
+  - Громкость: мастер (0–200%) и L/R (‑60…+12 dB) через `AVAudioMixerNode` и panner/mix.
+  - A‑B loop: установка A, затем B; цикл; сброс.
+  - UI Lock: оверлей‑замок, снятие удержанием 2с.
+- **FileManagerModule**
+  - Каталог `Recordings/`. Операции: list/attrs/copy/delete/space.
+  - Метаданные: `*.json` рядом с файлом: lastPosition, bookmarks[], tags, userNotes, audioInfo.
+  - Извлечение аудио‑атрибутов через `AVAsset`.
+- **Bookmarks (T‑MARK)**
+  - Быстрая метка текущего времени; имя/комментарий (модалка по «Option»).
+- **Waveform**
+  - Live: выборка RMS буферов → отрисовка в Canvas/Metal.
+  - Offline: генерация превью для файла (кеш в `.wave` JSON/бин).
