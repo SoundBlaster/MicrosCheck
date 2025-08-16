@@ -1,6 +1,6 @@
 # Implementation Plan: iOS Application "Dictaphone" with SwiftUI
 
-> SPECIAL DESIGN IS TAKEN INTO ACCOUNT according to the sent screenshot. Target platform: iOS 16+. Language: Swift 5.10+, UI: SwiftUI, audio: AVFoundation (AVAudioSession/Engine), publication in App Store.
+> SPECIAL DESIGN IS TAKEN INTO ACCOUNT according to the sent screenshot. Target platform: iOS 18+. Language: Swift 5.10+, UI: SwiftUI, audio: AVFoundation (AVAudioSession/Engine), publication in App Store.
 
 # PRD — Table of Contents (auto)
 
