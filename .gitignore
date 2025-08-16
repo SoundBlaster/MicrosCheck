@@ -1,0 +1,66 @@
+# Xcode
+build/
+DerivedData/
+
+# User data
+*.xcuserdatad
+*.xcuserdata
+*.xcscmblueprint
+*.xccheckout
+*.xcuserstate
+
+# SwiftPM
+.swiftpm/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode automatically generated files
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Xcode Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# IDE workspace
+xcshareddata/
+
+# IDE temporary
+.idea/
+*.swp
+
+# Results
+*.xcresult
+
+# Archive
+*.xcarchive
+
+# Others
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+
+# Obsidian
+.obsidian
