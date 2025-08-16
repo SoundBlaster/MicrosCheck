@@ -59,6 +59,11 @@
 		7415D2352E508810009250A9 /* 15_Release_Plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 15_Release_Plan.md; sourceTree = "<group>"; };
 		7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 16_Examples_of_Implementations.md; sourceTree = "<group>"; };
 		7415D2372E508810009250A9 /* 17_Open_Questions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 17_Open_Questions.md; sourceTree = "<group>"; };
+		74D947FB2E5094E000D5618D /* 03_1_RecorderModule.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_1_RecorderModule.md; sourceTree = "<group>"; };
+		74D947FC2E5094E300D5618D /* 03_2_PlayerModule.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_2_PlayerModule.md; sourceTree = "<group>"; };
+		74D947FD2E5094E700D5618D /* 03_3_FileManagerModule.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_3_FileManagerModule.md; sourceTree = "<group>"; };
+		74D947FE2E5094EA00D5618D /* 03_4_Bookmarks.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_4_Bookmarks.md; sourceTree = "<group>"; };
+		74D947FF2E5094EE00D5618D /* 03_5_Waveform.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_5_Waveform.md; sourceTree = "<group>"; };
 		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -125,6 +130,11 @@
 				7415D2352E508810009250A9 /* 15_Release_Plan.md */,
 				7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */,
 				7415D2372E508810009250A9 /* 17_Open_Questions.md */,
+				74D947FB2E5094E000D5618D /* 03_1_RecorderModule.md */,
+				74D947FC2E5094E300D5618D /* 03_2_PlayerModule.md */,
+				74D947FD2E5094E700D5618D /* 03_3_FileManagerModule.md */,
+				74D947FE2E5094EA00D5618D /* 03_4_Bookmarks.md */,
+				74D947FF2E5094EE00D5618D /* 03_5_Waveform.md */,
 			);
 			path = 00_PRD;
 			sourceTree = "<group>";
