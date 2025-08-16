@@ -1,6 +1,6 @@
-## 14) Расширения (после 1.0)
+# 14. Extensions (after 1.0)
 
-- **Экспорт в MP3:** через LAME/FFmpeg‑kit (правовые аспекты LGPL), как отдельный «Share/Export» шаг.
-- iCloud Drive/Files.app интеграция (UIDocumentPicker).
-- Remote controls / виджет / Shortcuts.
-- Нормализация/компрессор/эквалайзер плеера.
+- **Export to MP3:** via LAME/FFmpeg-kit (legal aspects of LGPL), as a separate "Share/Export" step.
+- iCloud Drive/Files.app integration (UIDocumentPicker).
+- Remote controls / widget / Shortcuts.
+- Player normalization/compressor/equalizer.

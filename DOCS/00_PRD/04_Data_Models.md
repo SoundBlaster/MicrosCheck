@@ -1,11 +1,11 @@
-## 4) Модели данных (Codable)
+# 4. Codable Data Models
 
 ```swift
 enum AudioFormat: String, Codable { case aac /*default*/, pcm, alac /*…*/ }
 
 struct RecordingSettings: Codable {
     var sampleRate: Double // 44100 | 48000
-    var bitrateKbps: Int   // 128..320 (для AAC)
+    var bitrateKbps: Int   // 128..320 (for AAC)
     var channels: Int      // 1|2
     var format: AudioFormat
 }
@@ -50,3 +50,4 @@ struct PlaybackState: Codable {
     var aPoint: TimeInterval?
     var bPoint: TimeInterval?
 }
+```

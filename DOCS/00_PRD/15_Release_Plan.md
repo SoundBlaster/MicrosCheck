@@ -1,7 +1,7 @@
-## 15) План релиза (оценка)
+# 15. Release Plan (estimate)
 
-- **Спринт 1 (1.5–2 недели):** R1–R4, FM1–FM2, UI1 (основной экран без DPC/A‑B), базовый плеер P1–P3.
-- **Спринт 2 (1.5 недели):** P4–P7, UI2, BM1, ST1, SEC1.
-- **Спринт 3 (1 неделя):** UI3, FM3–FM4, QA1–QA2, полировка, App Store чек‑лист.
+- **Sprint 1 (1.5–2 weeks):** R1–R4, FM1–FM2, UI1 (main screen without DPC/A‑B), basic player P1–P3.
+- **Sprint 2 (1.5 weeks):** P4–P7, UI2, BM1, ST1, SEC1.
+- **Sprint 3 (1 week):** UI3, FM3–FM4, QA1–QA2, polishing, App Store checklist.
 
-Итого: ~4–5 недель на 1.0 командой из 1 iOS‑разработчика.
+Total: ~4–5 weeks for 1.0 by a team of 1 iOS developer.

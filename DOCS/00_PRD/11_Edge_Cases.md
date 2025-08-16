@@ -1,7 +1,7 @@
-## 11) Краевые случаи и отказы
+# 11. Edge Cases and Failures
 
-- Нет свободного места → мягкая остановка записи, предупреждение, автосейв частичным файлом.
-- Потеря маршрута входа (выдернули гарнитуру) → авто‑переключение на встроенный микрофон с уведомлением.
-- Прерывание аудиосессии → пауза записи/воспроизведения, корректное возобновление.
-- Повреждённые файлы/метаданные → карантин в `Recordings/_Corrupted/` и восстановление из бэкап‑мета.
-- Нулевой сигнал (тишина) → опциональный авто‑пауза (позже).
+- No free space → soft stop of recording, warning, auto-save partial file.
+- Loss of input route (headset unplugged) → auto-switch to built-in microphone with notification.
+- Audio session interruption → pause recording/playback, correct resumption.
+- Corrupted files/metadata → quarantine in `Recordings/_Corrupted/` and restore from backup meta.
+- Zero signal (silence) → optional auto-pause (later).

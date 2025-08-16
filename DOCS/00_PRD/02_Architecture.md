@@ -1,19 +1,22 @@
-## 2) Архитектура (высокий уровень)
+# 2. Architecture (High Level)
 
-**Слои:**
-- **UI (SwiftUI)** — экраны и контролы, строго по макету.
-- **ViewModels (ObservableObject)** — состояние, маршрутизация событий, дебаунс/таймеры.
-- **AudioCore** — единый движок на `AVAudioEngine`:
+## Layers
+
+- **UI (SwiftUI)** — screens and controls, strictly following the design.
+- **ViewModels (ObservableObject)** — state, event routing, debounce/timers.
+- **AudioCore** — unified engine on `AVAudioEngine`:
   - **RecordPipeline:** input → format → file writer → metering tap.
-  - **PlayPipeline:** file → playerNode → timePitch → stereo mixer → output; метры post‑mix.
-- **Persistence** — `FileManager` + сопутствующие JSON‑метаданные (`Codable`) + `UserDefaults` для настроек.
+  - **PlayPipeline:** file → playerNode → timePitch → stereo mixer → output; post-mix meters.
+- **Persistence** — `FileManager` + associated JSON metadata (`Codable`) + `UserDefaults` for settings.
 - **Services** — Permissions, Background, Haptics, AppStateLock, WaveformCache.
-- **Routing** — простой enum‑роутер/Sheet (в рамках одного экрана Record/Play + модалки).
+- **Routing** — simple enum-router/Sheet (within a single Record/Play screen + modals).
   
-**Потоки и realtime:**
-- Обработка аудио на аудиопотоке; UI обновления меток — через `DispatchSourceTimer`/`CADisplayLink` (≤50 Гц).
-- Все файло‑операции — на фоновой очереди, с прогрессом.
+## Threads and realtime
 
-**Audio Session:**
-- `AVAudioSessionCategoryPlayAndRecord`, mode `.spokenAudio`/`.default`, опции: `.allowBluetooth`, `.defaultToSpeaker`, `.mixWithOthers` (по настройке).
-- Обработка прерываний (входящий звонок), смен источника/маршрута, Remote Control (доп. этап).
+- Audio processing on the audio thread; UI label updates — via `DispatchSourceTimer`/`CADisplayLink` (≤50 Hz).
+- All file operations — on a background queue, with progress tracking.
+
+## Audio Session
+
+- `AVAudioSessionCategoryPlayAndRecord`, mode `.spokenAudio`/`.default`, options: `.allowBluetooth`, `.defaultToSpeaker`, `.mixWithOthers` (configurable).
+- Handles interruptions (incoming call), source/route changes, Remote Control (additional stage).

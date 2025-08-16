@@ -1,7 +1,13 @@
-## 17) Открытые вопросы (на утверждение)
+# 17. Open Questions for approval
 
-1. Диапазоны по умолчанию для DPC (Rate 0.75–1.5? Pitch ±600c или ±1200c?).
-2. Стандартные пресеты качества записи (Low/Medium/High) и их точные параметры.
-3. Нужен ли MPRemoteCommandCenter (управление с гарнитуры) в 1.0?
-4. Механика «Option»: какие пункты точно в 1.0 (источник, формат, переименование, экспорт)?
-5. Схема отображения волны при записи: непрерывная лента или фиксированный буфер последней минуты?
+1. Default ranges for DPC?
+    - Rate 0.75–1.5
+    - Pitch ±600c or ±1200c?
+2. Standard recording quality presets: Low/Medium/High - and their exact parameters.
+3. Is MPRemoteCommandCenter (headset control) needed in version 1.0?
+4. "Option" mechanics, which items are definitely in 1.0:
+    - source
+    - format
+    - renaming
+    - export
+5. Waveform display scheme during recording: continuous tape or fixed buffer of the last minute?

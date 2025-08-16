@@ -1,6 +1,6 @@
-## 12) Тест‑план (свернутый)
+# 12. Test Plan (condensed)
 
-- **Юнит‑тесты:** метры (RMS/Peak), точность записи (длина), DPC без щелчков, A‑B границы.
-- **Инструментальные:** измерение CPU/энергии, фоновая запись 60 мин.
-- **UI‑тесты:** сценарии REC→PAUSE→RESUME→STOP; перемотки; закладки; удаление файла.
-- **Регрессия:** 20 скриптов на основные фичи, smoke на запуск.
+- **Unit tests:** meters (RMS/Peak), recording accuracy (length), DPC without clicks, A-B boundaries.
+- **Instrumental:** measurement of CPU/energy, background recording for 60 minutes.
+- **UI tests:** REC→PAUSE→RESUME→STOP scenarios; rewinds; bookmarks; file deletion.
+- **Regression:** 20 scripts for core features, smoke for launch.

@@ -1,10 +1,10 @@
-## 8) НФТ - Нефункциональные требования
+# 8. NFT - Nonfunctional Requirements
 
-- **Производительность:** CPU ≤ 25% в записи/воспроизведении на средних девайсах; аллокации в realtime‑пути исключить.
-- **Память:** ≤ 150 МБ при часовой записи (без учёта файла).
-- **Энергия:** фоновая запись ≤5%/час.
-- **Надёжность:** устойчивость к прерываниям и смене маршрута.
-- **Безопасность/конфиденциальность:** только локальные файлы; `NSMicrophoneUsageDescription`.
-- **Доступность:** VoiceOver для основных контролов; контраст ≥ 4.5:1.
-- **Логи/диагностика:** os_log с приватностью, флаги debug.
-- **Скалируемость:** список файлов до 5k без тормозов (lazy loading, кеш метаданных).
+- **Performance:** CPU ≤ 25% during recording/playback on mid-range devices; avoid allocations in the realtime path.
+- **Memory:** ≤ 150 MB for one hour of recording (excluding the file itself).
+- **Energy:** background recording ≤5%/hour.
+- **Reliability:** resilience to interruptions and route changes.
+- **Security/Privacy:** only local files; `NSMicrophoneUsageDescription`.
+- **Accessibility:** VoiceOver support for main controls; contrast ≥ 4.5:1.
+- **Logging/Diagnostics:** os_log with privacy, debug flags.
+- **Scalability:** file list up to 5k items without lags (lazy loading, metadata cache).

@@ -1,19 +1,19 @@
-## 6) Карта UI по скриншоту и идентификаторы
+# 6. UI Map by Screenshot and Identifiers
 
 - **Top Waveform Timeline** (`WaveformTimelineView`)
-  - Маркировка времени (00:45, 01:00, …), красный пин‑плейхед.
-- **Info Card (в записи)** (`RecordingInfoCard`)
-  - Синий бейдж REC + таймер `elapsed`.
-  - Имя файла, размер, формат, L/R метры, текущие пиковые значения.
+  - Time markings (00:45, 01:00, …), red pin playhead.
+- **Info Card (in recording)** (`RecordingInfoCard`)
+  - Blue REC badge + `elapsed` timer.
+  - File name, size, format, L/R meters, current peak values.
 - **Toolbar Row**: `< Back | Home | T‑MARK | Option >`
-  - `T‑MARK` — быстрая закладка текущего t.
-  - `Option` — лист опций (выбор источника, формат/битрейт, экспорт, rename, удалить).
-- **Search Field** — поиск по файлам/меткам.
-- **Transport Row**: `STOP` (левый крупный), `REC/PAUSE` (правый).
+  - `T‑MARK` — quick bookmark of current t.
+  - `Option` — options sheet (source selection, format/bitrate, export, rename, delete).
+- **Search Field** — search by files/tags.
+- **Transport Row**: `STOP` (large left), `REC/PAUSE` (right).
 - **D‑Pad** (`TransportPad`)
-  - Вверх — DPC (панель с Rate/Pitch).
-  - Центр — Play/Pause.
-  - Влево/Вправо — шаг ±10с (tap) / удержание — повторные шаги.
-  - Низ — A‑B (установить/сброс).
-- **Lock Button** (левый нижний) — включает оверлей‑блокировку.
-- **Info Button** (правый нижний) — тех. сведения/справка.
+  - Up — DPC (panel with Rate/Pitch).
+  - Center — Play/Pause.
+  - Left/Right — step ±10s (tap) / hold — repeated steps.
+  - Bottom — A‑B (set/reset).
+- **Lock Button** (bottom left) — enables overlay lock.
+- **Info Button** (bottom right) — tech info/help.

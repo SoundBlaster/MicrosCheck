@@ -1,19 +1,22 @@
-## 9) Потоки пользовательских действий (основные)
+# 9. Common User Action Streams (Core)
 
-1) **Запись:**
-   - Tap `REC` → старт пайплайна → бейдж «REC», таймер бежит, метры активны.
-   - Tap `PAUSE` → состояние `paused`, таймер останавливается; повторный тап — `resume`.
-   - Tap `STOP` → закрытие файла, сохранение меты → переход к режиму плеера для этого файла.
+## 1. Recording
 
-2) **Воспроизведение:**
-   - Tap `Play` → прогресс идёт, активны кнопки перемотки.
-   - Тап `<<` или `>>` → ±10с.
-   - Удержание `<<`/`>>` → шаг каждые 200мс, с аудио превью.
-   - Вверх `DPC` → панель: Rate/Pitch слайдеры.
-   - Низ `A‑B` → A, затем B, затем «сброс».
-   - Громкость: мастер‑слайдер и L/R (из «Option»).
-   - `T‑MARK` → закладка в текущей позиции.
+- Tap `REC` → pipeline starts → "REC" badge, timer runs, meters active.
+- Tap `PAUSE` → state changes to `paused`, timer stops; tap again — `resume`.
+- Tap `STOP` → file closes, metadata saved → switch to player mode for this file.
 
-3) **Файлы:**
-   - Поиск → фильтрация по имени/меткам.
-   - Свайп или меню «Option»: копия, переименование, удалить, детали.
+## 2. Playback
+
+- Tap `Play` → progress moves, rewind buttons active.
+- Tap `<<` or `>>` → ±10s.
+- Hold `<<`/`>>` → step every 200ms with audio preview.
+- Up on `DPC` → panel: Rate/Pitch sliders.
+- Down on `A‑B` → A, then B, then "reset".
+- Volume: master slider and L/R (from "Option").
+- `T‑MARK` → bookmark at current position.
+
+## 3. Files
+
+- Search → filter by name/tags.
+- Swipe or "Option" menu: copy, rename, delete, details.

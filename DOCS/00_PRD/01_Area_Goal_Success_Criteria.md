@@ -1,28 +1,27 @@
-# План реализации: iOS приложение «Диктофон» (SwiftUI)
+# 1. Scope, Goal, Success Criteria
 
-> УЧТЁН ОСОБЫЙ ДИЗАЙН по присланному скриншоту. Целевая платформа: iOS 16+. Язык: Swift 5.10+, UI: SwiftUI, аудио: AVFoundation (AVAudioSession/Engine), публикация в App Store.
+## Goal
 
----
+Implement an offline dictaphone with professional recording/playback features, a file manager, and support for bookmarks/metadata, matching the provided design.
 
-## 1) Область, цель, критерии успеха
+## Core scenarios
 
-**Цель:** реализовать офлайн‑диктофон с профессиональными функциями записи/воспроизведения, файловым менеджером и поддержкой закладок/метаданных, соответствующий предоставленному дизайну.
+- [ ] Audio recording with L/R level indication, pause, resume, stop, save with metadata.
+- [ ] Playback with progress bar, quick rewinds (tap ±10s and hold with scrubbing), A-B loop, DPC (pitch and speed adjustment), overall and channel-wise L/R volume control, UI lock.
+- [ ] File management: list, attributes, bookmarks (T-MARK), last position, copy/delete, available space.
 
-**Основные сценарии:**
-- Запись аудио с индикацией уровня L/R, пауза, возобновление, стоп, сохранение с метаданными.
-- Воспроизведение с прогресс‑баром, быстрыми перемотками (тап ±10с и удержание со скраббингом), петлёй A‑B, DPC (изменение питча и скорости), громкость общей и поканальной L/R, блокировкой UI.
-- Управление файлами: список, атрибуты, закладки (T‑MARK), последняя позиция, копирование/удаление, свободное место.
+## Success criteria (release 1.0 acceptance)
 
-**Критерии успеха (приёмка релиза 1.0):**
-- Запись/пауза/стоп стабильны ≥60 мин без утечек, приложение остаётся в фоне (Background Audio).
-- Метры L/R отображают среднюю и пиковую мощность с частотой обновления ≥20 Гц и погрешностью ≤1 дБ.
-- Воспроизведение корректно: перемотки, удержание, A‑B луп, регулировки DPC и громкости без артефактов.
-- Список файлов отображает требуемые атрибуты и операции (копия, удаление) без блокировки UI.
-- Дизайн соответствует макету (цвета, типографика, иконография, расположение).
-- 0 крашей в стаб‑тесте (30 мин микс сценариев), энергопотребление в фоне ≤5%/час на iPhone 13.
+- [ ] Record/pause/stop is stable for ≥60 min without leaks, app remains in the background (Background Audio).
+- [ ] L/R meters display average and peak power with update frequency ≥20 Hz and error ≤1 dB.
+- [ ] Playback works correctly: rewinds, hold, A-B loop, DPC and volume adjustments without artifacts.
+- [ ] File list displays required attributes and operations (copy, delete) without UI blocking.
+- [ ] Design matches the mockup (colors, typography, iconography, layout).
+- [ ] 0 crashes in stability test (30 min mix of scenarios), background power consumption ≤5%/hour on iPhone 13.
 
-**Ограничения и допущения:**
-- **Формат записи по умолчанию:** AAC (m4a), 44.1 kHz, 128–256–320 kbps (настраивается). *(Запись MP3 системно не поддерживается; экспорт в MP3 возможен отдельным этапом через внешнюю либу — см. «Расширения».)*
-- Хранение файлов в sandbox: `/Documents/Recordings/…`
-- Минимум iOS 16 для стабильной работы SwiftUI и AudioEngine.
-- Локализации: RU (v1.0), EN (после).
+## Limitations and assumptions
+
+- [ ] **Minimum iOS 18** for reliable SwiftUI and AudioEngine operation.
+- [ ] **Default recording format:** AAC (m4a), 44.1 kHz, 128–256–320 kbps (configurable). (MP3 recording is not supported system-wide; export to MP3 is possible as a separate stage via an external library—see "Extensions".)
+- [ ] File storage in sandbox: `/Documents/Recordings/…`
+- [ ] Localizations: EN (v1.0), RU and other popular (later).

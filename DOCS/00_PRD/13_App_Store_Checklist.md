@@ -1,6 +1,6 @@
-## 13) Чек‑лист App Store
+# 13. App Store Checklist
 
 - `NSMicrophoneUsageDescription`, `UIBackgroundModes = audio`.
-- Иконки/снимки экрана, Политика конфиденциальности (офлайн).
-- Обработка удалённых крашей (если подключится, например, Firebase Crashlytics — опционально).
-- Тест на старшем/младшем девайсе, VoiceOver, динамический шрифт.
+- Icons/screenshots, Privacy Policy (offline).
+- Handling remote crashes (if connected, for example, Firebase Crashlytics — optional).
+- Testing on older/newer devices, VoiceOver, dynamic type.

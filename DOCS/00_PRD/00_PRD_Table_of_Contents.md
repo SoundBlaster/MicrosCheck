@@ -1,4 +1,8 @@
-# PRD — Table of Contents
+# Implementation Plan: iOS Application "Dictaphone" with SwiftUI
+
+> SPECIAL DESIGN IS TAKEN INTO ACCOUNT according to the sent screenshot. Target platform: iOS 16+. Language: Swift 5.10+, UI: SwiftUI, audio: AVFoundation (AVAudioSession/Engine), publication in App Store.
+
+## PRD — Table of Contents
 
 1. [Area, Goal, Success Criteria](01_Area_Goal_Success_Criteria.md)
 2. [Architecture](02_Architecture.md)

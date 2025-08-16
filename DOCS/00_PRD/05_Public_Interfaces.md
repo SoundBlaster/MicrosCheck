@@ -1,10 +1,9 @@
-```markdown
-## 5) Публичные интерфейсы (для разделения ответственности)
+# 5. Public Interfaces for separation of responsibility
 
 ```swift
 protocol RecorderService {
     var isRecording: Bool { get }
-    var elapsed: TimeInterval { get } // общее время записи (с учётом пауз)
+    var elapsed: TimeInterval { get } // total recording time (including pauses)
     var meters: (lAvg: Float, lPeak: Float, rAvg: Float, rPeak: Float) { get }
     var currentMeta: FileMeta? { get }
 
@@ -27,11 +26,11 @@ protocol PlayerService {
     func pause() throws
     func stop() throws
     func seek(to: TimeInterval, smooth: Bool)
-    func nudge(by seconds: TimeInterval) // ±10с
-    func holdSeek(start direction: SeekDirection) // повторные шаги с интервалом
+    func nudge(by seconds: TimeInterval) // ±10s
+    func holdSeek(start direction: SeekDirection) // repeated steps with interval
     func holdSeekStop()
 
-    // DPC & громкость
+    // DPC & volume
     func setRate(_ v: Float)
     func setPitchCents(_ v: Float)
     func setMasterVolume(_ v: Float)
@@ -52,3 +51,4 @@ protocol FilesService {
     func rename(_ id: AudioFileID, to newName: String) async throws -> AudioFileID
     func updateMeta(_ meta: FileMeta) async throws
 }
+```
