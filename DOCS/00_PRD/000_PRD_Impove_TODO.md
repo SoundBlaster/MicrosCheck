@@ -41,13 +41,13 @@
   - [x] Permanent deletion (irreversible) vs. “soft delete” (move to in-app trash with recovery option). 
   - [x] Define retention period if trash model is chosen.  
 
-## 4. {NOT DONE} Integrations
+## 4. Integrations
 
 ### 4.1. Include at least a **baseline file export scenario**:
   
-- [ ] Support iOS Share Sheet for exporting audio files to other apps (Mail, Messages, Drive, etc.).  
-- [ ] Define supported export formats (e.g., AAC by default; MP3 optional in roadmap).  
-- [ ] Specify metadata inclusion (filename, duration, creation date) in exported payload.  
+- [x] Support iOS Share Sheet for exporting audio files to other apps (Mail, Messages, Drive, etc.).  
+- [x] Define supported export formats (e.g., AAC by default; MP3 optional in roadmap).  
+- [x] Specify metadata inclusion (filename, duration, creation date) in exported payload.  
 
 ## 5. {NOT DONE} QA and Stress Testing
 

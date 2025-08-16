@@ -27,9 +27,11 @@ ID: {#info-card}
 ID: {#toolbar-row}
 > Provides core navigation and quick access actions for file management and options.
 
-- `< Back | Home | T‑MARK | Option >` buttons
-  - `T‑MARK`: Quick bookmark of current time
-  - `Option`: Opens options sheet (source selection, format/bitrate, export, rename, delete)
+- Option: Opens options sheet (source selection, format/bitrate, export, rename, delete)
+- Export is performed via the standard iOS Share Sheet.
+- Default export format is AAC (.m4a).
+- MP3 export is not available in version 1.0 (planned as roadmap feature).
+- Exported payload includes filename, duration, and creation date as metadata (where supported by destination apps).
 
 ## Quick Action Buttons
 
