@@ -17,10 +17,10 @@
 
 ### 2.1. Add measurable targets for:
   
-- [ ] **Latency**: end-to-end delay between microphone input and visual meter update / playback feedback.  
-- [ ] **Maximum recording length**: define supported continuous recording duration (e.g., ≥ 24h without crash).  
-- [ ] **AB-loop stability**: specify tolerance (e.g., ≤ 20 ms deviation at loop boundary, no audio artifacts).  
-- [ ] **Bookmark accuracy**: bookmarks must resolve to within ±50 ms of the intended position.  
+- [x] **Latency**: end-to-end delay between microphone input and visual meter update / playback feedback.  
+- [x] **Maximum recording length**: define supported continuous recording duration (e.g., ≥ 24h without crash).  
+- [x] **AB-loop stability**: specify tolerance (e.g., ≤ 20 ms deviation at loop boundary, no audio artifacts).  
+- [x] **Bookmark accuracy**: bookmarks must resolve to within ±50 ms of the intended position.  
 
 ## 3. {NOT DONE} Security and Privacy
 
