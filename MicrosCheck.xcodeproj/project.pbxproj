@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,21 +59,6 @@
 		7415D2352E508810009250A9 /* 15_Release_Plan.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 15_Release_Plan.md; sourceTree = "<group>"; };
 		7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 16_Examples_of_Implementations.md; sourceTree = "<group>"; };
 		7415D2372E508810009250A9 /* 17_Open_Questions.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 17_Open_Questions.md; sourceTree = "<group>"; };
-		7431622E2E5095D3004877EC /* 02_01_Architecture.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_Architecture.md; sourceTree = "<group>"; };
-		7431622F2E50964B004877EC /* 02_01_1_UI.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_1_UI.md; sourceTree = "<group>"; };
-		743162302E50964E004877EC /* 02_01_2_ViewModels.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_2_ViewModels.md; sourceTree = "<group>"; };
-		743162312E509651004877EC /* 02_01_3_AudioCore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_3_AudioCore.md; sourceTree = "<group>"; };
-		743162322E509654004877EC /* 02_01_4_Persistence.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_4_Persistence.md; sourceTree = "<group>"; };
-		743162332E509655004877EC /* 02_01_5_Services.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_5_Services.md; sourceTree = "<group>"; };
-		743162342E509658004877EC /* 02_01_6_Routing.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_6_Routing.md; sourceTree = "<group>"; };
-		743162352E50965A004877EC /* 02_01_7_ThreadsAndRealtime.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_7_ThreadsAndRealtime.md; sourceTree = "<group>"; };
-		743162362E50965D004877EC /* 02_01_8_AudioSession.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_8_AudioSession.md; sourceTree = "<group>"; };
-		743162372E509660004877EC /* 02_01_9_ArchitectureSummary.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 02_01_9_ArchitectureSummary.md; sourceTree = "<group>"; };
-		74D947FB2E5094E000D5618D /* 03_1_RecorderModule.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_1_RecorderModule.md; sourceTree = "<group>"; };
-		74D947FC2E5094E300D5618D /* 03_2_PlayerModule.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_2_PlayerModule.md; sourceTree = "<group>"; };
-		74D947FD2E5094E700D5618D /* 03_3_FileManagerModule.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_3_FileManagerModule.md; sourceTree = "<group>"; };
-		74D947FE2E5094EA00D5618D /* 03_4_Bookmarks.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_4_Bookmarks.md; sourceTree = "<group>"; };
-		74D947FF2E5094EE00D5618D /* 03_5_Waveform.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = 03_5_Waveform.md; sourceTree = "<group>"; };
 		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -99,6 +84,11 @@
 		B1EC68772C5F9B1B00CE30C4 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		B1FDA9652C0353C000CA1DC3 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		743162532E50977E004877EC /* 02_Architecture */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 02_Architecture; sourceTree = "<group>"; };
+		743162592E50977E004877EC /* 03_Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 03_Modules; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B108B0682A3F44EB00D0CD4F /* Frameworks */ = {
@@ -140,21 +130,8 @@
 				7415D2352E508810009250A9 /* 15_Release_Plan.md */,
 				7415D2362E508810009250A9 /* 16_Examples_of_Implementations.md */,
 				7415D2372E508810009250A9 /* 17_Open_Questions.md */,
-				74D947FB2E5094E000D5618D /* 03_1_RecorderModule.md */,
-				74D947FC2E5094E300D5618D /* 03_2_PlayerModule.md */,
-				74D947FD2E5094E700D5618D /* 03_3_FileManagerModule.md */,
-				74D947FE2E5094EA00D5618D /* 03_4_Bookmarks.md */,
-				74D947FF2E5094EE00D5618D /* 03_5_Waveform.md */,
-				7431622E2E5095D3004877EC /* 02_01_Architecture.md */,
-				7431622F2E50964B004877EC /* 02_01_1_UI.md */,
-				743162302E50964E004877EC /* 02_01_2_ViewModels.md */,
-				743162312E509651004877EC /* 02_01_3_AudioCore.md */,
-				743162322E509654004877EC /* 02_01_4_Persistence.md */,
-				743162332E509655004877EC /* 02_01_5_Services.md */,
-				743162342E509658004877EC /* 02_01_6_Routing.md */,
-				743162352E50965A004877EC /* 02_01_7_ThreadsAndRealtime.md */,
-				743162362E50965D004877EC /* 02_01_8_AudioSession.md */,
-				743162372E509660004877EC /* 02_01_9_ArchitectureSummary.md */,
+				743162532E50977E004877EC /* 02_Architecture */,
+				743162592E50977E004877EC /* 03_Modules */,
 			);
 			path = 00_PRD;
 			sourceTree = "<group>";
