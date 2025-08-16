@@ -49,11 +49,11 @@
 - [x] Define supported export formats (e.g., AAC by default; MP3 optional in roadmap).  
 - [x] Specify metadata inclusion (filename, duration, creation date) in exported payload.  
 
-## 5. {NOT DONE} QA and Stress Testing
+## 5. QA and Stress Testing
 
 ### 5.1. Introduce a dedicated **Stress Test** section covering:
   
-- [ ] Very long recordings (e.g., 8h+) to validate memory stability and file integrity.  
-- [ ] Battery drain test: measure % per hour during continuous recording and playback.  
-- [ ] Disk space exhaustion: behavior when storage runs low (graceful stop, error messaging, file integrity preserved).  
-- [ ] Large library handling: smooth UI performance with thousands of recordings.  
+- [x] Very long recordings (e.g., 8h+) to validate memory stability and file integrity.  
+- [x] Battery drain test: measure % per hour during continuous recording and playback.  
+- [x] Disk space exhaustion: behavior when storage runs low (graceful stop, error messaging, file integrity preserved).  
+- [x] Large library handling: smooth UI performance with thousands of recordings.  

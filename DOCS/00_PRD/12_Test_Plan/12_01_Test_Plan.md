@@ -75,3 +75,53 @@
   - Recording stops automatically or is prevented from starting.
   - UI shows error or warning about insufficient storage.
   - No data loss or app crash.
+
+## 4. Stress Test Cases
+
+- **Very Long Recording Stability**
+  - Start a recording and allow it to continue for 8 hours or more.
+  - Periodically monitor memory usage and UI responsiveness.
+  - After stopping, verify the file is saved and is playable for the full duration without corruption.
+  - Confirm that the app does not crash, and no data is lost.
+
+  **Pass/Fail Criteria:**
+  - No app crashes or freezes during extended recording.
+  - Memory usage remains stable without leaks.
+  - Recorded file plays smoothly for entire duration.
+  - UI remains responsive throughout.
+
+- **Battery Drain Assessment**
+  - Begin continuous recording and measure battery percentage at start and hourly intervals.
+  - Repeat for continuous playback of a long file.
+  - Document percentage drop per hour for both scenarios.
+  - Confirm no excessive battery drain compared to similar apps.
+
+  **Pass/Fail Criteria:**
+  - Battery drain within acceptable limits compared to benchmarks.
+  - App does not cause unexpected shutdowns or thermal issues.
+  - Continuous operation does not degrade app performance.
+
+- **Disk Space Exhaustion (Extended)**
+  - Initiate recording when device storage is nearly full.
+  - Observe if recording stops gracefully when storage runs out; ensure appropriate error/warning is displayed.
+  - Verify that the last saved file (even if incomplete) is not corrupted and other files remain intact.
+  - Confirm that file integrity is preserved and the app does not crash or freeze.
+
+  **Pass/Fail Criteria:**
+  - App gracefully handles storage full scenario without crashing.
+  - Partial recordings are saved without corruption.
+  - User is notified clearly about storage issues.
+  - Other recordings and files remain unaffected.
+
+- **Large Library Performance**
+  - Populate the app with thousands (e.g., 2,000+) of recording files.
+  - Measure library view loading, scrolling, and search responsiveness.
+  - Confirm the UI remains smooth, with no major lag or crashes.
+  - Attempt batch operations (delete, export) and document behavior/performance.
+
+  **Pass/Fail Criteria:**
+  - UI maintains smooth and responsive interaction.
+  - No crashes or freezes during large data operations.
+  - Batch operations complete within reasonable time.
+  - Search results are accurate and timely.
+

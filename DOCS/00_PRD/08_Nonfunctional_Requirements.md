@@ -6,18 +6,21 @@
  - AB-loop stability: Loop boundaries shall not deviate more than ±20 ms; no audible clicks/pops at loop points.
  - Bookmark accuracy: Bookmarks shall resolve within ±50 ms of the intended audio position.
  - Responsiveness: UI thread shall process input events within ≤200 ms even under heavy load (e.g., scrolling a list of 5k items).
+ - Stress: App shall sustain 8+ hour continuous recording/playback sessions without crash, memory leak, or data loss.
+ - Battery drain: In-app battery consumption shall be measured under continuous recording and playback, and shall not exceed 15% per hour on a standard battery benchmark device.
 
 ## Capacity
 
  - Maximum recording length: Continuous recording of at least 24 hours without crash, data loss, or memory leaks.
- - File list scalability: Support file libraries of up to 5,000 items with smooth scrolling and search (lazy loading, metadata cache).
+ - File list scalability: Support smooth UI performance and search with libraries of up to 5,000 recordings, including batch operations (delete, export).
 
 ## Resource Utilization
 
  - Memory: ≤ 150 MB RAM during typical operation (excluding audio file size).
  - CPU: ≤ 25% average load during recording and playback on mid-range iOS devices.
+ - File integrity: No data loss or corruption allowed even if storage becomes full during recording. App must gracefully stop recording, display a clear error, and preserve existing data.
  - Energy efficiency:
- - Foreground: App shall support at least 8 hours of continuous recording on battery power.
+ - Foreground: App shall complete 8 hours of continuous recording on a single battery charge on supported devices.
  - Background: Battery consumption ≤ 5%/hour during background recording.
 
 ## Reliability

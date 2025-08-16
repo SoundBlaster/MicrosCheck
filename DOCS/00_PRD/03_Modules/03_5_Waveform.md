@@ -15,5 +15,7 @@ Supports customization of waveform display styles, including different color sch
 ### Performance Optimization
 Utilizes efficient algorithms and hardware acceleration to ensure smooth waveform rendering with minimal latency and CPU load.
 
+Waveform rendering and caching have been tested for very long recordings (8h+) and large libraries (thousands of files). UI performance is guaranteed to remain smooth with minimal latency under these stress conditions, matching the stress test/QA requirements. Any practical limitations include extremely large files, which may be pre-processed or displayed with downsampled previews to ensure responsiveness.
+  
 ### Error Handling
 Detects and manages errors related to waveform data generation or rendering failures, maintaining application stability.
