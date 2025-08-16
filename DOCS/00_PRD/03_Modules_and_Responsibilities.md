@@ -14,6 +14,98 @@ See detailed backend module specifications:
 
 ## Part 2: Frontend UI
 
+### UI Overview and Layout Structure (Based on Design Screenshot)
+
+1. Main Screen
+
+1.1. Top Waveform and Timeline
+
+- Displays live waveform visualization with a moving playhead indicating current position.
+- Vertical ruler showing decibel level (+ and -).
+- Time ruler showing hours, minutes, and seconds.
+
+1.2. Recording Information Panel
+
+1.2.1. Left Block of Panel shows as vertical stack
+
+- current recording status: `[• REC]`.
+- elapsed time: 1h07m26s
+- audio format: MP3 & bitrate in Kbps
+
+1.2.2. Right Block of Panel layout as vertical stack
+
+Contains
+
+ - File name
+ - File size
+ - Audio Meter Display (see 1.2.2.1)
+
+1.2.2.1 Audio Meter Display layout as Vertical Stack
+
+Contains
+
+- L - left channel level meter indicates Left channel loudness values with dB readings at the trailing edge
+- scale from -60 to 0 db
+- R - right channel level meter indicates Right channel loudness values with dB readings at the trailing edge
+
+1.3. Navigation and Action Buttons layout as horizontal stack
+
+Contains buttons for navigation and marking:
+
+- `< Back`
+- `Home`
+- `Time-Mark (T-MARK)`
+- `Options`
+
+1.4. Search and Filter Controls Panel layout as horizontal stack
+
+- Search text field
+- Associated buttons:
+ - appearance modes
+ - favorites
+ - waveform views
+
+1.5. Transport Controls layout as horizontal stack
+
+- Large circular stop button
+- Block of actual recording status layout as vertical stack
+ - Label `[RECORDING]`
+ - Red blinking indicator
+- Large circular record/pause button
+
+1.6 Central Circular Playback Control
+
+Rounded complex real-look buttons as iPod wheel
+
+- Central circular playback control with directional buttons for rewind:
+ - play/pause in center of the wheel
+ - fast forward on the right segment
+ - rewind on the left segment
+ - `[A-B ˇ]` loop indicators show active loop segments on the bottom segment
+ - `[DPC ˆ]` toggle for dynamic playback control speed and pitch on the top segment
+
+1.7. UI Lock and Info Icons
+
+- Lock button at the bottom left to prevent accidental touches.
+- Info button on the right for help or metadata.
+
+1.8. Dark Theme with Modern Styling
+
+- Dark background with high contrast blue highlights for recording time and red for active recording indicator.
+- Buttons with subtle shadows and rounded corners provide skeuomorphic depth.
+
+- **Top Waveform and Timeline:** Displays live waveform visualization with a moving playhead indicating current position, alongside a time ruler showing hours, minutes, and seconds.
+- **Recording Information Panel:** Shows current recording status (e.g., REC), elapsed time, audio format (MP3, bitrate), and file name with size.
+- **Audio Meter Display:** Dual channel level meters indicate left (L) and right (R) channel loudness values with dB readings.
+- **Navigation and Action Buttons:** Back, Home, Time-Mark (T-MARK), and Options allow quick navigation and marking.
+- **Search and Filter Controls:** Search input with associated buttons for appearance modes, favorites, and waveform views.
+- **Transport Controls:** Large circular stop and record/pause buttons flank a central circular playback control with directional buttons for rewind, play/pause, fast forward, and A-B loop toggle.
+- **Playback Rate and Loop Controls:** DPC toggle for dynamic playback control speed and pitch; A-B loop indicators show active loop segments.
+- **UI Lock and Info Icons:** Lock icon at the bottom left to prevent accidental touches; info icon on the right for help or metadata.
+- **Dark Theme with Modern Styling:** UI uses dark background with high contrast blue highlights for recording time and red for active recording indicator; buttons with subtle shadows and rounded corners provide skeuomorphic depth.
+
+This modular layout offers comprehensive audio recording and playback management in one screen, supporting both touch and gesture-based interactions consistent with iOS design standards.
+
 The frontend UI layer provides interactive views, controls, and user experience flows. It binds to backend modules using observable state, protocols, or direct communication, translating backend data into visual components and user gestures into backend commands.
 
 ### 1. Views and Controls
