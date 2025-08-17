@@ -142,15 +142,17 @@ struct UIOverviewDemoView: View {
             // A5 - Transport Controls Panel
             HStack(spacing: 20) {
                 Label("A5a Large Circular Stop Button - Left", systemImage: "stop.circle")
+                Spacer()
                 VStack(spacing: 2) {
                     Label("A5b1 Label RECORDING", systemImage: "record.circle.fill")
                     Label("A5b2 Blinking Red Recording Indicator", systemImage: "circle.fill")
                         .foregroundColor(.red)
                 }
+                Spacer()
                 Label(
                     "A5c Large Circular Record/Pause Button - Bottom", systemImage: "pause.circle")
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity)
             .padding()
             .border(Color.gray)
             .overlay(
