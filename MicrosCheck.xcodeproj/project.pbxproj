@@ -100,6 +100,7 @@
 		743162532E50977E004877EC /* 02_Architecture */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 02_Architecture; sourceTree = "<group>"; };
 		743162592E50977E004877EC /* 03_Modules */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (74A0DB1E2E520C4700085A5E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = 03_Modules; sourceTree = "<group>"; };
 		746CFDB82E509F99004FE5BA /* 06_UI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 06_UI; sourceTree = "<group>"; };
+		74A0DB202E527BB500085A5E /* images */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = images; sourceTree = "<group>"; };
 		74E1FF012E50A09600A205DD /* 12_Test_Plan */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = 12_Test_Plan; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -125,6 +126,7 @@
 		7415D2382E508810009250A9 /* 00_PRD */ = {
 			isa = PBXGroup;
 			children = (
+				74A0DB202E527BB500085A5E /* images */,
 				743162532E50977E004877EC /* 02_Architecture */,
 				743162592E50977E004877EC /* 03_Modules */,
 				746CFDB82E509F99004FE5BA /* 06_UI */,

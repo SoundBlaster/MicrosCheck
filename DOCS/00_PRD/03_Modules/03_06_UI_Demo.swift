@@ -9,6 +9,7 @@ struct UIOverviewDemoView: View {
                 Label("A1b Vertical Decibel Level Ruler", systemImage: "ruler.vertical")
                 Label("A1c Time Ruler H-M-S", systemImage: "clock")
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .border(Color.gray)
             .overlay(
@@ -24,6 +25,7 @@ struct UIOverviewDemoView: View {
                     Label("A2a2 Elapsed Time Display", systemImage: "timer")
                     Label("A2a3 Audio Format & Bitrate Info", systemImage: "info.circle")
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .border(Color.gray)
                 .overlay(
@@ -56,6 +58,7 @@ struct UIOverviewDemoView: View {
                         Text("A2b3 Audio Meter Display").font(.caption2).padding(.top, -2),
                         alignment: .top)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .border(Color.gray)
                 .overlay(
@@ -75,6 +78,7 @@ struct UIOverviewDemoView: View {
                 Label("A3c Time-Mark T-MARK Button", systemImage: "mappin")
                 Label("A3d Options/Settings Button", systemImage: "gearshape")
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .border(Color.gray)
             .overlay(
@@ -90,7 +94,9 @@ struct UIOverviewDemoView: View {
                     Label("A4c Favorites Access Button", systemImage: "star")
                     Label("A4d Waveform View Style Toggle Button", systemImage: "waveform.path.ecg")
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
+            .frame(maxWidth: .infinity)
             .padding()
             .border(Color.gray)
             .overlay(
@@ -108,6 +114,7 @@ struct UIOverviewDemoView: View {
                 Label(
                     "A5c Large Circular Record/Pause Button - Bottom", systemImage: "pause.circle")
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .border(Color.gray)
             .overlay(
@@ -132,6 +139,7 @@ struct UIOverviewDemoView: View {
                     Label("A6e Top Segment - DPC Toggle DPC ˆ", systemImage: "bolt.fill")
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
             .border(Color.gray)
             .overlay(
@@ -144,6 +152,7 @@ struct UIOverviewDemoView: View {
                 Spacer()
                 Label("A7b Info Button - Bottom Right Screen Corner", systemImage: "info.circle")
             }
+            .frame(maxWidth: .infinity)
             .padding()
             .border(Color.gray)
             .overlay(
