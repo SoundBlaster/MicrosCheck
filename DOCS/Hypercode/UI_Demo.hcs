@@ -1,0 +1,204 @@
+'#A1a':
+  text: "Live Waveform Visualization"
+  class:
+    - waveform
+    - path
+    - ecg
+
+'#A1b':
+  text: "Vertical Decibel Level Ruler"
+  class:
+    - ruler
+    - vertical
+
+'#A1c':
+  text: "Time Ruler H-M-S"
+  class:
+    - clock
+
+'#A2a1':
+  text: "Current Recording Status Indicator REC"
+  class:
+    - record
+    - circle
+
+'#A2a2':
+  text: "Elapsed Time Display"
+  class:
+    - timer
+
+'#A2a3':
+  text: "Audio Format & Bitrate Info"
+  class:
+    - info
+    - circle
+
+'#A2b1':
+  text: "File Name of Active Recording"
+  class:
+    - doc
+    - text
+
+'#A2b2':
+  text: "File Size Indicator"
+  class:
+    - archivebox
+
+'#A2b3a':
+  text: "Left Channel Level Meter -60 to 0 dB"
+  class:
+    - speaker
+    - wave
+    - two
+
+'#A2b3a1':
+  text: "Current Loudness"
+  class:
+    - waveform
+
+'#A2b3a2':
+  text: "Trailing dB Readings"
+  class:
+    - chart
+    - line
+    - uptrend
+    - xyaxis
+
+'#A2b3c':
+  text: "Level Meter -60 '' -12 ' 0"
+  class:
+    - waveform
+    - path
+    - ecg
+
+'#A2b3b':
+  text: "Right Channel Level Meter -60 to 0 dB"
+  class:
+    - speaker
+    - wave
+    - two
+    - fill
+
+'#A2b3b1':
+  text: "Current Loudness"
+  class:
+    - waveform
+
+'#A2b3b2':
+  text: "Trailing dB Readings"
+  class:
+    - chart
+    - line
+    - uptrend
+    - xyaxis
+
+'#A3a':
+  text: "Back Button < Back"
+  class:
+    - arrow
+    - left
+
+'#A3b':
+  text: "Home Button"
+  class:
+    - house
+
+'#A3c':
+  text: "Time-Mark T-MARK Button"
+  class:
+    - mappin
+
+'#A3d':
+  text: "Options/Settings Button"
+  class:
+    - gearshape
+
+'#A4a':
+  text: "Search Text Input - Leading Edge"
+  class:
+    - magnifyingglass
+
+'#A4b':
+  text: "Appearance Mode Switch Button"
+  class:
+    - sun
+    - max
+
+'#A4c':
+  text: "Favorites Access Button"
+  class:
+    - star
+
+'#A4d':
+  text: "Waveform View Style Toggle Button"
+  class:
+    - waveform
+    - path
+    - ecg
+
+'#A5a':
+  text: "Large Circular Stop Button - Left"
+  class:
+    - stop
+    - circle
+
+'#A5b1':
+  text: "Label RECORDING"
+  class:
+    - record
+    - circle
+    - fill
+
+'#A5b2':
+  text: "Blinking Red Recording Indicator"
+  class:
+    - circle
+    - fill
+    - color-red
+
+'#A5c':
+  text: "Large Circular Record/Pause Button - Bottom"
+  class:
+    - pause
+    - circle
+
+'#A6b':
+  text: "Left Segment - Rewind Button"
+  class:
+    - backward
+    - fill
+
+'#A6c':
+  text: "Right Segment - Fast Forward Button"
+  class:
+    - forward
+    - fill
+
+'#A6a':
+  text: "Center Circle - Play/Pause Button"
+  class:
+    - playpause
+    - fill
+
+'#A6d':
+  text: "Bottom Segment - A-B Loop Toggle Indicator A-B ˇ"
+  class:
+    - repeat
+
+'#A6e':
+  text: "Top Segment - DPC Toggle DPC ˆ"
+  class:
+    - bolt
+    - fill
+
+'#A7a':
+  text: "Lock Button - Bottom Left Screen Corner"
+  class:
+    - lock
+    - fill
+
+'#A7b':
+  text: "Info Button - Bottom Right Screen Corner"
+  class:
+    - info
+    - circle
