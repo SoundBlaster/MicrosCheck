@@ -74,11 +74,15 @@ struct UIOverviewDemoView: View {
             // A3 - Navigation and Action Buttons
             HStack(spacing: 12) {
                 Label("A3a Back Button < Back", systemImage: "arrow.left")
+                    .frame(maxWidth: .infinity)
                 Label("A3b Home Button", systemImage: "house")
+                    .frame(maxWidth: .infinity)
                 Label("A3c Time-Mark T-MARK Button", systemImage: "mappin")
+                    .frame(maxWidth: .infinity)
                 Label("A3d Options/Settings Button", systemImage: "gearshape")
+                    .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity)
             .padding()
             .border(Color.gray)
             .overlay(
