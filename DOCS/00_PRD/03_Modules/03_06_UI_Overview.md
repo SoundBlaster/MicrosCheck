@@ -26,10 +26,16 @@ This document describes the overall structure and key UI components of the Dicta
   - File size indicator.
   - Audio Meter Display (see 1.2.2.1).
 
-- **1.2.2.1. Audio Meter Display (Vertical Stack):**
-  - Left channel level meter with decibel scale from -60 to 0 dB.
-  - Right channel level meter mirroring left with same decibel scale.
-  - Each channel meter shows current loudness and trailing dB readings.
+- **1.2.2.1. Audio Meter Display:**
+  - Left channel vertical stack:
+    - Level meter with decibel scale from -60 to 0 dB.
+    - Current loudness display.
+    - Trailing dB readings.
+  - Horizontal stack containing two vertical stacks for each channel.
+  - Right channel vertical stack (mirroring left channel):
+    - Level meter with decibel scale from -60 to 0 dB.
+    - Current loudness display.
+    - Trailing dB readings.
 
 #### 1.3. Navigation and Action Buttons (Horizontal Stack)
 

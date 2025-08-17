@@ -33,12 +33,9 @@ graph TD
     A2b --> A2b3[Audio Meter Display]
 
     %% A2b3 audio meter display details
-    A2b3 --> A2b3a[Left Channel Level Meter -60 to 0 dB]
-    A2b3 --> A2b3b[Right Channel Level Meter -60 to 0 dB]
-    A2b3a --> A2b3a1[Current Loudness]
-    A2b3a --> A2b3a2[Trailing dB Readings]
-    A2b3b --> A2b3b1[Current Loudness]
-    A2b3b --> A2b3b2[Trailing dB Readings]
+    A2b3 --> A2b3a[Left Channel in Horizontal Stack - Label L - Level Meter as Bar Gauge - Current Loudness - Trailing dB Readings]
+    A2b3 --> A2b3c[Level Meter Scale - Label with text from -60 through -12 to 0 dB]
+    A2b3 --> A2b3b[Right Channel in Horizontal Stack - Label R -Level Meter as Bar Gauge - Current Loudness - Trailing dB Readings]
 
     %% A3 - Navigation and Action Buttons
     A3 --> A3a[Back Button < Back]

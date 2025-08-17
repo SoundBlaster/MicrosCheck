@@ -39,34 +39,48 @@ struct UIOverviewDemoView: View {
 
                     // A2b3 Audio Meter Display
                     VStack(spacing: 2) {
-                        Label(
-                            "A2b3a Left Channel Level Meter -60 to 0 dB",
-                            systemImage: "speaker.wave.2"
-                        )
-                        .frame(maxWidth: .infinity)
-                        .border(Color.gray)
-                        Label("A2b3a1 Current Loudness", systemImage: "waveform")
+                        HStack(spacing: 2) {
+                            Label(
+                                "A2b3a Left Channel Level Meter -60 to 0 dB",
+                                systemImage: "speaker.wave.2"
+                            )
                             .frame(maxWidth: .infinity)
                             .border(Color.gray)
-                        Label(
-                            "A2b3a2 Trailing dB Readings", systemImage: "chart.line.uptrend.xyaxis"
-                        )
-                        .frame(maxWidth: .infinity)
-                        .border(Color.gray)
-                        Label(
-                            "A2b3b Right Channel Level Meter -60 to 0 dB",
-                            systemImage: "speaker.wave.2.fill"
-                        )
-                        .frame(maxWidth: .infinity)
-                        .border(Color.gray)
-                        Label("A2b3b1 Current Loudness", systemImage: "waveform")
+                            Label("A2b3a1 Current Loudness", systemImage: "waveform")
+                                .frame(maxWidth: .infinity)
+                                .border(Color.gray)
+                            Label(
+                                "A2b3a2 Trailing dB Readings",
+                                systemImage: "chart.line.uptrend.xyaxis"
+                            )
                             .frame(maxWidth: .infinity)
                             .border(Color.gray)
-                        Label(
-                            "A2b3b2 Trailing dB Readings", systemImage: "chart.line.uptrend.xyaxis"
-                        )
-                        .frame(maxWidth: .infinity)
-                        .border(Color.gray)
+                        }
+                        HStack(spacing: 2) {
+                            Label(
+                                "A2b3c Level Meter -60 '' -12 ' 0",
+                                systemImage: "waveform.path.ecg"
+                            )
+                            .frame(maxWidth: .infinity)
+                            .border(Color.gray)
+                        }
+                        HStack(spacing: 2) {
+                            Label(
+                                "A2b3b Right Channel Level Meter -60 to 0 dB",
+                                systemImage: "speaker.wave.2.fill"
+                            )
+                            .frame(maxWidth: .infinity)
+                            .border(Color.gray)
+                            Label("A2b3b1 Current Loudness", systemImage: "waveform")
+                                .frame(maxWidth: .infinity)
+                                .border(Color.gray)
+                            Label(
+                                "A2b3b2 Trailing dB Readings",
+                                systemImage: "chart.line.uptrend.xyaxis"
+                            )
+                            .frame(maxWidth: .infinity)
+                            .border(Color.gray)
+                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(4)
