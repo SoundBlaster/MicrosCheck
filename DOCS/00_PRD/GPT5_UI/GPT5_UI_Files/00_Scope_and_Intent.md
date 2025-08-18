@@ -1,23 +1,40 @@
 # 0. Scope & Intent
 
-## Goal. 
+## Goal.
 
-> Turn the SwiftUI template + this spec into real, testable UI components driven by models (no hardcoded demo).
+> Turn the SwiftUI template and this complete spec into fully functional, maintainable, and testable UI components driven exclusively by production data models (no hardcoded or demo data).
 
-## Success criteria.
+## Primary Deliverables.
 
- - All A1…A7 features compile & run on iOS 16+.
- - Visual meters + waveform update ≥ 20 Hz; UI latency (mic → meter) ≤ 100 ms.
- - AB loop accuracy ≤ ±20 ms; bookmark (T-MARK) precision ≤ ±50 ms.
- - Background recording energy ≤ 5%/hour (observational).
- - Accessibility: VoiceOver labels for all controls; contrast ≥ 4.5; Dynamic Type L–XXL.
- - Snapshot tests for main states; basic instrumentation for FPS and update cadence.
+- Implement views A1 through A7 according to specifications.
+- Ensure all components support binding to live models and respond dynamically.
+- Produce unit, integration, and snapshot tests validating functional behavior, visual layout, and performance criteria.
+- Provide accessibility annotations and support dynamic type up to XXL.
+- Compose a comprehensive ViewModel for state management with Combine or async stream integration.
+- Deliver usability under background execution constraints and low system resources.
 
-## Assumptions.
+## Success Criteria.
 
- - MVVM with unidirectional data flow; @MainActor UI; audio pipe is mocked for tests.
- - App uses AVAudioSession/AVAudioRecorder (or your engine) behind a protocol.
- - Telemetry is optional and stubbed behind a protocol.
+ - All A1…A7 components compile without errors and fully run on iOS 16 or later.
+ - Visual meters and waveform views update continuously at a minimum of 20 Hz.
+ - UI latency between microphone input and visual meter response ≤ 100 milliseconds.
+ - A-B loop playback accuracy within ±20 milliseconds.
+ - Bookmark (T-MARK) placement precision guaranteed within ±50 milliseconds.
+ - Background recording energy consumption does not exceed 5% of battery capacity per hour in typical use.
+ - Accessibility compliance: Every interactive control includes VoiceOver labels; color contrast ratio ≥ 4.5; and dynamic type adjustments support sizes from L to XXL.
+ - Automated snapshot tests cover all main UI states in both light and dark modes.
+ - Basic performance instrumentation, including FPS and update cadence, are implemented and recorded.
+
+## Constraints and Assumptions.
+
+ - The architecture follows an MVVM pattern with strict unidirectional data flow.
+ - UI updates occur exclusively on the @MainActor to ensure thread safety.
+ - Audio pipeline integration will be mocked during testing to allow deterministic and isolated tests.
+ - Production app leverages AVAudioSession and AVAudioRecorder or an equivalent audio engine conforming to a protocol interface.
+ - Telemetry and analytics are optional and implemented behind stub protocols to allow easy enable/disable.
+ - External dependencies are managed to support iOS 16+ minimum deployment target without breaking changes.
+ - Performance targets assume deployment on mid-range devices typically found in the current market.
+
 
 ## Specification Writing Rules
 
