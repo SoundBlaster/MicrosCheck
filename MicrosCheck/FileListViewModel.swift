@@ -27,8 +27,7 @@ final class FileListViewModel: ObservableObject {
     func reload() async {
         isLoading = true
         defer { isLoading = false }
-        let dir = fileReader.getDocumentsDirectory().appendingPathComponent(
-            "Recordings", isDirectory: true)
+        let dir = fileReader.getRecordingsDirectory()
         let fm = FileManager.default
         var fileInfos: [RecordingFileInfo] = []
         if let files = try? fm.contentsOfDirectory(
@@ -41,9 +40,25 @@ final class FileListViewModel: ObservableObject {
                 let attrs = try? fm.attributesOfItem(atPath: url.path)
                 let created = attrs?[.creationDate] as? Date
                 let duration = FileListViewModel.audioDuration(for: url)
-                fileInfos.append(
-                    RecordingFileInfo(
-                        url: url, name: name, size: size, created: created, duration: duration))
+
+                // Attempt to load bookmarks from associated JSON metadata file
+                var bookmarks: [Bookmark] = []
+                let metaURL = url.deletingPathExtension().appendingPathExtension("json")
+                if let metaData = try? Data(contentsOf: metaURL),
+                    let fileMeta = try? JSONDecoder().decode(FileMeta.self, from: metaData)
+                {
+                    bookmarks = fileMeta.bookmarks
+                }
+
+                // Compose RecordingFileInfo with bookmarks as custom user data (if needed)
+                var fileInfo = RecordingFileInfo(
+                    url: url, name: name, size: size, created: created, duration: duration)
+
+                // Since RecordingFileInfo does not have bookmarks,
+                // optionally store bookmarks in a lookup dictionary or extend model
+                // For now, bookmarks are loaded but not stored here.
+
+                fileInfos.append(fileInfo)
             }
         }
         // Sort by most recent
@@ -120,7 +135,7 @@ final class FileListViewModel: ObservableObject {
         let fm = FileManager.default
         return try await Task.detached {
             let url = fm.urls(for: .documentDirectory, in: .userDomainMask).first
-            guard let url else { return 0 }
+            guard let url = url else { return 0 }
             let values = try url.resourceValues(forKeys: [
                 .volumeAvailableCapacityForImportantUsageKey
             ])

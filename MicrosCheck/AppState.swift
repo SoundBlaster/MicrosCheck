@@ -33,6 +33,10 @@ final class AppState {
             // TODO: Remove cleanup, its just for debug
             _ = fileReader.deleteFile(at: fileReader.recordURL())
         #endif
+        // Ensure the /Documents/Recordings directory exists at app startup
+        if let fr = fileReader as? FileReaderImpl {
+            fr.ensureRecordingsDirectoryExists(at: fr.getRecordingsDirectory())
+        }
     }
 
     private static func fileReader() -> FileReader {

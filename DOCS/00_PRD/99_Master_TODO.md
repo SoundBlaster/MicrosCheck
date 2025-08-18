@@ -163,13 +163,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # FM1 Setup Catalog Structure in Filesystem
 
-- [ ] Input: None
-- [ ] Process: Create and manage `/Documents/Recordings` directory.
-- [ ] Output: Directory structure verified.
-- [ ] Priority: High
-- [ ] Estimate: 2 hours
-- [ ] Dependencies: None
-- [ ] Acceptance Criteria: Proper permissions and backup policy adherence
+- [x] Input: None
+- [x] Process: Create and manage `/Documents/Recordings` directory.
+- [x] Output: Directory structure verified.
+- [x] Priority: High
+- [x] Dependencies: None
+- [x] Acceptance Criteria: Proper permissions and backup policy adherence
 
 # FM2 Retrieve File List with Attributes
 
@@ -191,12 +190,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # FM4 Query Free Disk Space
 
-- [ ] Input: None
-- [ ] Process: Use URLResourceValues for free space.
-- [ ] Output: Free disk space in bytes.
-- [ ] Priority: Low
-- [ ] Dependencies: FM1
-- [ ] Acceptance Criteria: Value reflects actual disk state
+- [x] Input: None
+- [x] Process: Use URLResourceValues for free space.
+- [x] Output: Free disk space in bytes.
+- [x] Priority: Low
+- [x] Dependencies: FM1
+- [x] Acceptance Criteria: Value reflects actual disk state
 
 # BM1 Implement Bookmarks (T-MARK)
 
