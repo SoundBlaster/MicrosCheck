@@ -30,10 +30,14 @@ final class WaveformGenerator {
     /// The folder URL where cached waveform data files are stored.
     let cacheDirectory: URL
 
+    /// Maximum cache size limit in bytes (default to 5% of disk space, set externally).
+    private var maxCacheSizeBytes: Int64?
+
     /// Initializes the generator with a directory for cache files.
     /// Ensures the cache directory exists.
-    init(cacheDirectory: URL) {
+    init(cacheDirectory: URL, maxCacheSizeBytes: Int64? = nil) {
         self.cacheDirectory = cacheDirectory
+        self.maxCacheSizeBytes = maxCacheSizeBytes
         ensureCacheDirectoryExists()
     }
 
@@ -221,6 +225,64 @@ final class WaveformGenerator {
     private func audioAsset(for fileURL: URL) -> AVAsset? {
         let asset = AVURLAsset(url: fileURL)
         return asset.tracks(withMediaType: .audio).isEmpty ? nil : asset
+    }
+
+    // MARK: - Cache Management
+
+    /// Call this to ensure the cache folder size stays within limits by removing oldest files.
+    /// It uses the maxCacheSizeBytes property as limit if set.
+    func enforceCacheSizeLimit() async throws {
+        guard let maxSize = maxCacheSizeBytes else {
+            // No size limit set, do nothing
+            return
+        }
+
+        let fm = FileManager.default
+        let resourceKeys: Set<URLResourceKey> = [.contentModificationDateKey, .fileSizeKey]
+
+        // Get all cached waveform files
+        let cacheFiles = try fm.contentsOfDirectory(
+            at: cacheDirectory, includingPropertiesForKeys: Array(resourceKeys), options: [])
+
+        // Collect file URLs with sizes and dates
+        var filesInfo: [(url: URL, size: Int64, modDate: Date)] = []
+
+        var totalSize: Int64 = 0
+
+        for fileURL in cacheFiles {
+            let values = try fileURL.resourceValues(forKeys: resourceKeys)
+            if let size = values.fileSize, let modDate = values.contentModificationDate {
+                let fileSizeInt64 = Int64(size)
+                filesInfo.append((url: fileURL, size: fileSizeInt64, modDate: modDate))
+                totalSize += fileSizeInt64
+            }
+        }
+
+        // If total size within limit, nothing to do
+        if totalSize <= maxSize {
+            return
+        }
+
+        // Sort files by oldest modification date ascending (oldest first)
+        filesInfo.sort { $0.modDate < $1.modDate }
+
+        // Remove files starting from oldest until size is within limit
+        var sizeToFree = totalSize - maxSize
+
+        for file in filesInfo {
+            do {
+                try fm.removeItem(at: file.url)
+                sizeToFree -= file.size
+                if sizeToFree <= 0 {
+                    break
+                }
+            } catch {
+                // Ignore deletion errors but print for logging
+                print(
+                    "WaveformGenerator: Failed to delete cached waveform file \(file.url): \(error)"
+                )
+            }
+        }
     }
 }
 

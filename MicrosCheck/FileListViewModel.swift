@@ -31,6 +31,16 @@ final class FileListViewModel: ObservableObject {
         Task { await reload() }
     }
 
+    /// Reloads files and enforces waveform cache size limits asynchronously.
+    func reloadWithCacheCleanup() async {
+        await reload()
+        do {
+            try await waveformGenerator.enforceCacheSizeLimit()
+        } catch {
+            print("FileListViewModel: waveform cache cleanup failed: \(error)")
+        }
+    }
+
     /// Reloads the list of audio files from the /Documents/Recordings directory.
     func reload() async {
         isLoading = true
