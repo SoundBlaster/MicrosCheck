@@ -34,7 +34,7 @@ To define the scope, deliverables, success criteria, and detailed technical requ
 ## Constraints and Assumptions
 
 - Architecture follows MVVM with strict unidirectional data flow and all UI updates on @MainActor.
-- All components support iOS 16+ minimum deployment.
+- All components support iOS 18+ minimum deployment.
 - Data binding uses Combine or async streams as per project standards.
 - External dependencies must be lightweight and maintain compatibility with target iOS versions.
 - Haptics and Analytics are optional with stub implementations allowed.

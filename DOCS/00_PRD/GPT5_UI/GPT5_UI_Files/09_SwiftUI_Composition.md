@@ -24,7 +24,7 @@ Define a clear, maintainable, and testable SwiftUI view composition architecture
 - UI updates reflect recording state and data changes with a latency under 100 milliseconds.
 - Views implement accessibility standards including VoiceOver, color contrast, and dynamic type scaling.
 - The composition supports unit testing and snapshot testing for all visual states.
-- Layout responds robustly to different device sizes and orientations, supporting iOS 16+.
+- Layout responds robustly to different device sizes and orientations, supporting iOS 18+.
 
 ---
 
@@ -103,7 +103,7 @@ The SwiftUI composition follows a strict MVVM design to keep UI declarative, tes
 
 - Performance: UI refreshes at ≥20 Hz with latency ≤100 ms for recording updates.
 - Scalability: The architecture supports additional views or modified layouts without refactoring.
-- Compliance: Follows iOS 16+ system conventions for threading and UI guarantees.
+- Compliance: Follows iOS 18+ system conventions for threading and UI guarantees.
 
 ### User Interaction Flows
 

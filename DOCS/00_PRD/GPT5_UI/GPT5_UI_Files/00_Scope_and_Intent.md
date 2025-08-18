@@ -15,7 +15,7 @@
 
 ## Success Criteria.
 
- - All A1…A7 components compile without errors and fully run on iOS 16 or later.
+ - All A1…A7 components compile without errors and fully run on iOS 18 or later.
  - Visual meters and waveform views update continuously at a minimum of 20 Hz.
  - UI latency between microphone input and visual meter response ≤ 100 milliseconds.
  - A-B loop playback accuracy within ±20 milliseconds.
@@ -32,7 +32,7 @@
  - Audio pipeline integration will be mocked during testing to allow deterministic and isolated tests.
  - Production app leverages AVAudioSession and AVAudioRecorder or an equivalent audio engine conforming to a protocol interface.
  - Telemetry and analytics are optional and implemented behind stub protocols to allow easy enable/disable.
- - External dependencies are managed to support iOS 16+ minimum deployment target without breaking changes.
+ - External dependencies are managed to support iOS 18+ minimum deployment target without breaking changes.
  - Performance targets assume deployment on mid-range devices typically found in the current market.
 
 
