@@ -7,6 +7,12 @@ struct RecorderMainScreen: View {
     @StateObject private var playbackVM = PlaybackViewModel()
     @State private var selectedFile: RecordingFileInfo? = nil
 
+    // Search text binding for filter panel
+    @State private var searchText: String = ""
+
+    // Favorites filter state (can be propagated to view model if needed)
+    @State private var favoritesFilterOn: Bool = false
+
     // UI Lock state
     @State private var isLocked: Bool = false
     @State private var unlockProgress: Double = 0.0
@@ -65,6 +71,34 @@ struct RecorderMainScreen: View {
                     .padding(.horizontal)
                 }
 
+                // Search and filter panel integration
+                SearchFilterPanel(
+                    searchText: $searchText,
+                    onSearch: { query in
+                        // Implement search filter logic, e.g., update files in FileListViewModel
+                        Task {
+                            await applySearchFilter(query)
+                        }
+                    },
+                    onToggleTheme: {
+                        // Implement theme toggle logic here
+                        print("Theme toggle tapped")
+                    },
+                    onToggleFavorites: {
+                        favoritesFilterOn.toggle()
+                        // Implement favorites filter logic
+                        Task {
+                            await applyFavoritesFilter(favoritesFilterOn)
+                        }
+                    },
+                    onWaveformDensity: { step in
+                        // Implement waveform density change handling
+                        print("Waveform density set to \(step)")
+                    }
+                )
+                .disabled(isLocked)
+                .padding(.horizontal)
+
                 // Main Controls
                 HStack(spacing: 24) {
                     Button(action: { viewModel.stop() }) {
@@ -118,132 +152,29 @@ struct RecorderMainScreen: View {
         }
     }
 
-    // MARK: - Lock Overlay View
+    // MARK: - Helpers for Search/Filter
 
-    var lockOverlay: some View {
-        VStack {
-            Spacer()
-            Text("Hold to unlock")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding(.bottom, 8)
-            ZStack {
-                Circle()
-                    .stroke(Color.white.opacity(0.5), lineWidth: 4)
-                    .frame(width: 80, height: 80)
-                Circle()
-                    .trim(from: 0, to: unlockProgress)
-                    .stroke(Color.white, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .frame(width: 80, height: 80)
+    private func applySearchFilter(_ query: String) async {
+        // Simple filter example: filter fileListVM files by name containing query (case-insensitive)
+        let lowerQuery = query.lowercased()
+        if query.isEmpty {
+            await fileListVM.reload()
+        } else {
+            // Filter local files for demonstration, extend logic as needed
+            let filteredFiles = fileListVM.files.filter { file in
+                file.name.lowercased().contains(lowerQuery)
             }
-            .gesture(
-                LongPressGesture(minimumDuration: 2.0)
-                    .onChanged { _ in
-                        // No-op for visual feedback handled by timer
-                    }
-                    .onEnded { _ in
-                        unlockUI()
-                    }
-            )
-            .padding(.bottom, 40)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.6))
-        .transition(.opacity)
-        .onAppear(perform: startUnlockProgress)
-        .onDisappear(perform: stopUnlockProgress)
-    }
-
-    // MARK: - Unlock Progress Timer
-
-    @State private var unlockTimer: Timer?
-
-    func startUnlockProgress() {
-        unlockProgress = 0
-        unlockTimer?.invalidate()
-        unlockTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
-            if unlockProgress < 1.0 {
-                unlockProgress += 0.01
-                playHapticProgress()
-            } else {
-                timer.invalidate()
+            await MainActor.run {
+                fileListVM.files = filteredFiles
             }
         }
     }
 
-    func stopUnlockProgress() {
-        unlockTimer?.invalidate()
-        unlockTimer = nil
-        unlockProgress = 0
+    private func applyFavoritesFilter(_ enabled: Bool) async {
+        // Placeholder logic: no favorites in current data, so just reload all files
+        await fileListVM.reload()
+        // Extend with real favorites filter logic when supported
     }
-
-    // MARK: - Unlock Action
-
-    func unlockUI() {
-        stopUnlockProgress()
-        isLocked = false
-        playHapticSuccess()
-    }
-
-    // MARK: - Haptics
-
-    func prepareHaptics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-        do {
-            hapticEngine = try CHHapticEngine()
-            try hapticEngine?.start()
-        } catch {
-            print("Failed to start haptic engine: \(error)")
-            hapticEngine = nil
-        }
-    }
-
-    func playHapticProgress() {
-        guard let engine = hapticEngine else { return }
-        let intensity = CHHapticEventParameter(
-            parameterID: .hapticIntensity, value: Float(unlockProgress))
-        let sharpness = CHHapticEventParameter(
-            parameterID: .hapticSharpness, value: Float(unlockProgress))
-        let event = CHHapticEvent(
-            eventType: .hapticContinuous, parameters: [intensity, sharpness], relativeTime: 0,
-            duration: 0.02)
-        do {
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            let player = try engine.makePlayer(with: pattern)
-            try player.start(atTime: 0)
-        } catch {
-            print("Failed to play haptic progress: \(error)")
-        }
-    }
-
-    func playHapticSuccess() {
-        guard let engine = hapticEngine else { return }
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
-        let event = CHHapticEvent(
-            eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
-        do {
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            let player = try engine.makePlayer(with: pattern)
-            try player.start(atTime: 0)
-        } catch {
-            print("Failed to play haptic success: \(error)")
-        }
-    }
-
-    // MARK: - Helpers
-    func formatElapsed(_ t: TimeInterval) -> String {
-        let s = Int(t) % 60
-        let m = (Int(t) / 60) % 60
-        let h = Int(t) / 3600
-        return String(format: "%02dh%02dm%02ds", h, m, s)
-    }
-    func formatSize(_ bytes: UInt64) -> String {
-        let mb = Double(bytes) / 1024.0 / 1024.0
-        return String(format: "%.1f mb", mb)
-    }
-}
 
 struct MeterBar: View {
     let level: Float
