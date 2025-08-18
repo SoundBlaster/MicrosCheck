@@ -151,58 +151,94 @@ struct RecorderMainScreen: View {
 +                    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
 +                )
 +                .padding(.horizontal)
+.disabled(isLocked)
+.padding(.horizontal)
 
-                // Main Controls
-                HStack(spacing: 24) {
-                    Button(action: { viewModel.stop() }) {
-                        Label("Stop", systemImage: "stop.circle")
-                    }
-                    .disabled(!viewModel.isRecording || isLocked)
-                    .font(.title2)
+// A7 Lock and Info Buttons HStack
+HStack {
+    Button(action: {
+        isLocked.toggle()
+        if isLocked {
+            // Show overlay and haptic handled in state
+            playHapticSuccess()
+        }
+    }) {
+        Image(systemName: isLocked ? "lock.fill" : "lock.open")
+            .font(.title)
+            .foregroundColor(isLocked ? .red : .primary)
+    }
+    .accessibilityLabel(isLocked ? "Unlock UI" : "Lock UI")
+    .padding()
 
-                    // Recording label and blinking red indicator
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(Color.red)
-                            .frame(width: 14, height: 14)
-                            .opacity(viewModel.isRecording ? blinkOpacity : 0)
-                            .animation(
-                                viewModel.isRecording
-                                    ? Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
-                                    : .default,
-                                value: blinkOpacity
-                            )
+    Spacer()
 
-                        Text(viewModel.isRecording ? "Recording" : "Not Recording")
-                            .font(.headline)
-                            .foregroundColor(viewModel.isRecording ? .red : .secondary)
-                    }
-                    .onAppear {
-                        if viewModel.isRecording {
-                            startBlinking()
-                        }
-                    }
-                    .onChange(of: viewModel.isRecording) { isRec in
-                        if isRec {
-                            startBlinking()
-                        } else {
-                            stopBlinking()
-                        }
-                    }
+    Button(action: {
+        print("Info button tapped")
+        // Implement info modal or sheet presentation logic here
+    }) {
+        Image(systemName: "info.circle")
+            .font(.title)
+            .foregroundColor(.primary)
+    }
+    .accessibilityLabel("Info")
+    .padding()
+}
+.background(
+    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
+)
+.padding(.horizontal)
 
-                    Button(action: {
-                        if !isLocked {
-                            viewModel.isRecording ? viewModel.pause() : viewModel.record()
-                        }
-                    }) {
-                        Label(
-                            viewModel.isRecording ? "Pause" : "Record",
-                            systemImage: viewModel.isRecording ? "pause.circle" : "record.circle")
-                    }
-                    .foregroundColor(viewModel.isRecording ? .orange : .red)
-                    .disabled(!viewModel.isPrepared || isLocked)
-                    .font(.title2)
-                }
+// Main Controls
+HStack(spacing: 24) {
+    Button(action: { viewModel.stop() }) {
+        Label("Stop", systemImage: "stop.circle")
+    }
+    .disabled(!viewModel.isRecording || isLocked)
+    .font(.title2)
+
+    // Recording label and blinking red indicator
+    HStack(spacing: 6) {
+        Circle()
+            .fill(Color.red)
+            .frame(width: 14, height: 14)
+            .opacity(viewModel.isRecording ? blinkOpacity : 0)
+            .animation(
+                viewModel.isRecording
+                    ? Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
+                    : .default,
+                value: blinkOpacity
+            )
+
+        Text(viewModel.isRecording ? "Recording" : "Not Recording")
+            .font(.headline)
+            .foregroundColor(viewModel.isRecording ? .red : .secondary)
+    }
+    .onAppear {
+        if viewModel.isRecording {
+            startBlinking()
+        }
+    }
+    .onChange(of: viewModel.isRecording) { isRec in
+        if isRec {
+            startBlinking()
+        } else {
+            stopBlinking()
+        }
+    }
+
+    Button(action: {
+        if !isLocked {
+            viewModel.isRecording ? viewModel.pause() : viewModel.record()
+        }
+    }) {
+        Label(
+            viewModel.isRecording ? "Pause" : "Record",
+            systemImage: viewModel.isRecording ? "pause.circle" : "record.circle")
+    }
+    .foregroundColor(viewModel.isRecording ? .orange : .red)
+    .disabled(!viewModel.isPrepared || isLocked)
+    .font(.title2)
+}
 
                 // File list integration
                 FileListView(viewModel: fileListVM) { file in
@@ -218,6 +254,46 @@ struct RecorderMainScreen: View {
                         .frame(maxHeight: 280)
                         .padding(.top, 8)
                         .disabled(isLocked)
+
+                    CircularPlaybackControl(
+                        isPlaying: playbackVM.isPlaying,
+                        playbackRate: playbackVM.rate,
+                        aPoint: playbackVM.aPoint,
+                        bPoint: playbackVM.bPoint,
+                        onPlayPause: { playbackVM.isPlaying ? playbackVM.pause() : playbackVM.play() },
+                        onSeekBackward: { playbackVM.nudge(by: -5) },
+                        onSeekForward: { playbackVM.nudge(by: 5) },
+                        onABLoopTapped: {
+                            if playbackVM.aPoint == nil {
+                                playbackVM.aPoint = playbackVM.position
+                                playbackVM.bPoint = nil
+                            } else if playbackVM.bPoint == nil {
+                                if playbackVM.position > playbackVM.aPoint! {
+                                    playbackVM.bPoint = playbackVM.position
+                                } else {
+                                    let temp = playbackVM.aPoint
+                                    playbackVM.aPoint = playbackVM.position
+                                    playbackVM.bPoint = temp
+                                }
+                            } else {
+                                playbackVM.aPoint = nil
+                                playbackVM.bPoint = nil
+                            }
+                        },
+                        onDPCRateCycle: {
+                            // Cycle through preset rates: 1.0 → 1.25 → 1.5 → 1.75 → 2.0 → 0.75 → 0.5 → 1.0
+                            let rates: [Float] = [1.0, 1.25, 1.5, 1.75, 2.0, 0.75, 0.5]
+                            if let index = rates.firstIndex(of: playbackVM.rate) {
+                                let nextIndex = (index + 1) % rates.count
+                                playbackVM.rate = rates[nextIndex]
+                            } else {
+                                playbackVM.rate = 1.0
+                            }
+                        }
+                    )
+                    .frame(width: 180, height: 180)
+                    .padding()
+                    .disabled(isLocked)
                 }
 
                 Spacer()
