@@ -5,6 +5,7 @@
 //  Created by Egor Merkushev on 09.06.2024.
 //
 
+import Foundation
 import Observation
 
 @MainActor
@@ -24,12 +25,14 @@ final class AppState {
     var player: AudioPlayer?
     // File Reader
     let fileReader: FileReader = fileReader()
+    // Recording Settings Store
+    let recordingSettingsStore: RecordingSettingsStore = RecordingSettingsStore()
 
     init() {
-#if DEBUG
-        // TODO: Remove cleanup, its just for debug
-        _ = fileReader.deleteFile(at: fileReader.recordURL())
-#endif
+        #if DEBUG
+            // TODO: Remove cleanup, its just for debug
+            _ = fileReader.deleteFile(at: fileReader.recordURL())
+        #endif
     }
 
     private static func fileReader() -> FileReader {

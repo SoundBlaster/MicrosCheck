@@ -209,12 +209,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # ST1 Manage Recording Settings Persistence
 
-- [ ] Input: UI inputs
-- [ ] Process: Save and load recording settings with UserDefaults and JSON.
-- [ ] Output: Persistent RecordingSettings.
-- [ ] Priority: Medium
-- [ ] Dependencies: R2
-- [ ] Acceptance Criteria: Settings applied correctly and persist across sessions
+- [x] Input: UI inputs
+- [x] Process: Save and load recording settings with UserDefaults and JSON.
+- [x] Output: Persistent RecordingSettings.
+- [x] Priority: Medium
+- [x] Dependencies: R2
+- [x] Acceptance Criteria: Settings applied correctly and persist across sessions
 
 # SEC1 Implement UI Lock Overlay with Gestures and Haptics
 

@@ -112,9 +112,21 @@ final class RecorderViewModel: ObservableObject {
         format = "AAC 128kbps"
     }
 
+    /// Applies given recording settings to the recorder.
+    private func applyRecordingSettings(_ settings: RecordingSettings) {
+        // Here you would configure the recorder with settings such as sample rate, bitrate, channels, and format.
+        // The current RecorderImpl does not expose these directly, so this is a placeholder for future extension.
+        // For example:
+        // try? appState.recorder.configure(settings)
+        // For now, just log the settings.
+        print("Applying recording settings: \(settings)")
+    }
+
     // MARK: - Actions
     func prepare() async {
         do {
+            // Apply current recording settings to recorder before prepare
+            applyRecordingSettings(appState.recordingSettingsStore.currentSettings)
             _ = try appState.recorder.prepare()
             isPrepared = true
         } catch {
