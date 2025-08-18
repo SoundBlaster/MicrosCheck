@@ -21,11 +21,19 @@ struct RecorderMainScreen: View {
     var body: some View {
         ZStack {
             VStack(spacing: 24) {
-                // Top waveform placeholder
-                Rectangle()
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(height: 60)
-                    .overlay(Text("Waveform (coming soon)").font(.caption))
+                LiveWaveformView(
+                    samples: viewModel.isRecording ? [viewModel.leftLevel, viewModel.rightLevel] : []
+                )
+                .frame(height: 60)
+                .padding(.horizontal)
+
+                HorizontalTimeRuler(
+                    duration: viewModel.elapsed,
+                    currentTime: viewModel.elapsed,
+                    tickStep: 5,
+                    rulerHeight: 30
+                )
+                .padding(.horizontal)
 
                 // Info Card
                 HStack {
@@ -51,6 +59,9 @@ struct RecorderMainScreen: View {
                         HStack(spacing: 8) {
                             MeterBar(level: viewModel.leftLevel, label: "L")
                             MeterBar(level: viewModel.rightLevel, label: "R")
+                            // Vertical decibel level ruler added here
+                            VerticalDBRuler()
+                                .frame(width: 30, height: 60)
                         }
                     }
                 }
@@ -99,6 +110,48 @@ struct RecorderMainScreen: View {
                 .disabled(isLocked)
                 .padding(.horizontal)
 
++                // A3 Navigation Buttons
++                HStack(spacing: 24) {
++                    Button(action: {
++                        print("Back button tapped")
++                        // Implement back navigation logic, e.g., dismiss or pop
++                    }) {
++                        Label("Back", systemImage: "arrow.left")
++                    }
++                    .disabled(isLocked)
++
++                    Button(action: {
++                        print("Home button tapped")
++                        // Implement home navigation logic, e.g., navigate to root screen
++                    }) {
++                        Label("Home", systemImage: "house")
++                    }
++                    .disabled(isLocked)
++
++                    Button(action: {
++                        print("T-MARK button tapped")
++                        viewModel.isRecording ? viewModel.record() : nil
++                        // Implement add bookmark or marker
++                    }) {
++                        Label("T-MARK", systemImage: "mappin")
++                    }
++                    .disabled(isLocked)
++
++                    Button(action: {
++                        print("Options button tapped")
++                        // Implement options/settings display
++                    }) {
++                        Label("Options", systemImage: "gearshape")
++                    }
++                    .disabled(isLocked)
++                }
++                .padding()
++                .font(.headline)
++                .background(
++                    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
++                )
++                .padding(.horizontal)
+
                 // Main Controls
                 HStack(spacing: 24) {
                     Button(action: { viewModel.stop() }) {
@@ -106,6 +159,36 @@ struct RecorderMainScreen: View {
                     }
                     .disabled(!viewModel.isRecording || isLocked)
                     .font(.title2)
+
+                    // Recording label and blinking red indicator
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 14, height: 14)
+                            .opacity(viewModel.isRecording ? blinkOpacity : 0)
+                            .animation(
+                                viewModel.isRecording
+                                    ? Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
+                                    : .default,
+                                value: blinkOpacity
+                            )
+
+                        Text(viewModel.isRecording ? "Recording" : "Not Recording")
+                            .font(.headline)
+                            .foregroundColor(viewModel.isRecording ? .red : .secondary)
+                    }
+                    .onAppear {
+                        if viewModel.isRecording {
+                            startBlinking()
+                        }
+                    }
+                    .onChange(of: viewModel.isRecording) { isRec in
+                        if isRec {
+                            startBlinking()
+                        } else {
+                            stopBlinking()
+                        }
+                    }
 
                     Button(action: {
                         if !isLocked {
@@ -175,10 +258,12 @@ struct RecorderMainScreen: View {
         await fileListVM.reload()
         // Extend with real favorites filter logic when supported
     }
+}
 
 struct MeterBar: View {
     let level: Float
     let label: String
+
     var body: some View {
         VStack(spacing: 2) {
             Text(label)
@@ -189,6 +274,23 @@ struct MeterBar: View {
                 .cornerRadius(2)
             Text(String(format: "%.0fdB", level))
                 .font(.caption2)
+        }
+    }
+}
+
+// MARK: - Blinking indicator state variables and helpers for RecorderMainScreen
+@MainActor
+extension RecorderMainScreen {
+    @State private var blinkOpacity: Double = 1.0
+    private func startBlinking() {
+        let baseAnimation = Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
+        withAnimation(baseAnimation) {
+            blinkOpacity = 0.0
+        }
+    }
+    private func stopBlinking() {
+        withAnimation(.default) {
+            blinkOpacity = 1.0
         }
     }
 }
