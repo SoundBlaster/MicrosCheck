@@ -200,12 +200,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # BM1 Implement Bookmarks (T-MARK)
 
-- [ ] Input: Current playback/record time
-- [ ] Process: Append bookmark to metadata JSON file.
-- [ ] Output: Updated bookmarks array.
-- [ ] Priority: Medium
-- [ ] Dependencies: P2, FM2
-- [ ] Acceptance Criteria: Bookmarks visible and selectable in UI
+- [x] Input: Current playback/record time
+- [x] Process: Append bookmark to metadata JSON file.
+- [x] Output: Updated bookmarks array.
+- [x] Priority: Medium
+- [x] Dependencies: P2, FM2
+- [x] Acceptance Criteria: Bookmarks visible and selectable in UI
 
 # ST1 Manage Recording Settings Persistence
 

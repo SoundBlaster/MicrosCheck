@@ -5,6 +5,9 @@ import SwiftUI
 /// ViewModel to manage playback state, controls, and progress for a selected recording file.
 @MainActor
 final class PlaybackViewModel: ObservableObject {
+    // MARK: - Shared FileListViewModel for bookmark integration
+    static var sharedFileListViewModel: FileListViewModel?
+
     // MARK: - Published Properties for UI Binding
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var duration: TimeInterval = 0
@@ -33,10 +36,6 @@ final class PlaybackViewModel: ObservableObject {
         }
     }
 
-    // MARK: - A-B Loop Properties
-    @Published var aPoint: TimeInterval? = nil
-    @Published var bPoint: TimeInterval? = nil
-
     private var audioEngine: AVAudioEngine?
     private var playerNode: AVAudioPlayerNode?
     private var timePitchNode: AVAudioUnitTimePitch?
@@ -44,6 +43,25 @@ final class PlaybackViewModel: ObservableObject {
 
     // MARK: - Initialization
     init() {}
+
+    // MARK: - Bookmark Integration
+
+    /// Adds a bookmark at the current playback position.
+    func addCurrentBookmark(title: String? = nil, note: String? = nil) async throws {
+        guard let file = currentFile else { return }
+        let bookmark = Bookmark(time: position, title: title, note: note)
+        try await addBookmark(to: file, bookmark: bookmark)
+    }
+
+    /// Adds a bookmark to a file using shared FileListViewModel.
+    private func addBookmark(to file: RecordingFileInfo, bookmark: Bookmark) async throws {
+        guard let fileListVM = PlaybackViewModel.sharedFileListViewModel else {
+            fatalError(
+                "PlaybackViewModel: sharedFileListViewModel not set for bookmark integration")
+        }
+        try await fileListVM.addBookmark(
+            to: file, time: bookmark.time, title: bookmark.title, note: bookmark.note)
+    }
     // MARK: - Volume Control Properties
     @Published var masterVolume: Float = 1.0 {
         didSet {
