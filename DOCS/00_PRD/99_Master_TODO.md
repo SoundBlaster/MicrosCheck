@@ -11,41 +11,41 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # R1 Configure AudioSession for Play and Record
 
-- [ ] Input: None
-- [ ] Process: Setup AVAudioSession, handle interruptions and route changes.
-- [ ] Output: Active and stable audio session.
-- [ ] Priority: High
-- [ ] Dependencies: None
-- [ ] Acceptance Criteria: Recording and playback are uninterrupted; correct handling of interruptions like phone calls
+- [x] Input: None
+- [x] Process: Setup AVAudioSession, handle interruptions and route changes.
+- [x] Output: Active and stable audio session.
+- [x] Priority: High
+- [x] Dependencies: None
+- [x] Acceptance Criteria: Recording and playback are uninterrupted; correct handling of interruptions like phone calls
 
 # R2 Implement Recording Pipeline with AVAudioEngine
 
-- [ ] Input: RecordingSettings
-- [ ] Process: Configure input node, conversion, and AVAudioFile writing.
-- [ ] Output: AAC .m4a audio file produced.
-- [ ] Priority: High
+- [x] Input: RecordingSettings
+- [x] Process: Configure input node, conversion, and AVAudioFile writing.
+- [x] Output: AAC .m4a audio file produced.
+- [x] Priority: High
 
-- [ ] Dependencies: R1
-- [ ] Acceptance Criteria: Files are playable, duration accuracy within ±50ms/hour
+- [x] Dependencies: R1
+- [x] Acceptance Criteria: Files are playable, duration accuracy within ±50ms/hour
 
 # R3 Support Pause and Resume in Recording
 
-- [ ] Input: Recording state
-- [ ] Process: Stop buffer without closing file; manage state transition.
-- [ ] Output: Updated audio file remains intact.
-- [ ] Priority: High
-- [ ] Dependencies: R2
-- [ ] Acceptance Criteria: No audio clicks on pause/resume; total timer reflects cumulative recording time
+- [x] Input: Recording state
+- [x] Process: Stop buffer without closing file; manage state transition.
+- [x] Output: Updated audio file remains intact.
+- [x] Priority: High
+- [x] Dependencies: R2
+- [x] Acceptance Criteria: No audio clicks on pause/resume; total timer reflects cumulative recording time
 
 # R4 Implement Real-time L/R Audio Meters (RMS/Peak)
 
-- [ ] Input: Audio buffers
-- [ ] Process: Apply DSP tap for metering audio levels.
-- [ ] Output: Left/right channel RMS and peak levels.
-- [ ] Priority: High
+- [x] Input: Audio buffers
+- [x] Process: Apply DSP tap for metering audio levels.
+- [x] Output: Left/right channel RMS and peak levels.
+- [x] Priority: High
 
-- [ ] Dependencies: R2
-- [ ] Acceptance Criteria: Real-time meter updates ≥ 20 Hz, no UI lags, CPU usage <10%
+- [x] Dependencies: R2
+- [x] Acceptance Criteria: Real-time meter updates ≥ 20 Hz, no UI lags, CPU usage <10%
 
 # R5 Implement Recording Source Route Picker
 
@@ -94,22 +94,22 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # P4 Implement Hold Seek with Continuous Nudge (200 ms)
 
-- [ ] Input: UI gesture
-- [ ] Process: Repeat seeking with audio feedback every 200 ms.
-- [ ] Output: Fast seek navigation.
-- [ ] Priority: Medium
-- [ ] Dependencies: P1, P3
-- [ ] Acceptance Criteria: Feedback clear; lag from input to response < 100 ms
+- [x] Input: UI gesture
+- [x] Process: Repeat seeking with audio feedback every 200 ms.
+- [x] Output: Fast seek navigation.
+- [x] Priority: Medium
+- [x] Dependencies: P1, P3
+- [x] Acceptance Criteria: Feedback clear; lag from input to response < 100 ms
 
 # P5 Implement Dynamic Playback Control (DPC) Rate/Pitch
 
-- [ ] Input: Playback speed/pitch controls
-- [ ] Process: Configure AVAudioUnitTimePitch for rate/pitch.
-- [ ] Output: Playback altered in real time.
-- [ ] Priority: High
-- [ ] Estimate: 1 day
-- [ ] Dependencies: P1
-- [ ] Acceptance Criteria: Rate/pitch adjustable on the fly; no audio artifacts
+- [x] Input: Playback speed/pitch controls
+- [x] Process: Configure AVAudioUnitTimePitch for rate/pitch.
+- [x] Output: Playback altered in real time.
+- [x] Priority: High
+- [x] Estimate: 1 day
+- [x] Dependencies: P1
+- [x] Acceptance Criteria: Rate/pitch adjustable on the fly; no audio artifacts
 
 # P6 Implement Master and Channel Volume Control
 
@@ -132,12 +132,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # UI1 Build SwiftUI Screens Layout According to Design
 
-- [ ] Input: Design specs
-- [ ] Process: Compose SwiftUI components for each UI section.
-- [ ] Output: Pixel-perfect UI matching design.
-- [ ] Priority: High
-- [ ] Dependencies: P2, R4
-- [ ] Acceptance Criteria: UI matches design colors, sizes, and spacing exactly
+- [x] Input: Design specs
+- [x] Process: Compose SwiftUI components for each UI section.
+- [x] Output: Pixel-perfect UI matching design.
+- [x] Priority: High
+- [x] Dependencies: P2, R4
+- [x] Acceptance Criteria: UI matches design colors, sizes, and spacing exactly
 
 > See detailed UI component specs in [02_Component_Specs.md](./GPT5_UI/GPT5_UI_Files/02_Component_Specs.md) for A1…A7 component breakdown.
 
