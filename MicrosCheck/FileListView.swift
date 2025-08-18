@@ -54,6 +54,16 @@ struct FileListView: View {
                                             .foregroundColor(.secondary)
                                     }
                                 }
+                                // Waveform preview under metadata
+                                if let cache = viewModel.waveformCache[file.url] {
+                                    WaveformPreviewView(waveformData: cache)
+                                        .frame(height: 40)
+                                        .padding(.top, 4)
+                                } else {
+                                    WaveformPreviewView(waveformData: nil)
+                                        .frame(height: 40)
+                                        .padding(.top, 4)
+                                }
                             }
                             Spacer()
                             Image(systemName: "play.circle")

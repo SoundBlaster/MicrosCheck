@@ -16,10 +16,18 @@ final class FileListViewModel: ObservableObject {
     @Published var files: [RecordingFileInfo] = []
     @Published var isLoading: Bool = false
 
+    /// Cached waveform data per file URL
+    @Published private(set) var waveformCache: [URL: WaveformData] = [:]
+
     private let fileReader: FileReader
+    private let waveformGenerator: WaveformGenerator
 
     init(fileReader: FileReader) {
         self.fileReader = fileReader
+        // Initialize waveform generator with a cache directory
+        let cacheDir = fileReader.getDocumentsDirectory().appendingPathComponent(
+            "Cache/Waveforms", isDirectory: true)
+        self.waveformGenerator = WaveformGenerator(cacheDirectory: cacheDir)
         Task { await reload() }
     }
 
@@ -30,6 +38,7 @@ final class FileListViewModel: ObservableObject {
         let dir = fileReader.getRecordingsDirectory()
         let fm = FileManager.default
         var fileInfos: [RecordingFileInfo] = []
+        var newCache: [URL: WaveformData] = [:]
         if let files = try? fm.contentsOfDirectory(
             at: dir, includingPropertiesForKeys: [.fileSizeKey, .creationDateKey],
             options: [.skipsHiddenFiles])
@@ -51,14 +60,27 @@ final class FileListViewModel: ObservableObject {
                 }
 
                 // Compose RecordingFileInfo with bookmarks as custom user data (if needed)
-                var fileInfo = RecordingFileInfo(
+                let fileInfo = RecordingFileInfo(
                     url: url, name: name, size: size, created: created, duration: duration)
 
-                // Since RecordingFileInfo does not have bookmarks,
-                // optionally store bookmarks in a lookup dictionary or extend model
-                // For now, bookmarks are loaded but not stored here.
-
                 fileInfos.append(fileInfo)
+
+                // Load cached waveform data asynchronously, will not block UI reload
+                Task.detached { [weak self] in
+                    guard let self else { return }
+                    do {
+                        let waveform = try await self.waveformGenerator.generateWaveform(for: url)
+                        await MainActor.run {
+                            newCache[url] = waveform
+                            self.waveformCache = newCache
+                        }
+                    } catch {
+                        // Ignore load failures, keep cache missing
+                        print(
+                            "WaveformGenerator: failed to load/generate waveform for \(url): \(error)"
+                        )
+                    }
+                }
             }
         }
         // Sort by most recent
