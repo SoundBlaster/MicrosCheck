@@ -21,9 +21,9 @@ struct UIOverviewDemoView: View {
                 // A2a Left Block
                 VStack(spacing: 4) {
                     Label(
-                        "A2a1 Current Recording Status Indicator REC", systemImage: "record.circle")
+                        "A2a1 Current Recording Duration", systemImage: "record.circle")
                     Label("A2a2 Elapsed Time Display", systemImage: "timer")
-                    Label("A2a3 Audio Format & Bitrate Info", systemImage: "info.circle")
+                    Label("A2a3 Audio Format Badge", systemImage: "info.circle")
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
@@ -34,7 +34,7 @@ struct UIOverviewDemoView: View {
 
                 // A2b Right Block
                 VStack(spacing: 4) {
-                    Label("A2b1 File Name of Active Recording", systemImage: "doc.text")
+                    Label("A2b1 File Name", systemImage: "doc.text")
                     Label("A2b2 File Size Indicator", systemImage: "archivebox")
 
                     // A2b3 Audio Meter Display
@@ -105,13 +105,13 @@ struct UIOverviewDemoView: View {
 
             // A3 - Navigation and Action Buttons
             HStack(spacing: 12) {
-                Label("A3a Back Button < Back", systemImage: "arrow.left")
+                Label("A3a BACK Button", systemImage: "arrow.left")
                     .frame(maxWidth: .infinity)
-                Label("A3b Home Button", systemImage: "house")
+                Label("A3b HOME Button", systemImage: "house")
                     .frame(maxWidth: .infinity)
-                Label("A3c Time-Mark T-MARK Button", systemImage: "mappin")
+                Label("A3c T-MARK Button", systemImage: "mappin")
                     .frame(maxWidth: .infinity)
-                Label("A3d Options/Settings Button", systemImage: "gearshape")
+                Label("A3d OPTIONS Button", systemImage: "gearshape")
                     .frame(maxWidth: .infinity)
             }
             .frame(maxWidth: .infinity)
@@ -123,12 +123,12 @@ struct UIOverviewDemoView: View {
 
             // A4 - Search and Filter Controls Panel
             HStack {
-                Label("A4a Search Text Input - Leading Edge", systemImage: "magnifyingglass")
+                Label("A4a Search Field", systemImage: "magnifyingglass")
                 Spacer()
                 HStack(spacing: 10) {
-                    Label("A4b Appearance Mode Switch Button", systemImage: "sun.max")
-                    Label("A4c Favorites Access Button", systemImage: "star")
-                    Label("A4d Waveform View Style Toggle Button", systemImage: "waveform.path.ecg")
+                    Label("A4b Appearance Mode Toggle", systemImage: "sun.max")
+                    Label("A4c Favorites Toggle", systemImage: "star")
+                    Label("A4d Waveform Density Toggle", systemImage: "waveform.path.ecg")
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
@@ -141,16 +141,16 @@ struct UIOverviewDemoView: View {
 
             // A5 - Transport Controls Panel
             HStack(spacing: 20) {
-                Label("A5a Large Circular Stop Button - Left", systemImage: "stop.circle")
+                Label("A5a STOP Button", systemImage: "stop.circle")
                 Spacer()
                 VStack(spacing: 2) {
-                    Label("A5b1 Label RECORDING", systemImage: "record.circle.fill")
-                    Label("A5b2 Blinking Red Recording Indicator", systemImage: "circle.fill")
+                    Label("A5b1 RECORDING Label", systemImage: "record.circle.fill")
+                    Label("A5b2 Blinking Red Indicator", systemImage: "circle.fill")
                         .foregroundColor(.red)
                 }
                 Spacer()
                 Label(
-                    "A5c Large Circular Record/Pause Button - Bottom", systemImage: "pause.circle")
+                    "A5c RECORD/PAUSE Button", systemImage: "pause.circle")
             }
             .frame(maxWidth: .infinity)
             .padding()
@@ -161,20 +161,19 @@ struct UIOverviewDemoView: View {
             // A6 - Central Circular Playback Control
             VStack(spacing: 8) {
                 HStack {
-                    Label("A6b Left Segment - Rewind Button", systemImage: "backward.fill")
+                    Label("A6b Left Segment Rewind Button", systemImage: "backward.fill")
                     Spacer()
-                    Label("A6c Right Segment - Fast Forward Button", systemImage: "forward.fill")
+                    Label("A6c Right Segment Fast Forward Button", systemImage: "forward.fill")
                 }
                 HStack {
-                    Label("A6a Center Circle - Play/Pause Button", systemImage: "playpause.fill")
+                    Label("A6a Center Play/Pause Button", systemImage: "playpause.fill")
                         .frame(maxWidth: .infinity)
                 }
                 HStack {
                     Label(
-                        "A6d Bottom Segment - A-B Loop Toggle Indicator A-B ˇ",
-                        systemImage: "repeat")
+                        "A6d Bottom A-B Loop Toggle Indicator", systemImage: "repeat")
                     Spacer()
-                    Label("A6e Top Segment - DPC Toggle DPC ˆ", systemImage: "bolt.fill")
+                    Label("A6e Top DPC Toggle", systemImage: "bolt.fill")
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -186,9 +185,9 @@ struct UIOverviewDemoView: View {
 
             // A7 - UI Lock and Info Icons
             HStack {
-                Label("A7a Lock Button - Bottom Left Screen Corner", systemImage: "lock.fill")
+                Label("A7a Lock Button - Bottom Left", systemImage: "lock.fill")
                 Spacer()
-                Label("A7b Info Button - Bottom Right Screen Corner", systemImage: "info.circle")
+                Label("A7b Info Button - Bottom Right", systemImage: "info.circle")
             }
             .frame(maxWidth: .infinity)
             .padding()
