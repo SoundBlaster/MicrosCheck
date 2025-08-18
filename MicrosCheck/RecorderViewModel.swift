@@ -103,6 +103,13 @@ final class RecorderViewModel: ObservableObject {
         fileName = recorder.activeUrl?.lastPathComponent ?? ""
         fileSize = appState.fileReader.fileSize(
             for: recorder.activeUrl ?? appState.fileReader.recordURL())
+        updateFormat()
+    }
+
+    /// Update the audio format string based on recorder settings or defaults.
+    private func updateFormat() {
+        // For now, hardcoded to AAC 128kbps, can be extended to read actual format from recorder
+        format = "AAC 128kbps"
     }
 
     // MARK: - Actions
@@ -119,6 +126,7 @@ final class RecorderViewModel: ObservableObject {
         do {
             _ = try appState.recorder.record()
             isRecording = true
+            updateCurrentMeta()
         } catch {
             isRecording = false
         }
@@ -128,6 +136,7 @@ final class RecorderViewModel: ObservableObject {
         do {
             _ = try appState.recorder.pause()
             isRecording = false
+            updateCurrentMeta()
         } catch {}
     }
 
@@ -135,6 +144,15 @@ final class RecorderViewModel: ObservableObject {
         do {
             _ = try appState.recorder.stop()
             isRecording = false
+            updateCurrentMeta()
         } catch {}
+        /// Updates the current metadata fields (fileName, fileSize, format) from the recorder state.
+        func updateCurrentMeta() {
+            let recorder = appState.recorder
+            fileName = recorder.activeUrl?.lastPathComponent ?? ""
+            fileSize = appState.fileReader.fileSize(
+                for: recorder.activeUrl ?? appState.fileReader.recordURL())
+            updateFormat()
+        }
     }
 }

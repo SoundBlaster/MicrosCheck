@@ -61,6 +61,39 @@ struct FileListView: View {
                                 .font(.title3)
                         }
                     }
+                    .contextMenu {
+                        Button("Copy") {
+                            Task {
+                                do {
+                                    let newName = file.name + " Copy.m4a"
+                                    try await viewModel.copy(file: file, to: newName)
+                                } catch {
+                                    print("Copy failed: \(error)")
+                                }
+                            }
+                        }
+                        Button("Rename") {
+                            Task {
+                                // For simplicity, rename to file.name + "_renamed.m4a"
+                                do {
+                                    let newName = file.name.replacingOccurrences(
+                                        of: ".m4a", with: "_renamed.m4a")
+                                    try await viewModel.rename(file: file, to: newName)
+                                } catch {
+                                    print("Rename failed: \(error)")
+                                }
+                            }
+                        }
+                        Button("Delete", role: .destructive) {
+                            Task {
+                                do {
+                                    try await viewModel.delete(file: file)
+                                } catch {
+                                    print("Delete failed: \(error)")
+                                }
+                            }
+                        }
+                    }
                 }
                 .listStyle(PlainListStyle())
             }

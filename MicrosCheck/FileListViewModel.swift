@@ -62,4 +62,69 @@ final class FileListViewModel: ObservableObject {
             return nil
         #endif
     }
+
+    // MARK: - File Operations
+
+    /// Copies a file to a new name asynchronously.
+    /// - Parameters:
+    ///   - file: The file to copy.
+    ///   - newName: The new name for the copied file.
+    /// - Returns: The URL of the new copied file.
+    func copy(file: RecordingFileInfo, to newName: String) async throws -> URL {
+        let fm = FileManager.default
+        let newURL = file.url.deletingLastPathComponent().appendingPathComponent(newName)
+        try await Task.detached {
+            if fm.fileExists(atPath: newURL.path) {
+                try fm.removeItem(at: newURL)
+            }
+            try fm.copyItem(at: file.url, to: newURL)
+        }.value
+        await reload()
+        return newURL
+    }
+
+    /// Deletes a file asynchronously.
+    /// - Parameter file: The file to delete.
+    func delete(file: RecordingFileInfo) async throws {
+        let fm = FileManager.default
+        try await Task.detached {
+            if fm.fileExists(atPath: file.url.path) {
+                try fm.removeItem(at: file.url)
+            }
+        }.value
+        await reload()
+    }
+
+    /// Renames a file asynchronously.
+    /// - Parameters:
+    ///   - file: The file to rename.
+    ///   - newName: The new name for the file.
+    /// - Returns: The URL of the renamed file.
+    func rename(file: RecordingFileInfo, to newName: String) async throws -> URL {
+        let fm = FileManager.default
+        let newURL = file.url.deletingLastPathComponent().appendingPathComponent(newName)
+        try await Task.detached {
+            if fm.fileExists(atPath: newURL.path) {
+                try fm.removeItem(at: newURL)
+            }
+            try fm.moveItem(at: file.url, to: newURL)
+        }.value
+        await reload()
+        return newURL
+    }
+
+    // MARK: - FM4: Query Free Disk Space
+
+    /// Returns the free disk space in bytes asynchronously.
+    func freeDiskSpaceBytes() async throws -> Int64 {
+        let fm = FileManager.default
+        return try await Task.detached {
+            let url = fm.urls(for: .documentDirectory, in: .userDomainMask).first
+            guard let url else { return 0 }
+            let values = try url.resourceValues(forKeys: [
+                .volumeAvailableCapacityForImportantUsageKey
+            ])
+            return values.volumeAvailableCapacityForImportantUsage ?? 0
+        }.value
+    }
 }

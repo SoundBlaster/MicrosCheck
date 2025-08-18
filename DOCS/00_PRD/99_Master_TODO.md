@@ -49,21 +49,21 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # R5 Implement Recording Source Route Picker
 
-- [ ] Input: Audio input routes
-- [ ] Process: Use AVAudioSession to provide route selection.
-- [ ] Output: Selected active input source.
-- [ ] Priority: Medium
-- [ ] Dependencies: R1
-- [ ] Acceptance Criteria: Switching input routes works without crashes; UI reflects active source
+- [x] Input: Audio input routes
+- [x] Process: Use AVAudioSession to provide route selection.
+- [x] Output: Selected active input source.
+- [x] Priority: Medium
+- [x] Dependencies: R1
+- [x] Acceptance Criteria: Switching input routes works without crashes; UI reflects active source
 
 # R6 Update Recording Metadata (Name, Size, Format)
 
-- [ ] Input: File name, path
-- [ ] Process: Update JSON metadata file with current info.
-- [ ] Output: Updated metadata JSON file.
-- [ ] Priority: Medium
-- [ ] Dependencies: R2
-- [ ] Acceptance Criteria: Metadata stays synchronized with recording state and file attributes
+- [x] Input: File name, path
+- [x] Process: Update JSON metadata file with current info.
+- [x] Output: Updated metadata JSON file.
+- [x] Priority: Medium
+- [x] Dependencies: R2
+- [x] Acceptance Criteria: Metadata stays synchronized with recording state and file attributes
 
 # P1 Build Audio Playback Pipeline
 
@@ -182,12 +182,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # FM3 Implement Copy, Delete, Rename File Operations
 
-- [ ] Input: File IDs
-- [ ] Process: Perform file operations asynchronously.
-- [ ] Output: Updated file states, new IDs on copy/rename.
-- [ ] Priority: Medium
-- [ ] Dependencies: FM2
-- [ ] Acceptance Criteria: UI remains responsive during operations
+- [x] Input: File IDs
+- [x] Process: Perform file operations asynchronously.
+- [x] Output: Updated file states, new IDs on copy/rename.
+- [x] Priority: Medium
+- [x] Dependencies: FM2
+- [x] Acceptance Criteria: UI remains responsive during operations
 
 # FM4 Query Free Disk Space
 
