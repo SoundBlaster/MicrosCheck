@@ -22,7 +22,7 @@ struct RecorderMainScreen: View {
         ZStack {
             VStack(spacing: 24) {
                 LiveWaveformView(
-                    samples: viewModel.isRecording ? [viewModel.leftLevel, viewModel.rightLevel] : []
+                    samples: viewModel.liveWaveformSamples
                 )
                 .frame(height: 60)
                 .padding(.horizontal)

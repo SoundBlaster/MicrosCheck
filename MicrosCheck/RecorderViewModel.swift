@@ -16,6 +16,9 @@ final class RecorderViewModel: ObservableObject {
     @Published var leftLevel: Float = -60
     @Published var rightLevel: Float = -60
 
+    // Buffer for live waveform samples, fixed size ring buffer
+    @Published private(set) var liveWaveformSamples: [Float] = []
+
     // MARK: - Dependencies
     private let appState: AppState
     private var meterTimer: Timer?
@@ -23,6 +26,11 @@ final class RecorderViewModel: ObservableObject {
 
     @Published var availableInputs: [String] = []
     @Published var selectedInputName: String = .notSelectedInputName
+
+    private var waveformUpdateTimer: Timer?
+
+    private let maxWaveformSamples = 120  // target 30 fps means 4 seconds window at 30 updates/sec
+    private let waveformUpdateInterval = 1.0 / 30.0  // 30 Hz update
 
     init(appState: AppState) {
         self.appState = appState
@@ -32,14 +40,16 @@ final class RecorderViewModel: ObservableObject {
     }
 
     private func setupBindings() {
-        // Observe isRecording to start/stop metering
+        // Observe isRecording to start/stop metering and waveform updates
         $isRecording
             .sink { [weak self] isRec in
                 guard let self else { return }
                 if isRec {
                     self.startMetering()
+                    self.startWaveformUpdates()
                 } else {
                     self.stopMetering()
+                    self.stopWaveformUpdates()
                 }
             }
             .store(in: &cancellables)
@@ -97,8 +107,39 @@ final class RecorderViewModel: ObservableObject {
                 rightLevel = avRecorder.averagePower(forChannel: 1)
             } else {
                 rightLevel = leftLevel
+                // MARK: - Public API for live waveform updates
+
+                private func startWaveformUpdates() {
+                    waveformUpdateTimer?.invalidate()
+                    waveformUpdateTimer = Timer.scheduledTimer(
+                        withTimeInterval: waveformUpdateInterval, repeats: true
+                    ) { [weak self] _ in
+                        guard let self else { return }
+                        // Throttle updates by just publishing current liveWaveformSamples value,
+                        // this will cause LiveWaveformView to refresh smoothly at 30 Hz max
+                        let samples = self.liveWaveformSamples
+                        self.liveWaveformSamples = samples
+                    }
+                }
+
+                private func stopWaveformUpdates() {
+                    waveformUpdateTimer?.invalidate()
+                    waveformUpdateTimer = nil
+                }
             }
             elapsed = avRecorder.currentTime
+
+            // Append average of L/R levels as a sample for live waveform visualization
+            let avgLevel = (leftLevel + rightLevel) / 2.0
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                var newSamples = self.liveWaveformSamples
+                newSamples.append(avgLevel)
+                if newSamples.count > self.maxWaveformSamples {
+                    newSamples.removeFirst(newSamples.count - self.maxWaveformSamples)
+                }
+                self.liveWaveformSamples = newSamples
+            }
         }
         fileName = recorder.activeUrl?.lastPathComponent ?? ""
         fileSize = appState.fileReader.fileSize(
