@@ -1,9 +1,5 @@
 # 6. Acceptance Test Matrix (Core)
 
-# 6. Acceptance Test Matrix (Core)
-
-# 6. Acceptance Test Matrix (Core)
-
 | ID   | Scenario           | Steps                           | Expected Result                                                                                  | Notes                                               |
 |-------|--------------------|---------------------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------|
 | T01   | Start Recording     | From idle state, tap REC button  | App state transitions to recording within ≤ 200ms; recording timer starts counting; audio level meters animate in real-time | Verify low latency and accurate UI feedback         |
