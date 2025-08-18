@@ -67,21 +67,21 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # P1 Build Audio Playback Pipeline
 
-- [ ] Input: Audio file
-- [ ] Process: Setup AVAudioEngine playback chain (playerNode, timePitch, mixer).
-- [ ] Output: Audio playback with effects.
-- [ ] Priority: High
-- [ ] Dependencies: R1
-- [ ] Acceptance Criteria: Playback supports all formats, positions accurate
+- [x] Input: Audio file
+- [x] Process: Setup AVAudioEngine playback chain (playerNode, timePitch, mixer).
+- [x] Output: Audio playback with effects.
+- [x] Priority: High
+- [x] Dependencies: R1
+- [x] Acceptance Criteria: Playback supports all formats, positions accurate
 
 # P2 Track Playback Progress and Position
 
-- [ ] Input: Timer
-- [ ] Process: Poll player time periodically for UI.
-- [ ] Output: Updated UI playback position.
-- [ ] Priority: High
-- [ ] Dependencies: P1
-- [ ] Acceptance Criteria: Playback position does not drift more than 0.5s/hour
+- [x] Input: Timer
+- [x] Process: Poll player time periodically for UI.
+- [x] Output: Updated UI playback position.
+- [x] Priority: High
+- [x] Dependencies: P1
+- [x] Acceptance Criteria: Playback position does not drift more than 0.5s/hour
 
 # P3 Implement Seek Tap Behavior (±10 seconds)
 

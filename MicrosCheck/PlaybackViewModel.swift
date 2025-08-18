@@ -41,6 +41,9 @@ final class PlaybackViewModel: ObservableObject {
     private var timePitchNode: AVAudioUnitTimePitch?
     private var audioFile: AVAudioFile?
 
+    // Playback state tracking
+    @Published private(set) var isPlaying: Bool = false
+
     // MARK: - Initialization
     init() {}
 
@@ -152,11 +155,14 @@ final class PlaybackViewModel: ObservableObject {
 
     func play() {
         guard let playerNode = playerNode, let audioEngine = audioEngine else { return }
+
         if !audioEngine.isRunning {
             do {
                 try audioEngine.start()
             } catch {
                 print("PlaybackViewModel: Failed to start audio engine: \(error)")
+                isPlaying = false
+                stopTimers()
                 return
             }
         }
@@ -173,7 +179,7 @@ final class PlaybackViewModel: ObservableObject {
 
     func stop() {
         playerNode?.stop()
-        audioEngine?.stop()
+        audioEngine?.pause()
         position = 0
         isPlaying = false
         stopTimers()
@@ -186,36 +192,50 @@ final class PlaybackViewModel: ObservableObject {
             let audioEngine = audioEngine
         else { return }
 
-        var clampedTime = max(0, min(time, duration))
+        func seek(to time: TimeInterval) {
+            var clampedTime = max(0, min(time, duration))
 
-        // Enforce A-B loop boundaries if set
-        if let a = aPoint, let b = bPoint {
-            if clampedTime < a {
-                clampedTime = a
-            } else if clampedTime > b {
-                clampedTime = b
+            // Enforce A-B loop boundaries if set
+            if let a = aPoint, let b = bPoint {
+                if clampedTime < a {
+                    clampedTime = a
+                } else if clampedTime > b {
+                    clampedTime = b
+                }
+            }
+
+            position = clampedTime
+            playerNode?.stop()
+            guard let audioFile = audioFile else { return }
+
+            let framePosition = AVAudioFramePosition(clampedTime * audioFile.fileFormat.sampleRate)
+            let framesToPlay = AVAudioFrameCount(audioFile.length - framePosition)
+
+            playerNode?.scheduleSegment(
+                audioFile, startingFrame: framePosition, frameCount: framesToPlay, at: nil,
+                completionHandler: playbackEnded)
+
+            if isPlaying {
+                do {
+                    try audioEngine?.start()
+                    playerNode?.play()
+                } catch {
+                    print("PlaybackViewModel: Failed to restart audio engine after seek: \(error)")
+                }
             }
         }
-
-        position = clampedTime
-        playerNode.stop()
-        let framePosition = AVAudioFramePosition(clampedTime * audioFile.fileFormat.sampleRate)
-        let framesToPlay = AVAudioFrameCount(audioFile.length - framePosition)
-        playerNode.scheduleSegment(
-            audioFile, startingFrame: framePosition, frameCount: framesToPlay, at: nil,
-            completionHandler: playbackEnded)
-        if isPlaying {
-            do {
-                try audioEngine.start()
-                playerNode.play()
-            } catch {
-                print("PlaybackViewModel: Failed to restart audio engine after seek: \(error)")
-            }
-        }
-    }
 
     func nudge(by delta: TimeInterval) {
-        seek(to: position + delta)
+        let newPosition = position + delta
+        let clampedPosition: TimeInterval
+        if newPosition < 0 {
+            clampedPosition = 0
+        } else if newPosition > duration {
+            clampedPosition = duration
+        } else {
+            clampedPosition = newPosition
+        }
+        seek(to: clampedPosition)
     }
 
     // MARK: - DPC Rate/Pitch
@@ -255,14 +275,18 @@ final class PlaybackViewModel: ObservableObject {
         else { return }
 
         if isPlaying {
-            let nodeTime = playerNode.lastRenderTime
-            let playerTime = playerNode.playerTime(forNodeTime: nodeTime!)
-            if let playerTime {
-                position = Double(playerTime.sampleTime) / playerTime.sampleRate
-                // Check for A-B loop playback
-                if let a = aPoint, let b = bPoint, position >= b {
-                    seek(to: a)
-                }
+            guard let nodeTime = playerNode.lastRenderTime else { return }
+            guard let playerTime = playerNode.playerTime(forNodeTime: nodeTime) else { return }
+
+            let newPosition = Double(playerTime.sampleTime) / playerTime.sampleRate
+
+            // Avoid abrupt position changes beyond short tolerance
+            let maxJump: Double = 5.0 // seconds allowed jump distance
+            if abs(newPosition - position) > maxJump {
+                // Clamp to last known position if jump too large
+                position = position
+            } else {
+                position = newPosition
             }
         }
 
