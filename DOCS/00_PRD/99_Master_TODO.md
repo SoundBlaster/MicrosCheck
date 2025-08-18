@@ -85,12 +85,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # P3 Implement Seek Tap Behavior (±10 seconds)
 
-- [ ] Input: UI gesture
-- [ ] Process: Implement jump nudge seek ±10 seconds.
-- [ ] Output: Playback position updated.
-- [ ] Priority: High
-- [ ] Dependencies: P1
-- [ ] Acceptance Criteria: Seek step is accurate, no sounds clipped or corrupted
+- [x] Input: UI gesture
+- [x] Process: Implement jump nudge seek ±10 seconds.
+- [x] Output: Playback position updated.
+- [x] Priority: High
+- [x] Dependencies: P1
+- [x] Acceptance Criteria: Seek step is accurate, no sounds clipped or corrupted
 
 # P4 Implement Hold Seek with Continuous Nudge (200 ms)
 
@@ -172,12 +172,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # FM2 Retrieve File List with Attributes
 
-- [ ] Input: Disk contents
-- [ ] Process: Use FileManager and AVAsset to fetch metadata.
-- [ ] Output: Array of FileMeta objects.
-- [ ] Priority: High
-- [ ] Dependencies: FM1
-- [ ] Acceptance Criteria: All required attributes present and accurate
+- [x] Input: Disk contents
+- [x] Process: Use FileManager and AVAsset to fetch metadata.
+- [x] Output: Array of FileMeta objects.
+- [x] Priority: High
+- [x] Dependencies: FM1
+- [x] Acceptance Criteria: All required attributes present and accurate
 
 # FM3 Implement Copy, Delete, Rename File Operations
 
