@@ -27,6 +27,7 @@ protocol Recorder: Sendable {
     var recording: Bool { get }
     var activeUrl: URL? { get }
     func availableInputs() -> [Input]
+    func selectInput(_ input: Input) throws
     @discardableResult
     func prepare() throws -> Recorder
     @discardableResult

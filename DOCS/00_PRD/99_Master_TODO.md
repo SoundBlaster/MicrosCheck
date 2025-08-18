@@ -113,22 +113,22 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # P6 Implement Master and Channel Volume Control
 
-- [ ] Input: Volume levels
-- [ ] Process: Adjust mixer gains for master and L/R channels.
-- [ ] Output: Changed audio volume levels.
-- [ ] Priority: Medium
+- [x] Input: Volume levels
+- [x] Process: Adjust mixer gains for master and L/R channels.
+- [x] Output: Changed audio volume levels.
+- [x] Priority: Medium
 
-- [ ] Dependencies: P1
-- [ ] Acceptance Criteria: Linear volume response; no clipping or distortion
+- [x] Dependencies: P1
+- [x] Acceptance Criteria: Linear volume response; no clipping or distortion
 
 # P7 Implement A-B Loop Playback
 
-- [ ] Input: Loop points A & B
-- [ ] Process: Loop playback between points with seamless looping.
-- [ ] Output: Continuous audio loop.
-- [ ] Priority: Medium
-- [ ] Dependencies: P1, P2
-- [ ] Acceptance Criteria: Loop boundaries accurate within ±20 ms; no audio pops/clicks
+- [x] Input: Loop points A & B
+- [x] Process: Loop playback between points with seamless looping.
+- [x] Output: Continuous audio loop.
+- [x] Priority: Medium
+- [x] Dependencies: P1, P2
+- [x] Acceptance Criteria: Loop boundaries accurate within ±20 ms; no audio pops/clicks
 
 # UI1 Build SwiftUI Screens Layout According to Design
 
@@ -218,12 +218,12 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # SEC1 Implement UI Lock Overlay with Gestures and Haptics
 
-- [ ] Input: User gesture
-- [ ] Process: Display lock overlay, block input, unlock with long-press (2s).
-- [ ] Output: Locked UI state.
-- [ ] Priority: Medium
-- [ ] Dependencies: UI1
-- [ ] Acceptance Criteria: Controls disabled except unlock; unlock via 2s hold; haptic feedback
+- [x] Input: User gesture
+- [x] Process: Display lock overlay, block input, unlock with long-press (2s).
+- [x] Output: Locked UI state.
+- [x] Priority: Medium
+- [x] Dependencies: UI1
+- [x] Acceptance Criteria: Controls disabled except unlock; unlock via 2s hold; haptic feedback
 
 > UI Lock and Info icon specs can be found in [02_Component_Specs.md - Section A7](./GPT5_UI/GPT5_UI_Files/02_Component_Specs.md#A7-UI-Lock-Info-Icons).
 

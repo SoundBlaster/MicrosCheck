@@ -21,9 +21,14 @@ final class RecorderViewModel: ObservableObject {
     private var meterTimer: Timer?
     private var cancellables = Set<AnyCancellable>()
 
+    @Published var availableInputs: [String] = []
+    @Published var selectedInputName: String = .notSelectedInputName
+
     init(appState: AppState) {
         self.appState = appState
         setupBindings()
+        loadAvailableInputs()
+        selectedInputName = appState.selectedInputName
     }
 
     private func setupBindings() {
@@ -38,6 +43,16 @@ final class RecorderViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+
+        // Observe selectedInputName changes and update AppState and recorder input
+        $selectedInputName
+            .sink { [weak self] newName in
+                guard let self else { return }
+                Task {
+                    await self.selectInput(name: newName)
+                }
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Meter Polling
@@ -46,6 +61,23 @@ final class RecorderViewModel: ObservableObject {
         meterTimer = Timer.scheduledTimer(withTimeInterval: 1.0 / 20.0, repeats: true) {
             [weak self] _ in
             self?.updateMeters()
+        }
+    }
+
+    func loadAvailableInputs() {
+        let inputs = appState.recorder.availableInputs()
+        availableInputs = inputs.map { $0.name }
+    }
+
+    func selectInput(name: String) async {
+        guard name != .notSelectedInputName else { return }
+        guard let input = appState.recorder.availableInputs().first(where: { $0.name == name })
+        else { return }
+        do {
+            try appState.recorder.selectInput(input)
+            appState.selectedInputName = name
+        } catch {
+            print("Failed to select input: \(error)")
         }
     }
 

@@ -136,6 +136,77 @@ struct PlaybackView: View {
                 }
             }
             .padding(.horizontal)
+
+            // Volume Controls
+            VStack(spacing: 16) {
+                HStack {
+                    Text("Master Volume")
+                    Slider(
+                        value: Binding(
+                            get: { Double(viewModel.masterVolume) },
+                            set: { viewModel.masterVolume = Float($0) }
+                        ), in: 0...1.0, step: 0.01)
+                    Text(String(format: "%.0f%%", viewModel.masterVolume * 100))
+                        .frame(width: 50)
+                }
+                HStack {
+                    Text("Left Channel Gain (dB)")
+                    Slider(
+                        value: Binding(
+                            get: { Double(viewModel.volumeL) },
+                            set: { viewModel.volumeL = Float($0) }
+                        ), in: -60...12, step: 1)
+                    Text(String(format: "%.0f dB", viewModel.volumeL))
+                        .frame(width: 50)
+                }
+                HStack {
+                    Text("Right Channel Gain (dB)")
+                    Slider(
+                        value: Binding(
+                            get: { Double(viewModel.volumeR) },
+                            set: { viewModel.volumeR = Float($0) }
+                        ), in: -60...12, step: 1)
+                    Text(String(format: "%.0f dB", viewModel.volumeR))
+                        .frame(width: 50)
+                }
+            }
+            .padding(.horizontal)
+
+            // A-B Loop Controls
+            HStack(spacing: 24) {
+                Button(action: {
+                    if viewModel.aPoint == nil {
+                        viewModel.aPoint = viewModel.position
+                        viewModel.bPoint = nil
+                    } else if viewModel.bPoint == nil {
+                        if viewModel.position > viewModel.aPoint! {
+                            viewModel.bPoint = viewModel.position
+                        } else {
+                            // Swap if B < A
+                            viewModel.bPoint = viewModel.aPoint
+                            viewModel.aPoint = viewModel.position
+                        }
+                    } else {
+                        // Reset loop
+                        viewModel.aPoint = nil
+                        viewModel.bPoint = nil
+                    }
+                }) {
+                    Text(
+                        viewModel.aPoint == nil
+                            ? "Set A" : (viewModel.bPoint == nil ? "Set B" : "Clear Loop")
+                    )
+                    .font(.body)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        viewModel.aPoint != nil
+                            ? Color.accentColor.opacity(0.2) : Color.gray.opacity(0.2)
+                    )
+                    .cornerRadius(8)
+                }
+            }
+            .padding(.horizontal)
         }
         .padding()
     }
@@ -196,6 +267,9 @@ struct MeterBar: View {
                 )
                 self.rate = 1.25
                 self.pitchCents = 300
+                self.masterVolume = 0.8
+                self.volumeL = -7
+                self.volumeR = -21
             }
         }
 

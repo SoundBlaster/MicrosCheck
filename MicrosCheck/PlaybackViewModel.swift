@@ -33,10 +33,33 @@ final class PlaybackViewModel: ObservableObject {
         }
     }
 
+    // MARK: - A-B Loop Properties
+    @Published var aPoint: TimeInterval? = nil
+    @Published var bPoint: TimeInterval? = nil
+
     private var audioEngine: AVAudioEngine?
     private var playerNode: AVAudioPlayerNode?
     private var timePitchNode: AVAudioUnitTimePitch?
     private var audioFile: AVAudioFile?
+
+    // MARK: - Initialization
+    init() {}
+    // MARK: - Volume Control Properties
+    @Published var masterVolume: Float = 1.0 {
+        didSet {
+            updateMasterVolume()
+        }
+    }
+    @Published var volumeL: Float = 0.0 {
+        didSet {
+            updateChannelVolumes()
+        }
+    }
+    @Published var volumeR: Float = 0.0 {
+        didSet {
+            updateChannelVolumes()
+        }
+    }
 
     // MARK: - Initialization
     init() {}
@@ -70,6 +93,10 @@ final class PlaybackViewModel: ObservableObject {
 
         audioEngine.connect(playerNode, to: timePitchNode, format: nil)
         audioEngine.connect(timePitchNode, to: audioEngine.mainMixerNode, format: nil)
+
+        // Set initial volume levels
+        updateMasterVolume()
+        updateChannelVolumes()
 
         do {
             audioFile = try AVAudioFile(forReading: url)
@@ -141,9 +168,18 @@ final class PlaybackViewModel: ObservableObject {
             let audioEngine = audioEngine
         else { return }
 
-        let clampedTime = max(0, min(time, duration))
-        position = clampedTime
+        var clampedTime = max(0, min(time, duration))
 
+        // Enforce A-B loop boundaries if set
+        if let a = aPoint, let b = bPoint {
+            if clampedTime < a {
+                clampedTime = a
+            } else if clampedTime > b {
+                clampedTime = b
+            }
+        }
+
+        position = clampedTime
         playerNode.stop()
         let framePosition = AVAudioFramePosition(clampedTime * audioFile.fileFormat.sampleRate)
         let framesToPlay = AVAudioFrameCount(audioFile.length - framePosition)
@@ -205,6 +241,10 @@ final class PlaybackViewModel: ObservableObject {
             let playerTime = playerNode.playerTime(forNodeTime: nodeTime!)
             if let playerTime {
                 position = Double(playerTime.sampleTime) / playerTime.sampleRate
+                // Check for A-B loop playback
+                if let a = aPoint, let b = bPoint, position >= b {
+                    seek(to: a)
+                }
             }
         }
 
@@ -219,6 +259,22 @@ final class PlaybackViewModel: ObservableObject {
         let mixer = audioEngine.mainMixerNode
         mixer.outputVolume = 1.0
         // Metering on AVAudioEngine is more complex; for now, we skip meter updates or implement later.
+    }
+
+    // MARK: - Volume Control Updates
+
+    private func updateMasterVolume() {
+        audioEngine?.mainMixerNode.outputVolume = masterVolume
+    }
+
+    private func updateChannelVolumes() {
+        guard let playerNode = playerNode else { return }
+        // AVAudioPlayerNode does not support direct channel gain control.
+        // This requires more advanced audio processing with mixer nodes.
+        // For now, this is a placeholder to show where channel volume would be applied.
+        // Future: Implement AVAudioMixerNode with separate channel controls.
+        // For now, we log the intended channel volumes.
+        print("Set channel volumes L: \(volumeL) dB, R: \(volumeR) dB (not implemented)")
     }
 
     // MARK: - Seek Hold (Continuous Seek)

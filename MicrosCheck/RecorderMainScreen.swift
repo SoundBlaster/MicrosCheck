@@ -1,3 +1,4 @@
+import CoreHaptics
 import SwiftUI
 
 struct RecorderMainScreen: View {
@@ -6,83 +7,228 @@ struct RecorderMainScreen: View {
     @StateObject private var playbackVM = PlaybackViewModel()
     @State private var selectedFile: RecordingFileInfo? = nil
 
-    var body: some View {
-        VStack(spacing: 24) {
-            // Top waveform placeholder
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(height: 60)
-                .overlay(Text("Waveform (coming soon)").font(.caption))
+    // UI Lock state
+    @State private var isLocked: Bool = false
+    @State private var unlockProgress: Double = 0.0
+    @State private var hapticEngine: CHHapticEngine?
 
-            // Info Card
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(viewModel.isRecording ? "● REC" : "Ready")
-                        .foregroundColor(viewModel.isRecording ? .red : .secondary)
-                        .font(.headline)
-                    Text(formatElapsed(viewModel.elapsed))
-                        .font(.title2)
-                        .monospacedDigit()
-                    Text(viewModel.format)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                Spacer()
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text(viewModel.fileName)
-                        .font(.callout)
-                        .lineLimit(1)
-                    Text("\(formatSize(viewModel.fileSize))")
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                    HStack(spacing: 8) {
-                        MeterBar(level: viewModel.leftLevel, label: "L")
-                        MeterBar(level: viewModel.rightLevel, label: "R")
+    var body: some View {
+        ZStack {
+            VStack(spacing: 24) {
+                // Top waveform placeholder
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: 60)
+                    .overlay(Text("Waveform (coming soon)").font(.caption))
+
+                // Info Card
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(viewModel.isRecording ? "● REC" : "Ready")
+                            .foregroundColor(viewModel.isRecording ? .red : .secondary)
+                            .font(.headline)
+                        Text(formatElapsed(viewModel.elapsed))
+                            .font(.title2)
+                            .monospacedDigit()
+                        Text(viewModel.format)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text(viewModel.fileName)
+                            .font(.callout)
+                            .lineLimit(1)
+                        Text("\(formatSize(viewModel.fileSize))")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        HStack(spacing: 8) {
+                            MeterBar(level: viewModel.leftLevel, label: "L")
+                            MeterBar(level: viewModel.rightLevel, label: "R")
+                        }
                     }
                 }
-            }
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
 
-            // Main Controls
-            HStack(spacing: 24) {
-                Button(action: { viewModel.stop() }) {
-                    Label("Stop", systemImage: "stop.circle")
+                // Input Source Picker
+                if viewModel.isPrepared {
+                    Picker("Select Microphone", selection: $viewModel.selectedInputName) {
+                        Text(String.notSelectedInputName).tag(String.notSelectedInputName)
+                        ForEach(viewModel.availableInputs, id: \.self) { input in
+                            Text(input).tag(input)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .disabled(isLocked)
+                    .padding(.horizontal)
                 }
-                .disabled(!viewModel.isRecording)
-                .font(.title2)
 
-                Button(action: {
-                    viewModel.isRecording ? viewModel.pause() : viewModel.record()
-                }) {
-                    Label(
-                        viewModel.isRecording ? "Pause" : "Record",
-                        systemImage: viewModel.isRecording ? "pause.circle" : "record.circle")
+                // Main Controls
+                HStack(spacing: 24) {
+                    Button(action: { viewModel.stop() }) {
+                        Label("Stop", systemImage: "stop.circle")
+                    }
+                    .disabled(!viewModel.isRecording || isLocked)
+                    .font(.title2)
+
+                    Button(action: {
+                        if !isLocked {
+                            viewModel.isRecording ? viewModel.pause() : viewModel.record()
+                        }
+                    }) {
+                        Label(
+                            viewModel.isRecording ? "Pause" : "Record",
+                            systemImage: viewModel.isRecording ? "pause.circle" : "record.circle")
+                    }
+                    .foregroundColor(viewModel.isRecording ? .orange : .red)
+                    .disabled(!viewModel.isPrepared || isLocked)
+                    .font(.title2)
                 }
-                .foregroundColor(viewModel.isRecording ? .orange : .red)
-                .disabled(!viewModel.isPrepared)
-                .font(.title2)
-            }
 
-            // File list integration
-            FileListView(viewModel: fileListVM) { file in
-                selectedFile = file
-                playbackVM.load(file: file)
-            }
-            .frame(maxHeight: 220)
-            .padding(.top, 8)
+                // File list integration
+                FileListView(viewModel: fileListVM) { file in
+                    selectedFile = file
+                    playbackVM.load(file: file)
+                }
+                .frame(maxHeight: 220)
+                .padding(.top, 8)
+                .disabled(isLocked)
 
-            if let selected = selectedFile {
-                PlaybackView(viewModel: playbackVM)
-                    .frame(maxHeight: 280)
-                    .padding(.top, 8)
-            }
+                if let selected = selectedFile {
+                    PlaybackView(viewModel: playbackVM)
+                        .frame(maxHeight: 280)
+                        .padding(.top, 8)
+                        .disabled(isLocked)
+                }
 
-            Spacer()
+                Spacer()
+            }
+            .blur(radius: isLocked ? 5 : 0)
+            .disabled(isLocked)
+
+            if isLocked {
+                lockOverlay
+            }
         }
-        .padding()
         .onAppear {
             Task { await viewModel.prepare() }
+            prepareHaptics()
+        }
+    }
+
+    // MARK: - Lock Overlay View
+
+    var lockOverlay: some View {
+        VStack {
+            Spacer()
+            Text("Hold to unlock")
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding(.bottom, 8)
+            ZStack {
+                Circle()
+                    .stroke(Color.white.opacity(0.5), lineWidth: 4)
+                    .frame(width: 80, height: 80)
+                Circle()
+                    .trim(from: 0, to: unlockProgress)
+                    .stroke(Color.white, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .frame(width: 80, height: 80)
+            }
+            .gesture(
+                LongPressGesture(minimumDuration: 2.0)
+                    .onChanged { _ in
+                        // No-op for visual feedback handled by timer
+                    }
+                    .onEnded { _ in
+                        unlockUI()
+                    }
+            )
+            .padding(.bottom, 40)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black.opacity(0.6))
+        .transition(.opacity)
+        .onAppear(perform: startUnlockProgress)
+        .onDisappear(perform: stopUnlockProgress)
+    }
+
+    // MARK: - Unlock Progress Timer
+
+    @State private var unlockTimer: Timer?
+
+    func startUnlockProgress() {
+        unlockProgress = 0
+        unlockTimer?.invalidate()
+        unlockTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { timer in
+            if unlockProgress < 1.0 {
+                unlockProgress += 0.01
+                playHapticProgress()
+            } else {
+                timer.invalidate()
+            }
+        }
+    }
+
+    func stopUnlockProgress() {
+        unlockTimer?.invalidate()
+        unlockTimer = nil
+        unlockProgress = 0
+    }
+
+    // MARK: - Unlock Action
+
+    func unlockUI() {
+        stopUnlockProgress()
+        isLocked = false
+        playHapticSuccess()
+    }
+
+    // MARK: - Haptics
+
+    func prepareHaptics() {
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+        do {
+            hapticEngine = try CHHapticEngine()
+            try hapticEngine?.start()
+        } catch {
+            print("Failed to start haptic engine: \(error)")
+            hapticEngine = nil
+        }
+    }
+
+    func playHapticProgress() {
+        guard let engine = hapticEngine else { return }
+        let intensity = CHHapticEventParameter(
+            parameterID: .hapticIntensity, value: Float(unlockProgress))
+        let sharpness = CHHapticEventParameter(
+            parameterID: .hapticSharpness, value: Float(unlockProgress))
+        let event = CHHapticEvent(
+            eventType: .hapticContinuous, parameters: [intensity, sharpness], relativeTime: 0,
+            duration: 0.02)
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Failed to play haptic progress: \(error)")
+        }
+    }
+
+    func playHapticSuccess() {
+        guard let engine = hapticEngine else { return }
+        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
+        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
+        let event = CHHapticEvent(
+            eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
+        do {
+            let pattern = try CHHapticPattern(events: [event], parameters: [])
+            let player = try engine.makePlayer(with: pattern)
+            try player.start(atTime: 0)
+        } catch {
+            print("Failed to play haptic success: \(error)")
         }
     }
 
