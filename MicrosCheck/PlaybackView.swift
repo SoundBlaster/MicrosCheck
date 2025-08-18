@@ -230,53 +230,13 @@ struct PlaybackView: View {
     }
 }
 
-struct MeterBar: View {
-    let level: Float
-    let label: String
-
-    var body: some View {
-        VStack(spacing: 2) {
-            Text(label)
-                .font(.caption2)
-            Rectangle()
-                .fill(Color.green)
-                .frame(width: 8, height: CGFloat(max(2, (level + 60) * 2)))
-                .cornerRadius(2)
-            Text(String(format: "%.0fdB", level))
-                .font(.caption2)
-        }
+#if DEBUG
+struct PlaybackView_Previews: PreviewProvider {
+    static var previews: some View {
+        let vm = PlaybackViewModel.mockForPreview()
+        return PlaybackView(viewModel: vm)
+            .preferredColorScheme(.dark)
+            .previewLayout(.sizeThatFits)
     }
 }
-
-#if DEBUG
-    struct PlaybackView_Previews: PreviewProvider {
-        class DummyPlaybackVM: PlaybackViewModel {
-            override init() {
-                super.init()
-                self.isPlaying = true
-                self.duration = 120
-                self.position = 45
-                self.leftLevel = -10
-                self.rightLevel = -20
-                self.currentFile = RecordingFileInfo(
-                    url: URL(fileURLWithPath: "/tmp/rec1.m4a"),
-                    name: "20240612_01.m4a",
-                    size: 2_100_000,
-                    created: Date(),
-                    duration: 120
-                )
-                self.rate = 1.25
-                self.pitchCents = 300
-                self.masterVolume = 0.8
-                self.volumeL = -7
-                self.volumeR = -21
-            }
-        }
-
-        static var previews: some View {
-            PlaybackView(viewModel: DummyPlaybackVM())
-                .preferredColorScheme(.dark)
-                .previewLayout(.sizeThatFits)
-        }
-    }
 #endif

@@ -192,7 +192,7 @@ internal final class RecorderImpl: Recorder {
     private let stateHolder = StateHolder()
     private let preferredPort: AVAudioSession.Port = .builtInMic
     private var audioSession: AVAudioSession?
-    private var audioRecorder: AVAudioRecorder?
+    var audioRecorder: AVAudioRecorder?
     private var audioRecorderDelegate: RecorderDelegate {
         RecorderDelegate(recorder: self, fileReader: fileReader)
     }

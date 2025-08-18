@@ -64,7 +64,7 @@ final class FileReaderImpl: FileReader {
 
     /// Ensures the `/Documents/Recordings` directory exists.
     /// Creates it if missing, handles any errors internally.
-    private func ensureRecordingsDirectoryExists(at url: URL) {
+    func ensureRecordingsDirectoryExists(at url: URL) {
         let fm = FileManager.default
         var isDir: ObjCBool = false
         if fm.fileExists(atPath: url.path, isDirectory: &isDir) {
@@ -86,3 +86,4 @@ final class FileReaderImpl: FileReader {
         }
     }
 }
+

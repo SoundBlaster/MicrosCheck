@@ -1,4 +1,6 @@
 import Combine
+import AVFAudio
+import AVFoundation
 import Foundation
 import SwiftUI
 
@@ -96,36 +98,37 @@ final class RecorderViewModel: ObservableObject {
         meterTimer = nil
     }
 
+    // MARK: - Public API for live waveform updates
+
+    private func startWaveformUpdates() {
+        waveformUpdateTimer?.invalidate()
+        waveformUpdateTimer = Timer.scheduledTimer(
+            withTimeInterval: waveformUpdateInterval, repeats: true
+        ) { [weak self] _ in
+            guard let self else { return }
+            // Throttle updates by just publishing current liveWaveformSamples value,
+            // this will cause LiveWaveformView to refresh smoothly at 30 Hz max
+            let samples = self.liveWaveformSamples
+            self.liveWaveformSamples = samples
+        }
+    }
+
+    private func stopWaveformUpdates() {
+        waveformUpdateTimer?.invalidate()
+        waveformUpdateTimer = nil
+    }
+    
     private func updateMeters() {
         let recorder = appState.recorder
         guard recorder.recording else { return }
-        // Use KVC to access AVAudioRecorder if possible (internal)
-        if let avRecorder = recorder.value(forKey: "audioRecorder") as? AVAudioRecorder {
+        // Use safe cast instead of KVC to access AVAudioRecorder if possible (internal)
+        if let recorderImpl = recorder as? RecorderImpl, let avRecorder = recorderImpl.audioRecorder {
             avRecorder.updateMeters()
             leftLevel = avRecorder.averagePower(forChannel: 0)
-            if avRecorder.numberOfChannels > 1 {
+            if avRecorder.format.channelCount > 1 {
                 rightLevel = avRecorder.averagePower(forChannel: 1)
             } else {
                 rightLevel = leftLevel
-                // MARK: - Public API for live waveform updates
-
-                private func startWaveformUpdates() {
-                    waveformUpdateTimer?.invalidate()
-                    waveformUpdateTimer = Timer.scheduledTimer(
-                        withTimeInterval: waveformUpdateInterval, repeats: true
-                    ) { [weak self] _ in
-                        guard let self else { return }
-                        // Throttle updates by just publishing current liveWaveformSamples value,
-                        // this will cause LiveWaveformView to refresh smoothly at 30 Hz max
-                        let samples = self.liveWaveformSamples
-                        self.liveWaveformSamples = samples
-                    }
-                }
-
-                private func stopWaveformUpdates() {
-                    waveformUpdateTimer?.invalidate()
-                    waveformUpdateTimer = nil
-                }
             }
             elapsed = avRecorder.currentTime
 
@@ -199,13 +202,15 @@ final class RecorderViewModel: ObservableObject {
             isRecording = false
             updateCurrentMeta()
         } catch {}
-        /// Updates the current metadata fields (fileName, fileSize, format) from the recorder state.
-        func updateCurrentMeta() {
-            let recorder = appState.recorder
-            fileName = recorder.activeUrl?.lastPathComponent ?? ""
-            fileSize = appState.fileReader.fileSize(
-                for: recorder.activeUrl ?? appState.fileReader.recordURL())
-            updateFormat()
-        }
+    }
+
+    /// Updates the current metadata fields (fileName, fileSize, format) from the recorder state.
+    private func updateCurrentMeta() {
+        let recorder = appState.recorder
+        fileName = recorder.activeUrl?.lastPathComponent ?? ""
+        fileSize = appState.fileReader.fileSize(
+            for: recorder.activeUrl ?? appState.fileReader.recordURL())
+        updateFormat()
     }
 }
+

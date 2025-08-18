@@ -1,5 +1,47 @@
 import Combine
 import Foundation
+#if canImport(AVFoundation)
+    import AVFoundation
+#endif
+
+// MARK: - Data Models required for metadata/bookmarks
+
+struct AudioFileID: Hashable, Codable {
+    let path: String
+}
+
+struct AudioAttributes: Codable {
+    var duration: TimeInterval
+    var bitrateKbps: Int?
+    var sampleRate: Double
+    var channels: Int
+    var format: AudioFormat
+    var fileSizeBytes: Int64
+}
+
+enum AudioFormat: String, Codable { case aac /*default*/, pcm, alac /*…*/ }
+
+struct FileMeta: Codable {
+    var id: AudioFileID
+    var displayName: String
+    var createdAt: Date
+    var lastPlayedPosition: TimeInterval?
+    var bookmarks: [Bookmark]
+    var audio: AudioAttributes
+    var userTags: [String]
+    var custom: [String: String]?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case displayName
+        case createdAt
+        case lastPlayedPosition
+        case bookmarks
+        case audio
+        case userTags
+        case custom
+    }
+}
 
 /// Represents a single audio file and its basic metadata for the file list UI.
 struct RecordingFileInfo: Identifiable, Equatable {
@@ -49,9 +91,9 @@ final class FileListViewModel: ObservableObject {
         let fm = FileManager.default
         var fileInfos: [RecordingFileInfo] = []
         var newCache: [URL: WaveformData] = [:]
-        if let files = try? fm.contentsOfDirectory(
+        if let files = (try? fm.contentsOfDirectory(
             at: dir, includingPropertiesForKeys: [.fileSizeKey, .creationDateKey],
-            options: [.skipsHiddenFiles])
+            options: [.skipsHiddenFiles])) as? [URL]
         {
             for url in files where url.pathExtension.lowercased() == "m4a" {
                 let name = url.lastPathComponent
@@ -102,7 +144,6 @@ final class FileListViewModel: ObservableObject {
     /// Helper to get duration of an audio file (m4a) using AVFoundation.
     private static func audioDuration(for url: URL) -> TimeInterval? {
         #if canImport(AVFoundation)
-            import AVFoundation
             let asset = AVURLAsset(url: url)
             return CMTimeGetSeconds(asset.duration)
         #else
@@ -173,5 +214,20 @@ final class FileListViewModel: ObservableObject {
             ])
             return values.volumeAvailableCapacityForImportantUsage ?? 0
         }.value
+    }
+    
+    /// Loads and returns the FileMeta for the given AudioFileID by reading its metadata JSON file.
+    func attributes(for id: AudioFileID) async throws -> FileMeta {
+        let metaUrl = URL(fileURLWithPath: id.path).deletingPathExtension().appendingPathExtension("json")
+        let data = try Data(contentsOf: metaUrl)
+        let meta = try JSONDecoder().decode(FileMeta.self, from: data)
+        return meta
+    }
+
+    /// Saves the provided FileMeta to its metadata JSON file.
+    func updateMeta(_ meta: FileMeta) async throws {
+        let metaUrl = URL(fileURLWithPath: meta.id.path).deletingPathExtension().appendingPathExtension("json")
+        let data = try JSONEncoder().encode(meta)
+        try data.write(to: metaUrl)
     }
 }

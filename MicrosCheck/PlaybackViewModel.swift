@@ -1,4 +1,4 @@
-import AVFoundation
+@preconcurrency import AVFoundation
 import Foundation
 import SwiftUI
 
@@ -8,6 +8,28 @@ final class PlaybackViewModel: ObservableObject {
     // MARK: - Shared FileListViewModel for bookmark integration
     static var sharedFileListViewModel: FileListViewModel?
 
+    // MARK: - Mock Data for Preview and Tests
+    static func mockForPreview() -> PlaybackViewModel {
+        let vm = PlaybackViewModel()
+        vm.isPlaying = true
+        vm.duration = 120
+        vm.position = 45
+        vm.leftLevel = -10
+        vm.rightLevel = -20
+        vm.currentFile = RecordingFileInfo(
+            url: URL(fileURLWithPath: "/tmp/rec1.m4a"),
+            name: "20240612_01.m4a",
+            size: 2_100_000,
+            created: Date(),
+            duration: 120)
+        vm.rate = 1.25
+        vm.pitchCents = 300
+        vm.masterVolume = 0.8
+        vm.volumeL = -7
+        vm.volumeR = -21
+        return vm
+    }
+
     // MARK: - Published Properties for UI Binding
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var duration: TimeInterval = 0
@@ -15,6 +37,9 @@ final class PlaybackViewModel: ObservableObject {
     @Published private(set) var leftLevel: Float = -60
     @Published private(set) var rightLevel: Float = -60
     @Published private(set) var currentFile: RecordingFileInfo?
+
+    @Published var aPoint: TimeInterval? = nil
+    @Published var bPoint: TimeInterval? = nil
 
     // MARK: - Private Properties
     private var audioPlayer: AVAudioPlayer?
@@ -41,8 +66,22 @@ final class PlaybackViewModel: ObservableObject {
     private var timePitchNode: AVAudioUnitTimePitch?
     private var audioFile: AVAudioFile?
 
-    // Playback state tracking
-    @Published private(set) var isPlaying: Bool = false
+    // MARK: - Volume Control Properties
+    @Published var masterVolume: Float = 1.0 {
+        didSet {
+            updateMasterVolume()
+        }
+    }
+    @Published var volumeL: Float = 0.0 {
+        didSet {
+            updateChannelVolumes()
+        }
+    }
+    @Published var volumeR: Float = 0.0 {
+        didSet {
+            updateChannelVolumes()
+        }
+    }
 
     // MARK: - Initialization
     init() {}
@@ -65,25 +104,6 @@ final class PlaybackViewModel: ObservableObject {
         try await fileListVM.addBookmark(
             to: file, time: bookmark.time, title: bookmark.title, note: bookmark.note)
     }
-    // MARK: - Volume Control Properties
-    @Published var masterVolume: Float = 1.0 {
-        didSet {
-            updateMasterVolume()
-        }
-    }
-    @Published var volumeL: Float = 0.0 {
-        didSet {
-            updateChannelVolumes()
-        }
-    }
-    @Published var volumeR: Float = 0.0 {
-        didSet {
-            updateChannelVolumes()
-        }
-    }
-
-    // MARK: - Initialization
-    init() {}
 
     // MARK: - Playback Control
 
@@ -122,7 +142,7 @@ final class PlaybackViewModel: ObservableObject {
         do {
             audioFile = try AVAudioFile(forReading: url)
             guard let audioFile = audioFile else { return }
-            duration = audioFile.duration
+            duration = Double(audioFile.length) / audioFile.fileFormat.sampleRate
             position = 0
 
             try audioEngine.start()
@@ -138,7 +158,6 @@ final class PlaybackViewModel: ObservableObject {
             self.audioEngine = nil
             playerNode.stop()
             self.playerNode = nil
-            timePitchNode.stop()
             self.timePitchNode = nil
             audioFile = nil
             duration = 0
@@ -188,42 +207,40 @@ final class PlaybackViewModel: ObservableObject {
 
     func seek(to time: TimeInterval) {
         guard let playerNode = playerNode,
-            let audioFile = audioFile,
-            let audioEngine = audioEngine
+              let audioFile = audioFile,
+              let audioEngine = audioEngine
         else { return }
 
-        func seek(to time: TimeInterval) {
-            var clampedTime = max(0, min(time, duration))
+        var clampedTime = max(0, min(time, duration))
 
-            // Enforce A-B loop boundaries if set
-            if let a = aPoint, let b = bPoint {
-                if clampedTime < a {
-                    clampedTime = a
-                } else if clampedTime > b {
-                    clampedTime = b
-                }
-            }
-
-            position = clampedTime
-            playerNode?.stop()
-            guard let audioFile = audioFile else { return }
-
-            let framePosition = AVAudioFramePosition(clampedTime * audioFile.fileFormat.sampleRate)
-            let framesToPlay = AVAudioFrameCount(audioFile.length - framePosition)
-
-            playerNode?.scheduleSegment(
-                audioFile, startingFrame: framePosition, frameCount: framesToPlay, at: nil,
-                completionHandler: playbackEnded)
-
-            if isPlaying {
-                do {
-                    try audioEngine?.start()
-                    playerNode?.play()
-                } catch {
-                    print("PlaybackViewModel: Failed to restart audio engine after seek: \(error)")
-                }
+        // Enforce A-B loop boundaries if set
+        if let a = aPoint, let b = bPoint {
+            if clampedTime < a {
+                clampedTime = a
+            } else if clampedTime > b {
+                clampedTime = b
             }
         }
+
+        position = clampedTime
+        playerNode.stop()
+
+        let framePosition = AVAudioFramePosition(clampedTime * audioFile.fileFormat.sampleRate)
+        let framesToPlay = AVAudioFrameCount(audioFile.length - framePosition)
+
+        playerNode.scheduleSegment(
+            audioFile, startingFrame: framePosition, frameCount: framesToPlay, at: nil,
+            completionHandler: playbackEnded)
+
+        if isPlaying {
+            do {
+                try audioEngine.start()
+                playerNode.play()
+            } catch {
+                print("PlaybackViewModel: Failed to restart audio engine after seek: \(error)")
+            }
+        }
+    }
 
     func nudge(by delta: TimeInterval) {
         let newPosition = position + delta
@@ -271,7 +288,7 @@ final class PlaybackViewModel: ObservableObject {
 
     private func updateProgress() {
         guard let playerNode = playerNode,
-            let audioFile = audioFile
+              let audioFile = audioFile
         else { return }
 
         if isPlaying {
@@ -344,7 +361,7 @@ final class PlaybackViewModel: ObservableObject {
     // MARK: - Deinitialization
 
     deinit {
-        stopTimers()
+        Task { @MainActor in self.stopTimers() }
         audioPlayer?.stop()
         audioPlayer = nil
         audioEngine?.stop()
@@ -355,21 +372,3 @@ final class PlaybackViewModel: ObservableObject {
     }
 }
 
-// MARK: - Seek Hold (Continuous Seek)
-
-/// Starts continuous seeking in the given direction (+ for forward, - for backward).
-func holdSeek(start direction: TimeInterval) {
-    guard audioPlayer != nil else { return }
-    holdSeekDirection = direction
-    holdSeekTimer?.invalidate()
-    holdSeekTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { [weak self] _ in
-        self?.nudge(by: direction)
-    }
-}
-
-/// Stops continuous seeking.
-func stopHoldSeek() {
-    holdSeekTimer?.invalidate()
-    holdSeekTimer = nil
-    holdSeekDirection = 0
-}

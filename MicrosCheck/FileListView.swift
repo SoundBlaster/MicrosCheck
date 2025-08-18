@@ -138,38 +138,39 @@ struct FileListView: View {
 }
 
 #if DEBUG
-    struct FileListView_Previews: PreviewProvider {
-        static var previews: some View {
-            let vm = FileListViewModel(fileReader: DummyFileReader())
-            vm.files = [
-                RecordingFileInfo(
-                    url: URL(fileURLWithPath: "/tmp/rec1.m4a"),
-                    name: "20240612_01.m4a",
-                    size: 2_100_000,
-                    created: Date(),
-                    duration: 67.3
-                ),
-                RecordingFileInfo(
-                    url: URL(fileURLWithPath: "/tmp/rec2.m4a"),
-                    name: "20240611_02.m4a",
-                    size: 1_500_000,
-                    created: Date().addingTimeInterval(-3600),
-                    duration: 120.0
-                ),
-            ]
-            return FileListView(viewModel: vm, onSelect: { _ in })
-                .preferredColorScheme(.dark)
-                .previewLayout(.sizeThatFits)
-        }
-
-        /// Dummy file reader for preview
-        final class DummyFileReader: FileReader {
-            func hasFile(at url: URL) -> Bool { true }
-            func deleteFile(at url: URL) -> Bool { true }
-            func fileForRecord() -> File { FileImpl(url: URL(fileURLWithPath: "/tmp/rec.m4a")) }
-            func recordURL() -> URL { URL(fileURLWithPath: "/tmp/rec.m4a") }
-            func fileSize(for fileURL: URL) -> UInt64 { 2_000_000 }
-            func getDocumentsDirectory() -> URL { URL(fileURLWithPath: "/tmp") }
-        }
+struct FileListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let vm = FileListViewModel(fileReader: DummyFileReader())
+        vm.files = [
+            RecordingFileInfo(
+                url: URL(fileURLWithPath: "/tmp/rec1.m4a"),
+                name: "20240612_01.m4a",
+                size: 2_100_000,
+                created: Date(),
+                duration: 67.3
+            ),
+            RecordingFileInfo(
+                url: URL(fileURLWithPath: "/tmp/rec2.m4a"),
+                name: "20240611_02.m4a",
+                size: 1_500_000,
+                created: Date().addingTimeInterval(-3600),
+                duration: 120.0
+            ),
+        ]
+        return FileListView(viewModel: vm, onSelect: { _ in })
+            .preferredColorScheme(.dark)
+            .previewLayout(.sizeThatFits)
     }
+
+    /// Dummy file reader for preview
+    final class DummyFileReader: FileReader {
+        func getRecordingsDirectory() -> URL { return URL(fileURLWithPath: "/tmp") }
+        func hasFile(at url: URL) -> Bool { true }
+        func deleteFile(at url: URL) -> Bool { true }
+        func fileForRecord() -> File { FileImpl(url: URL(fileURLWithPath: "/tmp/rec.m4a")) }
+        func recordURL() -> URL { URL(fileURLWithPath: "/tmp/rec.m4a") }
+        func fileSize(for fileURL: URL) -> UInt64 { 2_000_000 }
+        func getDocumentsDirectory() -> URL { URL(fileURLWithPath: "/tmp") }
+    }
+}
 #endif

@@ -56,7 +56,7 @@ extension FileListViewModel {
         to file: RecordingFileInfo, time: TimeInterval, title: String? = nil, note: String? = nil
     ) async throws {
         // Load current metadata
-        guard var meta = try? await attributes(for: file.id) else {
+        guard var meta = try? await attributes(for: AudioFileID(path: file.url.path)) else {
             throw NSError(
                 domain: "FileListViewModel", code: 1,
                 userInfo: [NSLocalizedDescriptionKey: "File metadata not found"])
@@ -72,7 +72,7 @@ extension FileListViewModel {
 
     /// Removes a bookmark from the specified file.
     func removeBookmark(from file: RecordingFileInfo, bookmark: Bookmark) async throws {
-        guard var meta = try? await attributes(for: file.id) else {
+        guard var meta = try? await attributes(for: AudioFileID(path: file.url.path)) else {
             throw NSError(
                 domain: "FileListViewModel", code: 2,
                 userInfo: [NSLocalizedDescriptionKey: "File metadata not found"])
@@ -84,7 +84,7 @@ extension FileListViewModel {
 
     /// Updates a bookmark in the specified file.
     func updateBookmark(in file: RecordingFileInfo, bookmark: Bookmark) async throws {
-        guard var meta = try? await attributes(for: file.id) else {
+        guard var meta = try? await attributes(for: AudioFileID(path: file.url.path)) else {
             throw NSError(
                 domain: "FileListViewModel", code: 3,
                 userInfo: [NSLocalizedDescriptionKey: "File metadata not found"])
@@ -92,29 +92,6 @@ extension FileListViewModel {
         meta.updateBookmark(bookmark)
         try await updateMeta(meta)
         await reload()
-    }
-}
-
-// MARK: - Bookmark support in PlaybackViewModel
-
-@MainActor
-extension PlaybackViewModel {
-
-    /// Adds a bookmark at the current playback position.
-    func addCurrentBookmark(title: String? = nil, note: String? = nil) async throws {
-        guard let file = currentFile else { return }
-        let bookmark = Bookmark(time: position, title: title, note: note)
-        try await addBookmark(to: file, bookmark: bookmark)
-    }
-
-    /// Adds a bookmark to a file.
-    private func addBookmark(to file: RecordingFileInfo, bookmark: Bookmark) async throws {
-        // This requires access to FileListViewModel or FilesService.
-        // For simplicity, we assume a shared FileListViewModel instance or inject it.
-        // Here, we raise a fatal error to indicate this needs integration.
-        fatalError(
-            "PlaybackViewModel: addBookmark(to:) needs integration with FileListViewModel or FilesService"
-        )
     }
 }
 

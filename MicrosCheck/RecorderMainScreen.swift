@@ -3,7 +3,11 @@ import SwiftUI
 
 struct RecorderMainScreen: View {
     @StateObject var viewModel: RecorderViewModel
-    @StateObject private var fileListVM = FileListViewModel(fileReader: AppState.fileReader())
+    @StateObject private var fileListVM = FileListViewModel(fileReader: FileReaderImpl())
+//    @StateObject private var fileListVM = FileListViewModel(fileReader: {
+//        /* TODO: replace with correct instance */
+//        fatalError("Stub")
+//    }())
     @StateObject private var playbackVM = PlaybackViewModel()
     @State private var selectedFile: RecordingFileInfo? = nil
 
@@ -17,6 +21,8 @@ struct RecorderMainScreen: View {
     @State private var isLocked: Bool = false
     @State private var unlockProgress: Double = 0.0
     @State private var hapticEngine: CHHapticEngine?
+
+    @State private var blinkOpacity: Double = 1.0
 
     var body: some View {
         ZStack {
@@ -53,7 +59,7 @@ struct RecorderMainScreen: View {
                         Text(viewModel.fileName)
                             .font(.callout)
                             .lineLimit(1)
-                        Text("\(formatSize(viewModel.fileSize))")
+                        Text("\(formatSize(Int(viewModel.fileSize)))")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                         HStack(spacing: 8) {
@@ -110,135 +116,141 @@ struct RecorderMainScreen: View {
                 .disabled(isLocked)
                 .padding(.horizontal)
 
-+                // A3 Navigation Buttons
-+                HStack(spacing: 24) {
-+                    Button(action: {
-+                        print("Back button tapped")
-+                        // Implement back navigation logic, e.g., dismiss or pop
-+                    }) {
-+                        Label("Back", systemImage: "arrow.left")
-+                    }
-+                    .disabled(isLocked)
-+
-+                    Button(action: {
-+                        print("Home button tapped")
-+                        // Implement home navigation logic, e.g., navigate to root screen
-+                    }) {
-+                        Label("Home", systemImage: "house")
-+                    }
-+                    .disabled(isLocked)
-+
-+                    Button(action: {
-+                        print("T-MARK button tapped")
-+                        viewModel.isRecording ? viewModel.record() : nil
-+                        // Implement add bookmark or marker
-+                    }) {
-+                        Label("T-MARK", systemImage: "mappin")
-+                    }
-+                    .disabled(isLocked)
-+
-+                    Button(action: {
-+                        print("Options button tapped")
-+                        // Implement options/settings display
-+                    }) {
-+                        Label("Options", systemImage: "gearshape")
-+                    }
-+                    .disabled(isLocked)
-+                }
-+                .padding()
-+                .font(.headline)
-+                .background(
-+                    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
-+                )
-+                .padding(.horizontal)
-.disabled(isLocked)
-.padding(.horizontal)
+                // A3 Navigation Buttons
+                HStack(spacing: 24) {
+                    Button(action: {
+                        print("Back button tapped")
+                        // Implement back navigation logic, e.g., dismiss or pop
+                    }) {
+                        Label("Back", systemImage: "arrow.left")
+                    }
+                    .disabled(isLocked)
 
-// A7 Lock and Info Buttons HStack
-HStack {
-    Button(action: {
-        isLocked.toggle()
-        if isLocked {
-            // Show overlay and haptic handled in state
-            playHapticSuccess()
-        }
-    }) {
-        Image(systemName: isLocked ? "lock.fill" : "lock.open")
-            .font(.title)
-            .foregroundColor(isLocked ? .red : .primary)
-    }
-    .accessibilityLabel(isLocked ? "Unlock UI" : "Lock UI")
-    .padding()
+                    Button(action: {
+                        print("Home button tapped")
+                        // Implement home navigation logic, e.g., navigate to root screen
+                    }) {
+                        Label("Home", systemImage: "house")
+                    }
+                    .disabled(isLocked)
 
-    Spacer()
+                    Button(action: {
+                        print("T-MARK button tapped")
+                        if viewModel.isRecording {
+                            viewModel.record()
+                        }
+                        // Implement add bookmark or marker
+                    }) {
+                        Label("T-MARK", systemImage: "mappin")
+                    }
+                    .disabled(isLocked)
 
-    Button(action: {
-        print("Info button tapped")
-        // Implement info modal or sheet presentation logic here
-    }) {
-        Image(systemName: "info.circle")
-            .font(.title)
-            .foregroundColor(.primary)
-    }
-    .accessibilityLabel("Info")
-    .padding()
-}
-.background(
-    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
-)
-.padding(.horizontal)
+                    Button(action: {
+                        print("Options button tapped")
+                        // Implement options/settings display
+                    }) {
+                        Label("Options", systemImage: "gearshape")
+                    }
+                    .disabled(isLocked)
+                }
+                .padding()
+                .font(.headline)
+                .background(
+                    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
+                )
+                .padding(.horizontal)
+                .disabled(isLocked)
+                .padding(.horizontal)
 
-// Main Controls
-HStack(spacing: 24) {
-    Button(action: { viewModel.stop() }) {
-        Label("Stop", systemImage: "stop.circle")
-    }
-    .disabled(!viewModel.isRecording || isLocked)
-    .font(.title2)
+                // A7 Lock and Info Buttons HStack
+                HStack {
+                    Button(action: {
+                        isLocked.toggle()
+                        if isLocked {
+                            // Show overlay and haptic handled in state
+                            playHapticSuccess()
+                        }
+                    }) {
+                        Image(systemName: isLocked ? "lock.fill" : "lock.open")
+                            .font(.title)
+                            .foregroundColor(isLocked ? .red : .primary)
+                    }
+                    .accessibilityLabel(isLocked ? "Unlock UI" : "Lock UI")
+                    .padding()
 
-    // Recording label and blinking red indicator
-    HStack(spacing: 6) {
-        Circle()
-            .fill(Color.red)
-            .frame(width: 14, height: 14)
-            .opacity(viewModel.isRecording ? blinkOpacity : 0)
-            .animation(
-                viewModel.isRecording
-                    ? Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
-                    : .default,
-                value: blinkOpacity
-            )
+                    Spacer()
 
-        Text(viewModel.isRecording ? "Recording" : "Not Recording")
-            .font(.headline)
-            .foregroundColor(viewModel.isRecording ? .red : .secondary)
-    }
-    .onAppear {
-        if viewModel.isRecording {
-            startBlinking()
-        }
-    }
-    .onChange(of: viewModel.isRecording) { isRec in
-        if isRec {
-            startBlinking()
-        } else {
-            stopBlinking()
-        }
-    }
+                    Button(action: {
+                        print("Info button tapped")
+                        // Implement info modal or sheet presentation logic here
+                    }) {
+                        Image(systemName: "info.circle")
+                            .font(.title)
+                            .foregroundColor(.primary)
+                    }
+                    .accessibilityLabel("Info")
+                    .padding()
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
+                )
+                .padding(.horizontal)
 
-    Button(action: {
-        if !isLocked {
-            viewModel.isRecording ? viewModel.pause() : viewModel.record()
-        }
-    }) {
-        Label(
-            viewModel.isRecording ? "Pause" : "Record",
-            systemImage: viewModel.isRecording ? "pause.circle" : "record.circle")
-    }
-    .foregroundColor(viewModel.isRecording ? .orange : .red)
-    .disabled(!viewModel.isPrepared || isLocked)
-    .font(.title2)
-}
+                // Main Controls
+                HStack(spacing: 24) {
+                    Button(action: { viewModel.stop() }) {
+                        Label("Stop", systemImage: "stop.circle")
+                    }
+                    .disabled(!viewModel.isRecording || isLocked)
+                    .font(.title2)
+
+                    // Recording label and blinking red indicator
+                    HStack(spacing: 6) {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 14, height: 14)
+                            .opacity(viewModel.isRecording ? blinkOpacity : 0)
+                            .animation(
+                                viewModel.isRecording
+                                    ? Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
+                                    : .default,
+                                value: blinkOpacity
+                            )
+
+                        Text(viewModel.isRecording ? "Recording" : "Not Recording")
+                            .font(.headline)
+                            .foregroundColor(viewModel.isRecording ? .red : .secondary)
+                    }
+                    .onAppear {
+                        if viewModel.isRecording {
+                            startBlinking()
+                        }
+                    }
+                    .onChange(of: viewModel.isRecording) { isRec in
+                        if isRec {
+                            startBlinking()
+                        } else {
+                            stopBlinking()
+                        }
+                    }
+
+                    Button(action: {
+                        if !isLocked {
+                            if viewModel.isRecording {
+                                viewModel.pause()
+                            } else {
+                                viewModel.record()
+                            }
+                        }
+                    }) {
+                        Label(
+                            viewModel.isRecording ? "Pause" : "Record",
+                            systemImage: viewModel.isRecording ? "pause.circle" : "record.circle")
+                    }
+                    .foregroundColor(viewModel.isRecording ? .orange : .red)
+                    .disabled(!viewModel.isPrepared || isLocked)
+                    .font(.title2)
+                }
 
                 // File list integration
                 FileListView(viewModel: fileListVM) { file in
@@ -334,6 +346,28 @@ HStack(spacing: 24) {
         await fileListVM.reload()
         // Extend with real favorites filter logic when supported
     }
+
+    // MARK: - Blink control
+
+    func startBlinking() {
+        let baseAnimation = Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
+        withAnimation(baseAnimation) {
+            blinkOpacity = 0.0
+        }
+    }
+    func stopBlinking() {
+        withAnimation(.default) {
+            blinkOpacity = 1.0
+        }
+    }
+
+    // MARK: - Format and Haptic Stubs
+
+    private func formatSize(_ size: Int) -> String { "\(size) bytes" }
+    private func formatElapsed(_ seconds: Double) -> String { String(format: "%02d:%02d", Int(seconds)/60, Int(seconds)%60) }
+    private func prepareHaptics() { /* stub */ }
+    private func playHapticSuccess() { /* stub */ }
+    private var lockOverlay: some View { Color.black.opacity(0.3).ignoresSafeArea().overlay(Text("Locked").font(.largeTitle).foregroundColor(.white)) }
 }
 
 struct MeterBar: View {
@@ -354,42 +388,22 @@ struct MeterBar: View {
     }
 }
 
-// MARK: - Blinking indicator state variables and helpers for RecorderMainScreen
-@MainActor
-extension RecorderMainScreen {
-    @State private var blinkOpacity: Double = 1.0
-    private func startBlinking() {
-        let baseAnimation = Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true)
-        withAnimation(baseAnimation) {
-            blinkOpacity = 0.0
-        }
-    }
-    private func stopBlinking() {
-        withAnimation(.default) {
-            blinkOpacity = 1.0
-        }
+#if DEBUG
+struct RecorderMainScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        let vm = RecorderViewModel(appState: .init())
+        vm.isRecording = true
+        vm.isPrepared = true
+        vm.elapsed = 67
+        vm.fileName = "20240611_01.m4a"
+        vm.fileSize = 2_100_000
+        vm.format = "AAC 128kbps"
+        vm.leftLevel = -7
+        vm.rightLevel = -21
+
+        return RecorderMainScreen(viewModel: vm)
+            .preferredColorScheme(.dark)
+            .previewLayout(.sizeThatFits)
     }
 }
-
-#if DEBUG
-    struct RecorderMainScreen_Previews: PreviewProvider {
-        class DummyVM: RecorderViewModel {
-            init() {
-                super.init(appState: .init())
-                self.isRecording = true
-                self.isPrepared = true
-                self.elapsed = 67
-                self.fileName = "20240611_01.m4a"
-                self.fileSize = 2_100_000
-                self.format = "AAC 128kbps"
-                self.leftLevel = -7
-                self.rightLevel = -21
-            }
-        }
-        static var previews: some View {
-            RecorderMainScreen(viewModel: DummyVM())
-                .preferredColorScheme(.dark)
-                .previewLayout(.sizeThatFits)
-        }
-    }
 #endif

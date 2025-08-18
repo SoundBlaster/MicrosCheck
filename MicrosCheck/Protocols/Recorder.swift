@@ -34,4 +34,7 @@ protocol Recorder: Sendable {
     func record() throws -> Recorder
     @discardableResult
     func stop() throws -> Recorder
+    @discardableResult
+    func pause() throws -> Recorder
 }
+
