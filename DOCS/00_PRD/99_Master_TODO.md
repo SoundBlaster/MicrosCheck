@@ -143,23 +143,23 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # UI2 Implement Live Waveform Display
 
-- [ ] Input: RMS/Peak data
-- [ ] Process: Render live waveform via Canvas or Metal.
-- [ ] Output: Smooth waveform graph updating ≥ 30 FPS.
-- [ ] Priority: High
-- [ ] Dependencies: R4
-- [ ] Acceptance Criteria: Smooth updates, no jank in live waveform rendering
+- [x] Input: RMS/Peak data
+- [x] Process: Render live waveform via Canvas or Metal.
+- [x] Output: Smooth waveform graph updating ≥ 30 FPS.
+- [x] Priority: High
+- [x] Dependencies: R4
+- [x] Acceptance Criteria: Smooth updates, no jank in live waveform rendering
 
 > Refer to waveform generation and caching details in [03_05_WaveformModule.md](./03_Modules/03_5_Waveform.md) and UI rendering guidance under [09_SwiftUI_Composition.md](./GPT5_UI/GPT5_UI_Files/09_SwiftUI_Composition.md).
 
 # UI3 Implement Offline Waveform Generation and Caching
 
-- [ ] Input: Audio files
-- [ ] Process: Pre-calc waveform previews, cache results.
-- [ ] Output: Cached waveform previews for efficient scroll.
-- [ ] Priority: Medium
-- [ ] Dependencies: P1, FM1
-- [ ] Acceptance Criteria: Fast list scroll performance, cache size under 5% of disk
+- [x] Input: Audio files
+- [x] Process: Pre-calc waveform previews, cache results.
+- [x] Output: Cached waveform previews for efficient scroll.
+- [x] Priority: Medium
+- [x] Dependencies: P1, FM1
+- [x] Acceptance Criteria: Fast list scroll performance, cache size under 5% of disk
 
 # FM1 Setup Catalog Structure in Filesystem
 
@@ -228,21 +228,21 @@ The following is a detailed, plain-text list of implementation tasks categorized
 
 # QA1 Unit Test AudioCore Components
 
-- [ ] Input: Unit test cases
-- [ ] Process: Write XCTest cases covering core functionality.
-- [ ] Output: Passed unit test suite.
-- [ ] Priority: High
-- [ ] Dependencies: Core modules
-- [ ] Acceptance Criteria: All key code paths covered
+- [x] Input: Unit test cases
+- [x] Process: Write XCTest cases covering core functionality.
+- [x] Output: Passed unit test suite.
+- [x] Priority: High
+- [x] Dependencies: Core modules
+- [x] Acceptance Criteria: All key code paths covered
 
 # QA2 Basic UI Tests
 
-- [ ] Input: UI test cases
-- [ ] Process: Implement XCUITest for essential UI flows.
-- [ ] Output: Passed UI test suite.
-- [ ] Priority: Medium
-- [ ] Dependencies: UI1
-- [ ] Acceptance Criteria: Minimum regression coverage
+- [x] Input: UI test cases
+- [x] Process: Implement XCUITest for essential UI flows.
+- [x] Output: Passed UI test suite.
+- [x] Priority: Medium
+- [x] Dependencies: UI1
+- [x] Acceptance Criteria: Minimum regression coverage
 
 > Unit and UI test plans are outlined in [07_Unit_UI_Test_List.md](./GPT5_UI/GPT5_UI_Files/07_Unit_UI_Test_List.md) and acceptance matrix in [06_Acceptance_Test_Matrix.md](./GPT5_UI/GPT5_UI_Files/06_Acceptance_Test_Matrix.md).
 
