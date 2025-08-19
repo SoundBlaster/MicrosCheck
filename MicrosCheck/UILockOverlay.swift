@@ -144,13 +144,14 @@ public struct UILockOverlay: View {
     @State private var unlocked: Bool = false
     @State private var countdownBaseDate: Date? = nil
     @State private var countdown: Double? = nil
-    @State private var timer: Timer? = nil
+    
+    @State private var countdownTask: Task<Void, Never>? = nil
 
     public init(holdDuration: Double? = nil, onUnlock: @escaping () -> Void) {
         self.holdDuration = holdDuration
         self.onUnlock = onUnlock
     }
-
+    
     public var body: some View {
         ZStack {
             Color.black.opacity(0.7)
@@ -186,10 +187,7 @@ public struct UILockOverlay: View {
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onEnded { _ in
-                        countdown = nil
-                        countdownBaseDate = nil
-                        timer?.invalidate()
-                        timer = nil
+                        cancelCountdown()
                     }
             )
         }
@@ -197,30 +195,17 @@ public struct UILockOverlay: View {
             LongPressGesture(minimumDuration: holdDuration ?? 2.0)
                 .updating($isPressing) { value, state, _ in
                     if value && countdownBaseDate == nil {
-                        countdownBaseDate = Date()
-                        countdown = holdDuration ?? 2.0
-                        timer?.invalidate()
-                        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
-                            guard let baseDate = countdownBaseDate else { return }
-                            let remaining = max((holdDuration ?? 2.0) - Date().timeIntervalSince(baseDate), 0)
-                            countdown = remaining
-                        }
+                        startCountdown()
                     }
                     state = value
                 }
                 .onChanged { value in
                     if !value {
-                        countdown = nil
-                        countdownBaseDate = nil
-                        timer?.invalidate()
-                        timer = nil
+                        cancelCountdown()
                     }
                 }
-                .onEnded { value in
-                    countdown = nil
-                    countdownBaseDate = nil
-                    timer?.invalidate()
-                    timer = nil
+                .onEnded { _ in
+                    cancelCountdown()
                     withAnimation(.spring()) {
                         unlocked.toggle()
                     }
@@ -231,13 +216,43 @@ public struct UILockOverlay: View {
                 .simultaneously(with:
                     DragGesture(minimumDistance: 0)
                         .onEnded { _ in
-                            countdown = nil
-                            countdownBaseDate = nil
-                            timer?.invalidate()
-                            timer = nil
+                            cancelCountdown()
                         }
                 )
         )
+        .onDisappear {
+            cancelCountdown()
+        }
+    }
+    
+    @MainActor
+    private func startCountdown() {
+        countdownBaseDate = Date()
+        countdown = holdDuration ?? 2.0
+        
+        countdownTask?.cancel()
+        countdownTask = Task {
+            let interval: UInt64 = 50_000_000 // 0.05s in nanoseconds
+            while !Task.isCancelled {
+                await MainActor.run {
+                    guard let baseDate = countdownBaseDate else { return }
+                    let remaining = max((holdDuration ?? 2.0) - Date().timeIntervalSince(baseDate), 0)
+                    countdown = remaining
+                }
+                if let remaining = countdown, remaining <= 0 {
+                    break
+                }
+                try? await Task.sleep(nanoseconds: interval)
+            }
+        }
+    }
+    
+    @MainActor
+    private func cancelCountdown() {
+        countdownTask?.cancel()
+        countdownTask = nil
+        countdown = nil
+        countdownBaseDate = nil
     }
     
     private var countdownText: String {
