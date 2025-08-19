@@ -4,10 +4,6 @@ import SwiftUI
 struct RecorderMainScreen: View {
     @StateObject var viewModel: RecorderViewModel
     @StateObject private var fileListVM = FileListViewModel(fileReader: FileReaderImpl())
-//    @StateObject private var fileListVM = FileListViewModel(fileReader: {
-//        /* TODO: replace with correct instance */
-//        fatalError("Stub")
-//    }())
     @StateObject private var playbackVM = PlaybackViewModel()
     @State private var selectedFile: RecordingFileInfo? = nil
 

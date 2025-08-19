@@ -254,3 +254,98 @@ The following is a detailed, plain-text list of implementation tasks categorized
 - [ ] Priority: High
 - [ ] Dependencies: QA1, QA2
 - [ ] Acceptance Criteria: Verified stability, error handling, no crashes or data loss under stress conditions
+
+# UI Consistency & Design Polish TODOs (per PRD and Design Comparison)
+
+> These tasks address all visual, accessibility, and interaction discrepancies between the current UI implementation and the original design mockup, as well as compliance with requirements set in 00_Scope_and_Intent.md.
+
+## UI Visual & Functional Consistency
+
+- [ ] **A1. Picker Styling: Input Source (Not Selected)**
+    - Input: Current Picker implementation, design spec
+    - Process: Replace or restyle the Picker to use a large, centered, underlined blue label when no input is selected; match mockup visual for selected state.
+    - Output: Picker matches design (blue, underlined, prominent)
+    - Priority: High
+    - Effort: 2h
+    - Dependencies: UI1
+    - Acceptance: Picker is visually and functionally identical to design
+
+- [ ] **A2. Quick Action/Filter Panel Polishing**
+    - Input: Current SearchFilterPanel
+    - Process: Audit and update icons, backgrounds, and spacing. Ensure pill-shaped backgrounds, bold blue icons/text, and precise spacing per spec.
+    - Output: Filter panel matches design visually and functionally
+    - Priority: High
+    - Effort: 2h
+    - Dependencies: UI1
+    - Acceptance: Panel visuals and interactions match design; all actions work
+
+- [ ] **A3. Navigation Buttons Row (Home, Back, T-MARK, Options)**
+    - Input: Navigation button row code
+    - Process: Ensure all buttons use pill backgrounds, blue icons/text, correct order, and size per design. Adjust spacing and font as needed.
+    - Output: Navigation row matches design
+    - Priority: High
+    - Effort: 2h
+    - Dependencies: UI1
+    - Acceptance: Button appearance, order, and interactions match design
+
+- [ ] **A4. Info Card & Meter Styling**
+    - Input: Info card HStack
+    - Process: Fine-tune font weights/colors, ensure meter bars show both average and peak, improve ruler/dB label alignment. Visual polish for contrast and spacing.
+    - Output: Card visually matches mockup
+    - Priority: High
+    - Effort: 2h
+    - Dependencies: R4, UI1
+    - Acceptance: Info card is pixel-perfect vs. mockup
+
+- [ ] **A5. Lock and Info Button Styling**
+    - Input: Lock/info button row
+    - Process: Adjust icon size/color, spacing, and background to match pill shape and blue highlight in design. Add accessibility/voiceover labels if missing.
+    - Output: Row matches design visually and for accessibility
+    - Priority: Medium
+    - Effort: 1h
+    - Dependencies: UI1
+    - Acceptance: Lock/info row is visually and functionally identical
+
+- [ ] **A6. Main Controls Polishing**
+    - Input: Stop/Record controls
+    - Process: Tune icon sizes, boldness, color contrast, and layout. Blinking red indicator should match mockup size/animation. Ensure correct disabling/enabling logic.
+    - Output: Main controls match design and spec
+    - Priority: High
+    - Effort: 1.5h
+    - Dependencies: UI1, R3
+    - Acceptance: Control visuals and behaviors are per design
+
+- [ ] **A7. File List Section Styling**
+    - Input: FileListView and empty state
+    - Process: Ensure section title uses bold font; empty state shows appropriate icon and text styling; refresh icon present and blue as per design.
+    - Output: File list matches design in all states
+    - Priority: Medium
+    - Effort: 1h
+    - Dependencies: FM2
+    - Acceptance: File list visuals match mockup
+
+## Accessibility & Compliance
+
+- [ ] **AA1. Accessibility Audit and Fixes**
+    - Input: All UI components
+    - Process: Audit VoiceOver labels, ensure minimum contrast ratio 4.5, support Dynamic Type up to XXL, test with accessibility tools.
+    - Output: Fully accessible UI, compliant with PRD
+    - Priority: High
+    - Effort: 2h
+    - Dependencies: All UI tasks
+    - Acceptance: All controls are labeled; contrast and scaling pass tests
+
+## Test Coverage & Verification
+
+- [ ] **T1. Automated Snapshot Test Coverage**
+    - Input: All main UI states (Ready, Recording, Playing, Empty List, File Selected)
+    - Process: Implement/expand snapshot tests for each state (light/dark mode, accessibility sizes)
+    - Output: Snapshot test suite covers all visual states
+    - Priority: High
+    - Effort: 2h
+    - Dependencies: UI1, QA2
+    - Acceptance: Tests pass, all visuals match design
+
+---
+
+> All tasks must follow the metadata and quality rules outlined in 00_Scope_and_Intent.md. This section should be kept updated as progress is made and new gaps are discovered.
