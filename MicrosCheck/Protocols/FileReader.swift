@@ -7,4 +7,5 @@ protocol FileReader {
     func recordURL() -> URL
     func fileSize(for fileURL: URL) -> UInt64
     func getDocumentsDirectory() -> URL
+    func getRecordingsDirectory() -> URL
 }

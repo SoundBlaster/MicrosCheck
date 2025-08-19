@@ -8,7 +8,7 @@
 
 # Implementation Plan: iOS Application "Dictaphone" with SwiftUI
 
-> SPECIAL DESIGN IS TAKEN INTO ACCOUNT according to the sent screenshot. Target platform: iOS 16+. Language: Swift 5.10+, UI: SwiftUI, audio: AVFoundation (AVAudioSession/Engine), publication in App Store.
+> SPECIAL DESIGN IS TAKEN INTO ACCOUNT according to the sent screenshot. Target platform: iOS 18+. Language: Swift 5.10+, UI: SwiftUI, audio: AVFoundation (AVAudioSession/Engine), publication in App Store.
 
 # PRD — Table of Contents (auto)
 
@@ -491,7 +491,7 @@ ID: {#info-button}
 # 11. Edge Cases and Failures
 
 ## AudioCore & Audio Session
-- **No free space:** Gracefully stop recording, warn the user, auto-save partial file if possible. 
+- **No free space:** Gracefully stop recording, warn the user, auto-save partial file if possible.
 - **Audio session interruption (e.g., call):** Pause recording/playback, attempt to resume when possible. Notify user if full recovery is not possible.
 - **Loss of input route (e.g., unplug headset):** Auto-switch to built-in microphone, notify user.
 - **Corrupted audio file or metadata:** Move affected files to `Recordings/_Corrupted/`, attempt recovery from metadata backup.

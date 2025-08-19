@@ -2,25 +2,25 @@
 See LICENSE folder for this sample’s licensing information.
 
 Abstract:
-The main UI view for the metronome.
+The main UI view for the Dictophone.
 */
 
 import SwiftUI
 
-struct MetronomeView: View {
-    @StateObject var metronome = Metronome()
+struct DictophoneView: View {
+    @StateObject var dictophone = Dictophone()
     @State private var isLocked = false
 
     var body: some View {
         VStack(spacing: 20) {
             // Top Waveform Timeline
-            WaveformView(metronome: metronome)
+            WaveformView(dictophone: dictophone)
                 .frame(height: 100)
                 .padding()
             /*
             UI States & Animations:
             - Key States: idle, playing, paused, stopped.
-            - Animations: real-time waveform updates synchronized with metronome beats; smooth animations on beat changes.
+            - Animations: real-time waveform updates synchronized with dictophone beats; smooth animations on beat changes.
             
             Design System Application:
             - Uses primary brand colors for waveform peaks and troughs.
@@ -29,7 +29,7 @@ struct MetronomeView: View {
             */
 
             // Info Card
-            InfoCardView(metronome: metronome)
+            InfoCardView(dictophone: dictophone)
                 .padding(.horizontal)
             /*
             UI States & Animations:
@@ -57,7 +57,7 @@ struct MetronomeView: View {
             */
 
             // Quick Action Buttons
-            QuickActionButtons(metronome: metronome)
+            QuickActionButtons(dictophone: dictophone)
                 .padding()
             /*
             UI States & Animations:
@@ -71,7 +71,7 @@ struct MetronomeView: View {
             */
 
             // Transport Controls
-            TransportControls(metronome: metronome)
+            TransportControls(dictophone: dictophone)
                 .padding(.horizontal)
             /*
             UI States & Animations:
@@ -85,7 +85,7 @@ struct MetronomeView: View {
             */
 
             // D-Pad
-            DPadControl(metronome: metronome)
+            DPadControl(dictophone: dictophone)
                 .padding()
             /*
             UI States & Animations:
@@ -129,8 +129,8 @@ struct MetronomeView: View {
     }
 }
 
-struct MetronomeView_Previews: PreviewProvider {
+struct DictophoneView_Previews: PreviewProvider {
     static var previews: some View {
-        MetronomeView()
+        DictophoneView()
     }
 }
