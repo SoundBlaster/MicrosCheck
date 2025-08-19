@@ -22,7 +22,7 @@
  - Use system SF Symbols for lock states.
  - Visual styling consistent with dark overlay and white text/icons.
  - Minimal external dependencies.
- - Thread-safe timer handling.
+ - Thread-safe task-based countdown handling.
 
  Assumptions:
  - The overlay will cover the entire screen area.
@@ -36,9 +36,9 @@
 
  Processes:
  - Detect long press gestures with customizable minimum duration.
- - Track gesture state and update internal countdown timer.
+ - Track gesture state and update internal countdown timer using a Swift concurrency Task.
  - Update UI elements: lock icon, countdown text, scaling animation.
- - Manage timer lifecycle safely to update countdown display.
+ - Manage task lifecycle safely to update countdown display.
  - Handle gesture cancellation and resets.
  - Upon completion, transition state to unlocked, animate changes, and invoke callback.
 
@@ -48,12 +48,12 @@
 
  Dependencies:
  - SwiftUI framework.
- - Foundation for Date and Timer.
+ - Swift Concurrency (Task) and Foundation for Date.
 
  Priorities:
  1. Accurate and responsive gesture detection.
  2. Clear and intuitive visual feedback.
- 3. Safe and leak-free timer management.
+ 3. Safe and leak-free task management.
  4. Smooth animations on state changes.
  5. Robust handling of gesture interruptions.
 
@@ -83,7 +83,7 @@
  Priority: High
  Effort: Medium
  Acceptance Criteria:
- - Timer is invalidated on gesture end or cancel.
+ - Countdown task is cancelled on gesture end or cancel.
  - Countdown resets on interruption.
  - Drag gestures cancel hold appropriately.
  - No crashes or freezes on rapid gesture changes.
@@ -102,15 +102,15 @@
  - Show a lock icon in center that toggles between "locked" and "unlocked" SF Symbols.
  - Show text "Hold to Unlock" with a countdown overlay visible only while pressing.
  - Detect long press gesture with configurable duration.
- - Update countdown text every 0.05 seconds during hold.
+ - Update countdown text every 0.05 seconds during hold using a Swift concurrency Task.
  - Cancel countdown and reset UI if press is interrupted or drag occurs.
  - Animate the lock icon change on unlock.
  - Invoke onUnlock callback after a short delay post animation.
 
  Non-Functional Requirements:
  - Responsive UI with smooth animations.
- - Minimal CPU usage for timer updates.
- - Safe timer invalidation to avoid memory leaks.
+ - Minimal CPU usage for countdown updates.
+ - Safe task cancellation to avoid memory leaks.
  - Clear, accessible text and icon sizes.
  - Gesture handling that does not interfere with other UI components.
 
@@ -125,9 +125,9 @@
 
  Edge Cases and Failure Modes:
  - User taps quickly or releases early: countdown resets without side effects.
- - User drags finger during long press: countdown and timer are canceled.
+ - User drags finger during long press: countdown and task are canceled.
  - Hold duration changed during hold: countdown resets on next gesture.
- - Timer is invalidated on view disappearance or gesture end to prevent leaks.
+ - Task is cancelled on view disappearance or gesture end to prevent leaks.
  - Multiple simultaneous gestures do not cause inconsistent states.
  - UI remains stable if onUnlock closure takes time or causes UI changes.
 
@@ -270,3 +270,4 @@ struct UILockOverlay_Previews: PreviewProvider {
         UILockOverlay(onUnlock: {})
     }
 }
+
