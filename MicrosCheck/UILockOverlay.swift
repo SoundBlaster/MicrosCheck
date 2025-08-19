@@ -5,6 +5,10 @@ public struct UILockOverlay: View {
     public var holdDuration: Double?
     @State private var unlocked: Bool = false
     @GestureState private var isPressing = false
+    
+    @State private var countdownBaseDate: Date? = nil
+    @State private var countdown: Double? = nil
+    @State private var timer: Timer? = nil
 
     public init(holdDuration: Double? = nil, onUnlock: @escaping () -> Void) {
         self.holdDuration = holdDuration
@@ -22,7 +26,7 @@ public struct UILockOverlay: View {
                     .padding(.bottom, 8)
                     .contentTransition(.symbolEffect(.replace))
                 
-                Text("Hold to Unlock")
+                Text(displayText)
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
@@ -35,9 +39,29 @@ public struct UILockOverlay: View {
         .gesture(
             LongPressGesture(minimumDuration: holdDuration ?? 2.0)
                 .updating($isPressing) { value, state, _ in
+                    if value && countdownBaseDate == nil {
+                        countdownBaseDate = Date()
+                        countdown = holdDuration ?? 2.0
+                        
+                        timer?.invalidate()
+                        timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
+                            if let baseDate = countdownBaseDate {
+                                let remaining = max((holdDuration ?? 2.0) - Date().timeIntervalSince(baseDate), 0)
+                                countdown = remaining
+                            }
+                        }
+                    }
+                    if !value {
+                        countdownBaseDate = nil
+                        countdown = nil
+                        timer?.invalidate()
+                        timer = nil
+                    }
                     state = value
                 }
                 .onEnded { _ in
+                    timer?.invalidate()
+                    timer = nil
                     withAnimation(.spring()) {
                         unlocked.toggle()
                     }
@@ -46,6 +70,14 @@ public struct UILockOverlay: View {
                     }
                 }
         )
+    }
+    
+    private var displayText: String {
+        if isPressing, let remaining = countdown {
+            return String(format: "%.1f", remaining)
+        } else {
+            return "Hold to Unlock"
+        }
     }
 }
 
