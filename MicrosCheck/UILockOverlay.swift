@@ -4,6 +4,7 @@ public struct UILockOverlay: View {
     public var onUnlock: () -> Void
     public var holdDuration: Double?
     @State private var unlocked: Bool = false
+    @GestureState private var isPressing = false
 
     public init(holdDuration: Double? = nil, onUnlock: @escaping () -> Void) {
         self.holdDuration = holdDuration
@@ -20,7 +21,7 @@ public struct UILockOverlay: View {
                     .foregroundColor(.white)
                     .padding(.bottom, 8)
                     .contentTransition(.symbolEffect(.replace))
-                    
+                
                 Text("Hold to Unlock")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -28,15 +29,23 @@ public struct UILockOverlay: View {
                     .background(Color.gray.opacity(0.7))
                     .cornerRadius(10)
             }
+            .scaleEffect(isPressing ? 0.95 : 1.0)
+            .animation(.easeInOut(duration: 0.18), value: isPressing)
         }
-        .onLongPressGesture(minimumDuration: holdDuration ?? 2.0) {
-            withAnimation(.spring()) {
-                unlocked.toggle()
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                onUnlock()
-            }
-        }
+        .gesture(
+            LongPressGesture(minimumDuration: holdDuration ?? 2.0)
+                .updating($isPressing) { value, state, _ in
+                    state = value
+                }
+                .onEnded { _ in
+                    withAnimation(.spring()) {
+                        unlocked.toggle()
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        onUnlock()
+                    }
+                }
+        )
     }
 }
 
