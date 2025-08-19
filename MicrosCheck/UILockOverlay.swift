@@ -3,6 +3,7 @@ import SwiftUI
 public struct UILockOverlay: View {
     public var onUnlock: () -> Void
     public var holdDuration: Double?
+    @State private var unlocked: Bool = false
 
     public init(holdDuration: Double? = nil, onUnlock: @escaping () -> Void) {
         self.holdDuration = holdDuration
@@ -14,10 +15,12 @@ public struct UILockOverlay: View {
             Color.black.opacity(0.7)
                 .edgesIgnoringSafeArea(.all)
             VStack {
-                Image(systemName: "lock.fill")
+                Image(systemName: unlocked ? "lock.open.fill" : "lock.fill")
                     .font(.system(size: 48))
                     .foregroundColor(.white)
                     .padding(.bottom, 8)
+                    .contentTransition(.symbolEffect(.replace))
+                    
                 Text("Hold to Unlock")
                     .font(.headline)
                     .foregroundColor(.white)
@@ -27,7 +30,12 @@ public struct UILockOverlay: View {
             }
         }
         .onLongPressGesture(minimumDuration: holdDuration ?? 2.0) {
-            onUnlock()
+            withAnimation(.spring()) {
+                unlocked.toggle()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                onUnlock()
+            }
         }
     }
 }
