@@ -2,10 +2,10 @@ import SwiftUI
 
 public struct UILockOverlay: View {
     public var onUnlock: () -> Void
-    public var holdDuration: Double?
-    @State private var unlocked: Bool = false
-    @GestureState private var isPressing = false
+    public let holdDuration: Double?
     
+    @GestureState private var isPressing = false
+    @State private var unlocked: Bool = false
     @State private var countdownBaseDate: Date? = nil
     @State private var countdown: Double? = nil
     @State private var timer: Timer? = nil
@@ -26,17 +26,36 @@ public struct UILockOverlay: View {
                     .padding(.bottom, 8)
                     .contentTransition(.symbolEffect(.replace))
                 
-                Text(displayText)
+                Text("Hold to Unlock")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.gray.opacity(0.7))
+                    .background(Color.gray)
                     .cornerRadius(10)
-                    .monospacedDigit()
-                    .animation(.default, value: displayText)
+                    .overlay(
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray)
+                            Text(countdownText)
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .monospacedDigit()
+                        }
+                        .opacity(isPressing ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.2), value: isPressing)
+                    )
             }
             .scaleEffect(isPressing ? 0.95 : 1.0)
             .animation(.easeInOut(duration: 0.18), value: isPressing)
+            .gesture(
+                DragGesture(minimumDistance: 0)
+                    .onEnded { _ in
+                        countdown = nil
+                        countdownBaseDate = nil
+                        timer?.invalidate()
+                        timer = nil
+                    }
+            )
         }
         .gesture(
             LongPressGesture(minimumDuration: holdDuration ?? 2.0)
@@ -44,24 +63,26 @@ public struct UILockOverlay: View {
                     if value && countdownBaseDate == nil {
                         countdownBaseDate = Date()
                         countdown = holdDuration ?? 2.0
-                        
                         timer?.invalidate()
                         timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
-                            if let baseDate = countdownBaseDate {
-                                let remaining = max((holdDuration ?? 2.0) - Date().timeIntervalSince(baseDate), 0)
-                                countdown = remaining
-                            }
+                            guard let baseDate = countdownBaseDate else { return }
+                            let remaining = max((holdDuration ?? 2.0) - Date().timeIntervalSince(baseDate), 0)
+                            countdown = remaining
                         }
-                    }
-                    if !value {
-                        countdownBaseDate = nil
-                        countdown = nil
-                        timer?.invalidate()
-                        timer = nil
                     }
                     state = value
                 }
-                .onEnded { _ in
+                .onChanged { value in
+                    if !value {
+                        countdown = nil
+                        countdownBaseDate = nil
+                        timer?.invalidate()
+                        timer = nil
+                    }
+                }
+                .onEnded { value in
+                    countdown = nil
+                    countdownBaseDate = nil
                     timer?.invalidate()
                     timer = nil
                     withAnimation(.spring()) {
@@ -71,14 +92,23 @@ public struct UILockOverlay: View {
                         onUnlock()
                     }
                 }
+                .simultaneously(with:
+                    DragGesture(minimumDistance: 0)
+                        .onEnded { _ in
+                            countdown = nil
+                            countdownBaseDate = nil
+                            timer?.invalidate()
+                            timer = nil
+                        }
+                )
         )
     }
     
-    private var displayText: String {
-        if isPressing, let remaining = countdown {
+    private var countdownText: String {
+        if let remaining = countdown, remaining > 0 {
             return String(format: "%.1f", remaining)
         } else {
-            return "Hold to Unlock"
+            return "0"
         }
     }
 }
