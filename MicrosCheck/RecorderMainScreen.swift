@@ -392,24 +392,6 @@ struct MeterBar: View {
     }
 }
 
-struct UILockOverlay: View {
-    var onUnlock: () -> Void
-    var holdDuration: Double = 2.0
-
-    var body: some View {
-        ZStack {
-            Color.black.opacity(0.3).ignoresSafeArea()
-            VStack(spacing: 16) {
-                Image(systemName: "lock.fill").font(.system(size: 48)).foregroundColor(.white)
-                Text("Hold to unlock").font(.title2).foregroundColor(.white)
-            }
-        }
-        .onLongPressGesture(minimumDuration: holdDuration) {
-            onUnlock()
-        }
-    }
-}
-
 #if DEBUG
 struct RecorderMainScreen_Previews: PreviewProvider {
     static var previews: some View {

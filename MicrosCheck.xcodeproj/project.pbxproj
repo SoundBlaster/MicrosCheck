@@ -34,6 +34,7 @@
 		744BDFB92E53EF48005B4A33 /* WaveformPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744BDFAC2E53EF48005B4A33 /* WaveformPreviewView.swift */; };
 		744BDFBA2E53EF48005B4A33 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744BDF9E2E53EF48005B4A33 /* Bookmarks.swift */; };
 		744BDFBB2E53EF48005B4A33 /* CircularPlaybackControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744BDF9F2E53EF48005B4A33 /* CircularPlaybackControl.swift */; };
+		744BE00F2E53FA40005B4A33 /* UILockOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744BE00E2E53FA40005B4A33 /* UILockOverlay.swift */; };
 		B108B0742A3F450100D0CD4F /* RecorderStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */; };
 		B113F9192AC785A200F3FCFF /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B113F9182AC785A200F3FCFF /* ButtonsView.swift */; };
 		B1699E0F29FEA62A00547A8B /* RecorderImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1699E0E29FEA62A00547A8B /* RecorderImpl.swift */; };
@@ -95,6 +96,7 @@
 		744BDFAA2E53EF48005B4A33 /* VerticalDBRuler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalDBRuler.swift; sourceTree = "<group>"; };
 		744BDFAB2E53EF48005B4A33 /* WaveformGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformGenerator.swift; sourceTree = "<group>"; };
 		744BDFAC2E53EF48005B4A33 /* WaveformPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformPreviewView.swift; sourceTree = "<group>"; };
+		744BE00E2E53FA40005B4A33 /* UILockOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILockOverlay.swift; sourceTree = "<group>"; };
 		B108B0642A3F42A000D0CD4F /* RecorderStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderStateTests.swift; sourceTree = "<group>"; };
 		B108B06B2A3F44EB00D0CD4F /* MicrosCheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicrosCheckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B113F9182AC785A200F3FCFF /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				744BDFAA2E53EF48005B4A33 /* VerticalDBRuler.swift */,
 				744BDFAB2E53EF48005B4A33 /* WaveformGenerator.swift */,
 				744BDFAC2E53EF48005B4A33 /* WaveformPreviewView.swift */,
+				744BE00E2E53FA40005B4A33 /* UILockOverlay.swift */,
 			);
 			path = MicrosCheck;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				744BDFB42E53EF48005B4A33 /* FileListView.swift in Sources */,
 				744BDFB52E53EF48005B4A33 /* PlaybackView.swift in Sources */,
 				744BDFB62E53EF48005B4A33 /* SearchFilterPanel.swift in Sources */,
+				744BE00F2E53FA40005B4A33 /* UILockOverlay.swift in Sources */,
 				744BDFB72E53EF48005B4A33 /* HorizontalTimeRuler.swift in Sources */,
 				744BDFB82E53EF48005B4A33 /* PlaybackViewModel.swift in Sources */,
 				744BDFB92E53EF48005B4A33 /* WaveformPreviewView.swift in Sources */,
