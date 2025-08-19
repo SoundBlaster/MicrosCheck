@@ -186,6 +186,7 @@ struct RecorderMainScreen: View {
                     }
                     .accessibilityLabel("Info")
                     .padding()
+                    .disabled(isLocked)
                 }
                 .background(
                     RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground))
@@ -363,7 +364,14 @@ struct RecorderMainScreen: View {
     private func formatElapsed(_ seconds: Double) -> String { String(format: "%02d:%02d", Int(seconds)/60, Int(seconds)%60) }
     private func prepareHaptics() { /* stub */ }
     private func playHapticSuccess() { /* stub */ }
-    private var lockOverlay: some View { Color.black.opacity(0.3).ignoresSafeArea().overlay(Text("Locked").font(.largeTitle).foregroundColor(.white)) }
+    
+    private var lockOverlay: some View {
+        UILockOverlay(onUnlock: {
+            isLocked = false
+            unlockProgress = 0
+            playHapticSuccess()
+        })
+    }
 }
 
 struct MeterBar: View {
@@ -380,6 +388,24 @@ struct MeterBar: View {
                 .cornerRadius(2)
             Text(String(format: "%.0fdB", level))
                 .font(.caption2)
+        }
+    }
+}
+
+struct UILockOverlay: View {
+    var onUnlock: () -> Void
+    var holdDuration: Double = 2.0
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.3).ignoresSafeArea()
+            VStack(spacing: 16) {
+                Image(systemName: "lock.fill").font(.system(size: 48)).foregroundColor(.white)
+                Text("Hold to unlock").font(.title2).foregroundColor(.white)
+            }
+        }
+        .onLongPressGesture(minimumDuration: holdDuration) {
+            onUnlock()
         }
     }
 }
@@ -403,3 +429,4 @@ struct RecorderMainScreen_Previews: PreviewProvider {
     }
 }
 #endif
+
